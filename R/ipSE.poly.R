@@ -14,9 +14,7 @@
 #' 
 #'In general, it is recommended to use the argument with default value \code{pot=TRUE}.
 #'
-#'A Note on Standard Errors
-#'
-#'Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
+#'@section A Note on Standard Errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
 #'    
 #' @param daten a data matrix with optionaly named colums (names of items) or a data.frame, potentially with missing values, comprising polytomous responses of respondents (rows) on some items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing the number of categories for all items.
 #' @param m number of response categories for all items - by default \emph{m} is defined as \code{m = max(daten,na.rm=TRUE)+1}.
@@ -67,7 +65,7 @@ ipSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, nsample=30, 
 ##### aufbereiten der daten --------------- 
   daten<-as.matrix(daten)
   if(length(colnames(daten))==0){
-    colnames(daten)<-paste0("I",1:dim(daten)[2])  
+    colnames(daten)<-paste("I",1:dim(daten)[2],sep="")  
     cat("no item names found in data" ,"\n", "items are named I1 (first column) to I",dim(daten)[2]," (last column)",sep="")
   }    
 
@@ -98,7 +96,7 @@ for(i in 1:m){
   temp3[[i]]<-temp2[von:bis,]
 }
 SEerg<-sapply(temp3,function(x){apply(x, 2, sd,na.rm=TRUE)})
-colnames(SEerg)<-c(paste0("threshold.",1:(m-1)),"sigma")
+colnames(SEerg)<-c(paste("threshold.",1:(m-1),sep=""),"sigma")
 ##### berechnung der ergebnisse parameter---------------- 
 parametererg<-as.matrix(data.frame(itempar.poly(daten, m = m, sortdif=FALSE, pot=pot, ...)))
 

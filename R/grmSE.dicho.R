@@ -1,14 +1,12 @@
 #' @title Graphical Model Check for dichotomous 1PL Model
 #' @export grmSE.dicho
-#' @description This function makes the basic calculations for the graphical model check. It is more or less a wraper function, internaly calling the function \code{ipSE.dicho()}. Several splitting options are available (see arguments).    
+#' @description This function makes the basic calculations for the graphical model check. It is more or less a wraper function, internaly calling the function \code{\link{ipSE.dicho}}. Several splitting options are available (see arguments).    
 #' 
-#'@details The data is splitted in two or more subsamples and then item parameter (Sigma) and their standard error (SE) for dichotomous items according the 1PL Model are calculatetd for each subsample. Additional arguments (see description of function \code{ipSE.dicho()}) for parameter calculation are passed through. 
+#'@details The data is splitted in two or more subsamples and then item parameter (Sigma) and their standard error (SE) for dichotomous items according the 1PL Model are calculatetd for each subsample. Additional arguments (see description of function \code{\link{ipSE.dicho}}) for parameter calculation are passed through. 
 #'
 #'WARNING: When using data based on booklet designs with systematically missing values (by design) you have to ensure that in each of the booklet the maximum raw value to reach is equal while using the raw value as splitting criterion.
 #' 
-#'A Note on Standard Errors
-#'
-#'Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).
+#' @section A Note on Standard Errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).
 #' 
 #' @param daten The response data as a data.frame or a matrix, potentially with missing values, comprising dichotomous responses of respondents (rows) on some items (colums) coded in the 0 1 manner.
 #' 
@@ -22,13 +20,13 @@
 #' 
 #' @param splitseed numeric, used for \code{set.seed(splitseed)} for random splitting - see argument \code{teil}
 #'   
-#' @param sortdif logical, In contrast to to the default setting in the function \code{ipSE.dicho()} the argument \code{sortdif} here is set to \code{FALSE}, so the items will kept in original order -- see description for \code{ipSE.dicho()}.
+#' @param sortdif logical, In contrast to to the default setting in the function \code{\link{ipSE.dicho}} the argument \code{sortdif} here is set to \code{FALSE}, so the items will kept in original order -- see description for \code{\link{ipSE.dicho}}.
 #' 
-#' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{ipSE.dicho()} are passed through - see description for \code{ipSE.dicho()}.
+#' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{ipSE.dicho}} are passed through - see description for \code{\link{ipSE.dicho}}.
 #' 
 #' @return A (list) object of class grmSE containing the item difficulty parameter Sigma and their standard errors for two or more subsamples.
 #' @exportClass grmSE
-#' @references description of function \code{ipSE.dicho(){pairwise}}.
+#' @references description of function \code{\link{ipSE.dicho}} \code{{pairwise}}.
 #' 
 #' @examples data(cog) # loading example data set
 #' 

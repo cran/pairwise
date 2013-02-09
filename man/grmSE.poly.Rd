@@ -57,15 +57,15 @@
   argument \code{teil}}
 
   \item{sortdif}{logical, In contrast to to the default
-  setting in the function \code{ipSE.dicho()} the argument
-  \code{sortdif} here is set to \code{FALSE}, so the items
-  will kept in original order - see description for
-  \code{ipSE.dicho()}.}
+  setting in the function \code{\link{ipSE.poly}} the
+  argument \code{sortdif} here is set to \code{FALSE}, so
+  the items will kept in original order - see description
+  for \code{\link{ipSE.poly}}.}
 
   \item{...}{additional arguments \code{nsample},
   \code{size}, \code{seed}, \code{pot} for caling
-  \code{ipSE.dicho()} are passed through - see description
-  for \code{ipSE.dicho()}.}
+  \code{\link{ipSE.poly}} are passed through - see
+  description for \code{\link{ipSE.poly}}.}
 }
 \value{
   A (list) object of class grmSEpo containing the item
@@ -76,7 +76,7 @@
   This function makes the basic calculations for the
   graphical model check for polytomous itemresponse
   formats. It is more or less a wraper function, internaly
-  calling the function \code{ipSE.poly()}. Several
+  calling the function \code{\link{ipSE.poly}}. Several
   splitting options are available (see arguments).
 }
 \details{
@@ -84,7 +84,7 @@
   item thresholds, the parameter (Sigma) and their standard
   errors (SE) for polytomous items according the PCM are
   calculatetd for each subsample. Additional arguments (see
-  description of function \code{ipSE.dicho()}) for
+  description of function \code{\link{ipSE.poly}}) for
   parameter calculation are passed through.
 
   WARNING: When using data based on booklet designs with
@@ -92,9 +92,8 @@
   ensure that in each of the booklet the maximum raw value
   to reach is equal while using the raw value as splitting
   criterion.
-
-  A Note on Standard Errors
-
+}
+\section{A Note on Standard Errors}{
   Estimation of standard errors is done by repeated
   calculation of item parameters for subsamples of the
   given data. This procedure is mainly controlled by the
@@ -142,6 +141,7 @@ plot(grmSEpoly,itemNames=TRUE, cex.names = .8, col.error="green")
 # plot(grmSEpoly_400)
 }
 \references{
-  description of function \code{ipSE.dicho(){pairwise}}.
+  description of function
+  \code{\link{ipSE.poly}}\code{{pairwise}}.
 }
 

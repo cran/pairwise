@@ -43,15 +43,22 @@
   Based on the explicit calculated item parameters for a
   dataset, the person parameters may thereupon be estimated
   using an mle or wle approach, for example implementetd in
-  the R-package 'PP' by Manuel Reif.
+  the R-package \code{{PP}} by Manuel Reif.
 
-  The recent version (0.1.3) computes item parameters for
-  dichotomous and polytomous item responses according the
-  1PL and the partial credit model.
+  The recent version of the package 'pairwise' (0.1.3-1)
+  computes item parameters for dichotomous and polytomous
+  item responses according the 1PL (when using the function
+  \code{\link{itempar.dicho}}) and the partial credit model
+  (when using the function \code{\link{itempar.poly}}).
 
   The calculation of standard errors, when using functions
-  \code{ipSE.dicho} or \code{ipSE.poly} is realized by
-  bootstrap or jack-knife technique.
+  \code{\link{ipSE.dicho}} or \code{\link{ipSE.poly}} is
+  realized by bootstrap or jack-knife technique.
+
+  Splitting the data (e.g. by rawscore or by random) and
+  calculating model parameter for each subsample can be
+  done with the functions \code{\link{grmSE.dicho}} and
+  \code{\link{grmSE.poly}}
 }
 \author{
   Joerg-Henrik Heine <jhheine@googlemail.com>
@@ -64,10 +71,29 @@
   procedure for Rasch model parameters. \emph{Evaluation in
   Education, 9}(1), 29-42.
 
+  Heine, J. H. & Tarnai, Ch. (2011). Item-Parameter
+  Bestimmung im Rasch-Modell bei unterschiedlichen
+  Datenausfallmechanismen. \emph{Referat im 17. Workshop
+  'Angewandte Klassifikationsanalyse'} [Item parameter
+  determination in the Rasch model for different missing
+  data mechanisms. Talk at 17. workshop 'Applied
+  classification analysis'], Landhaus Rothenberge,
+  Muenster, Germany 09.-11.11.2011
+
+  Heine, J. H., Tarnai, Ch. & Hartmann, F. G. (2011). Eine
+  Methode zur Parameterbestimmung im Rasch-Modell bei
+  fehlenden Werten. \emph{Vortrag auf der 10. Tagung der
+  Fachgruppe Methoden & Evaluation der DGPs.} [A method for
+  parameter estimation in the Rasch model for missing
+  values. Paper presented at the 10th Meeting of the
+  Section Methods & Evaluation of DGPs.] Bamberg, Germany,
+  21.09.2011 - 23.09. 2011.
+
   Masters, G. N. (1982). A Rasch model for partial credit
   scoring. \emph{Psychometrika, 47}(2), 149-174.
-}
-\seealso{
-  {PP}
+
+  Reif, M. (2012). PP: Person Parameter estimation. \emph{R
+  package version 0.2}, Abgerufen von
+  http://CRAN.R-project.org/package=PP
 }
 

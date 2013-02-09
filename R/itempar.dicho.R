@@ -91,7 +91,7 @@ itempar.dicho<-function(daten, sortdif=TRUE, pot=TRUE,...)
   ##### aufbereiten der daten --------------- 
   daten<-as.matrix(daten)
   if(length(colnames(daten))==0){
-    colnames(daten)<-paste0("I",1:dim(daten)[2])  
+    colnames(daten)<-paste("I",1:dim(daten)[2],sep="")  
     cat("no item names found in data" ,"\n", "items are named I1 (first column) to I",dim(daten)[2]," (last column)",sep="")
   }  
  

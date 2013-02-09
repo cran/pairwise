@@ -50,15 +50,15 @@
   argument \code{teil}}
 
   \item{sortdif}{logical, In contrast to to the default
-  setting in the function \code{ipSE.dicho()} the argument
-  \code{sortdif} here is set to \code{FALSE}, so the items
-  will kept in original order -- see description for
-  \code{ipSE.dicho()}.}
+  setting in the function \code{\link{ipSE.dicho}} the
+  argument \code{sortdif} here is set to \code{FALSE}, so
+  the items will kept in original order -- see description
+  for \code{\link{ipSE.dicho}}.}
 
   \item{...}{additional arguments \code{nsample},
   \code{size}, \code{seed}, \code{pot} for caling
-  \code{ipSE.dicho()} are passed through - see description
-  for \code{ipSE.dicho()}.}
+  \code{\link{ipSE.dicho}} are passed through - see
+  description for \code{\link{ipSE.dicho}}.}
 }
 \value{
   A (list) object of class grmSE containing the item
@@ -69,7 +69,7 @@
   This function makes the basic calculations for the
   graphical model check. It is more or less a wraper
   function, internaly calling the function
-  \code{ipSE.dicho()}. Several splitting options are
+  \code{\link{ipSE.dicho}}. Several splitting options are
   available (see arguments).
 }
 \details{
@@ -77,7 +77,7 @@
   item parameter (Sigma) and their standard error (SE) for
   dichotomous items according the 1PL Model are calculatetd
   for each subsample. Additional arguments (see description
-  of function \code{ipSE.dicho()}) for parameter
+  of function \code{\link{ipSE.dicho}}) for parameter
   calculation are passed through.
 
   WARNING: When using data based on booklet designs with
@@ -85,9 +85,8 @@
   ensure that in each of the booklet the maximum raw value
   to reach is equal while using the raw value as splitting
   criterion.
-
-  A Note on Standard Errors
-
+}
+\section{A Note on Standard Errors}{
   Estimation of standard errors is done by repeated
   calculation of item parameters for subsamples of the
   given data. This procedure is mainly controlled by the
@@ -137,6 +136,7 @@ plot(grmse,itemNames=TRUE, srt=90, cex.names = .5, col.error="green")
 # plot(grmse_400)
 }
 \references{
-  description of function \code{ipSE.dicho(){pairwise}}.
+  description of function \code{\link{ipSE.dicho}}
+  \code{{pairwise}}.
 }
 

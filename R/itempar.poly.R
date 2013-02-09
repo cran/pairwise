@@ -101,7 +101,7 @@ itempar.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, pot=TRUE,
 ##### aufbereiten der daten --------------- 
   daten<-as.matrix(daten)
   if(length(colnames(daten))==0){
-    colnames(daten)<-paste0("I",1:dim(daten)[2])  
+    colnames(daten)<-paste("I",1:dim(daten)[2],sep="") 
     cat("no item names found in data" ,"\n", "items are named I1 (first column) to I",dim(daten)[2]," (last column)",sep="")
   }    
    
@@ -118,7 +118,7 @@ itempar.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, pot=TRUE,
 ##### aufbereitung der ergebnisse und ausgabe ----------------  
   Itemnames<-colnames(daten)
   rownames(thresholds)<-Itemnames
-  colnames(thresholds)<-paste0(c(1:(m-1))) # von paste0("threshold ",c(1:(m-1))) geaendert in 
+  colnames(thresholds)<-paste(c(1:(m-1)),sep="") # von paste("threshold ",c(1:(m-1)),sep="") geaendert in 
   names(sigma)<-Itemnames
   if(sortdif==TRUE){
     thresholds <- thresholds[order(sigma), ]

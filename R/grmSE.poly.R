@@ -1,14 +1,12 @@
 #' @title Graphical Model Check for polytomous PCM
 #' @export grmSE.poly
-#' @description This function makes the basic calculations for the graphical model check for polytomous itemresponse formats. It is more or less a wraper function, internaly calling the function \code{ipSE.poly()}. Several splitting options are available (see arguments).    
+#' @description This function makes the basic calculations for the graphical model check for polytomous itemresponse formats. It is more or less a wraper function, internaly calling the function \code{\link{ipSE.poly}}. Several splitting options are available (see arguments).    
 #' 
-#'@details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for polytomous items according the PCM  are calculatetd for each subsample. Additional arguments (see description of function \code{ipSE.dicho()}) for parameter calculation are passed through. 
+#'@details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for polytomous items according the PCM  are calculatetd for each subsample. Additional arguments (see description of function \code{\link{ipSE.poly}}) for parameter calculation are passed through. 
 #'
 #'WARNING: When using data based on booklet designs with systematically missing values (by design) you have to ensure that in each of the booklet the maximum raw value to reach is equal while using the raw value as splitting criterion.
 #' 
-#'A Note on Standard Errors
-#'
-#'Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
+#' @section A Note on Standard Errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
 #'
 #' @param daten daten a data matrix with optionaly named colums (names of items) or a data.frame, potentially with missing values, comprising polytomous responses of respondents (rows) on some items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing the number of categories for all items.
 #' @param m number of response categories for all items - by default \emph{m} is defined as \code{m = max(daten,na.rm=TRUE)+1}.
@@ -23,13 +21,13 @@
 #' 
 #' @param splitseed numeric, used for \code{set.seed(splitseed)} for random splitting - see argument \code{teil}
 #'   
-#' @param sortdif logical, In contrast to to the default setting in the function \code{ipSE.dicho()} the argument \code{sortdif} here is set to \code{FALSE}, so the items will kept in original order - see description for \code{ipSE.dicho()}.
+#' @param sortdif logical, In contrast to to the default setting in the function \code{\link{ipSE.poly}} the argument \code{sortdif} here is set to \code{FALSE}, so the items will kept in original order - see description for \code{\link{ipSE.poly}}.
 #' 
-#' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{ipSE.dicho()} are passed through - see description for \code{ipSE.dicho()}.
+#' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{ipSE.poly}} are passed through - see description for \code{\link{ipSE.poly}}.
 #' 
 #' @return A (list) object of class grmSEpo containing the item difficulty parameter sigma and their standard errors for two or more subsamples.
 #' @exportClass grmSEpo
-#' @references description of function \code{ipSE.dicho(){pairwise}}.
+#' @references description of function \code{\link{ipSE.poly}}\code{{pairwise}}.
 #' 
 #' @examples data(bfiN) # loading example data set
 #' 

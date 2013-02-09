@@ -75,9 +75,8 @@
 
   In general, it is recommended to use the argument with
   default value \code{pot=TRUE}.
-
-  A Note on Standard Errors
-
+}
+\section{A Note on Standard Errors}{
   Estimation of standard errors is done by repeated
   calculation of item parameters for subsamples of the
   given data. This procedure is mainly controlled by the

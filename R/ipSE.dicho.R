@@ -12,9 +12,7 @@
 #' 
 #'In general, it is recommended to use the argument with default value \code{pot=TRUE}.
 #'
-#'A Note on Standard Errors
-#'
-#'Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).      
+#'@section A Note on Standard Errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).      
 #'
 #' @param daten The response data as a data.frame or a matrix, potentially with missing values, comprising dichotomous responses of respondents (rows) on some items (colums) coded in the 0 1 manner.
 #' 
@@ -70,7 +68,7 @@ stopifnot(lowest_category==0, higest_category==1)
 ##### aufbereiten der daten --------------- 
 daten<-as.matrix(daten)
 if(length(colnames(daten))==0){
-  colnames(daten)<-paste0("I",1:dim(daten)[2])  
+  colnames(daten)<-paste("I",1:dim(daten)[2],sep="")  
   cat("no item names found in data" ,"\n", "items are named I1 (first column) to I",dim(daten)[2]," (last column)",sep="")
 }  
   
