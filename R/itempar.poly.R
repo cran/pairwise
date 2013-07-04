@@ -14,11 +14,13 @@
 #' @param m number of response categories for all items - by default \emph{m} is defined as \code{m = max(daten,na.rm=TRUE)+1}.
 #' @param sortdif logical, if TRUE (default) items are sorted in an ascending order by difficulty for output.
 #' @param pot logical, if TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations.
+#' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz(2011, p.373).
 #' @param ... additional parameters passed through.
 #' @return A (list) object of class ippwpo containing the item category thresholds and difficulties sigma.
 #' @exportClass ippwpo
 #' @references Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
 #' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
+#' @references Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
 #' 
 #' @examples data(bfiN) # loading example data set
 #' # calculating itemparameters for 5 neuroticism items with 6 answer categories (0-5).
@@ -29,20 +31,20 @@
 #' # 6 categories - 5 thresholds
 #' plot(neuro_itempar) 
 ############## funktions beginn ########################################################
-itempar.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, pot=TRUE,...)
+itempar.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, pot=TRUE, zerocor=TRUE, ...)
 {
 ######### hier erste einzelne hilfsfunktionen 
   # schritt 1 ## nij.poly - erstellen einer nij häufigkeitsmatrix
   nij.poly <-function(daten,m,...){
     ########## hier erst hilfsfunktion für nij.poly
-    ### - mat.mult
+    ### - mat.mult - erweiterte matrix multiplikation mit NA's
     mat.mult<-function(A,B,na.rm=TRUE){
+      # new version based on remarks by A. Robitzsch
       A<-as.matrix(A);B<-as.matrix(B)
       if(dim(A)[2]!=dim(B)[1]){stop("not conformable Matrices A B")}
-      erg<-matrix( ,ncol=dim(A)[1] ,nrow=dim(B)[2] )
-      for (n in 1:dim(A)[1]){
-        for (m in 1:dim(B)[2]) {erg[n,m]<-sum(A[n,]*B[,m],na.rm=na.rm) }
-      }
+      A[ is.na(A) ] <- 0
+      B[ is.na(B) ] <- 0
+      erg <- A %*% B
       return(erg)
     }
     ########## ende der hilfsfunktion für nij.poly
@@ -79,17 +81,10 @@ itempar.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, pot=TRUE,
   }
   
   # schritt 3 ## Dmat - neue funktion zur erzeugung der positivreziproken matrix
+  # new version based on remarks by A. Robitzsch
   Dmat<-function(nij){  
-    n<-dim(nij)[2]                    # Groeße der quadratischen nij Matrix feststellen
-    Dmat<-matrix( , nrow=n, ncol=n)    # Ergebnis-Matrix Dmat vorbereiten
-    for(i in 1:n){
-      for(j in i:n){
-        Dmat[i,j] <- nij[j,i]/nij[i,j]
-        Dmat[j,i] <- nij[i,j]/nij[j,i]
-      }
-    }
-    #diag(Dmat) <- 1          # die NAs durch eins ersetzen eigentlich nicht nötig passiert von selbst
-    return (Dmat) 
+    dmat <- t(nij) / nij
+    return (dmat) 
   }
 ######### ende der hilfsfunktionen 
 
@@ -108,8 +103,14 @@ itempar.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, pot=TRUE,
 
 ##### berechnung der ergebnisse ----------------
   k<-dim(daten)[2] # anzahl der Items feststellen 
-  if(pot==FALSE){ tau<-rowMeans(log(Dmat((nij.poly(daten,m)))), na.rm = TRUE) }
-  if(pot==TRUE){ tau<-rowMeans(log(Dmat(cube(nij.poly(daten,m)))), na.rm = TRUE)}
+  if(pot==FALSE){ nij<- (nij.poly(daten,m)) }
+  if(pot==TRUE){ nij<- cube(nij.poly(daten,m)) }
+  
+  # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
+  if(zerocor==TRUE){nij[nij==0]<-1}
+  
+  tau<-rowMeans(log(Dmat(nij)), na.rm = TRUE)
+
   thresholds<-t(matrix(tau,ncol = k))
   # matplot(thresholds,typ="b",pch=c(1,2,3))
   sigma <- rowMeans(thresholds)  

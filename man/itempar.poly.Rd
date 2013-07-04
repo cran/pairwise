@@ -3,7 +3,7 @@
 \title{Item Parameter for polytomous Partial Credit Model}
 \usage{
   itempar.poly(daten, m = max(daten, na.rm = TRUE) + 1,
-    sortdif = TRUE, pot = TRUE, ...)
+    sortdif = TRUE, pot = TRUE, zerocor = TRUE, ...)
 }
 \arguments{
   \item{daten}{a data matrix with optionaly named colums
@@ -24,6 +24,11 @@
   \item{pot}{logical, if TRUE (default) a power of three of
   the pairwise comparison matrix is used for further
   calculations.}
+
+  \item{zerocor}{logical, if TRUE (default) unobserved
+  combinations (1-0, 0-1) in data for each pair of items
+  are given a frequency of one conf. proposal by
+  Alexandrowicz(2011, p.373).}
 
   \item{...}{additional parameters passed through.}
 }
@@ -78,5 +83,9 @@ plot(neuro_itempar)
   Choppin, B. (1985). A fully conditional estimation
   procedure for Rasch model parameters. \emph{Evaluation in
   Education, 9}(1), 29-42.
+
+  Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free
+  Software for Categorical Data Analysis. \emph{Social
+  Science Computer Review, 30}(3), 369-379.
 }
 

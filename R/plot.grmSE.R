@@ -1,6 +1,6 @@
 #' @method plot
 ########################### hier die summary method #############################
-plot.grmSE<-function(x,itemNames=FALSE, cex.names=.8,ci=2,col.error="blue",type="b",xlab="",pch=43,las=3,cex.axis = 0.5,...){   
+plot.grmSE<-function(x,itemNames=FALSE, cex.names=.8,ci=2,col.error="blue",type="b",pch=43,las=3,cex.axis = 0.5,...){   
   #sonderfall 2 subsamples
   if (length(x)==2){
     Itemnames<-names(((x[[1]]$Sigma)))

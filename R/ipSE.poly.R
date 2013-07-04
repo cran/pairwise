@@ -82,7 +82,7 @@ ipSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, nsample=30, 
   sx<-daten[sample(1:dim(daten)[1],nsize),] # ziehen einer stichprobe mit größe size aus daten  
   cat("sample ", i , "of",nsample, "with size n =",nsize,"\n")
   ####################################################################
-  ergli[[i]]<-itempar.poly(sx, m = m, sortdif=FALSE, pot=pot, ...) ###
+  ergli[[i]]<-itempar.poly(sx, m = m, sortdif=FALSE, ...) ###
   ####################################################################
   }  
 # diverse umsortierungen der berechnungsergebnisse SE   
@@ -98,7 +98,7 @@ for(i in 1:m){
 SEerg<-sapply(temp3,function(x){apply(x, 2, sd,na.rm=TRUE)})
 colnames(SEerg)<-c(paste("threshold.",1:(m-1),sep=""),"sigma")
 ##### berechnung der ergebnisse parameter---------------- 
-parametererg<-as.matrix(data.frame(itempar.poly(daten, m = m, sortdif=FALSE, pot=pot, ...)))
+parametererg<-as.matrix(data.frame(itempar.poly(daten, m = m, sortdif=FALSE, ...)))
 
 ##### aufbereitung der ergebnisse und ausgabe ----------------
 sortsig<-order(parametererg[,dim(parametererg)[2]]) # reihenfolge nach sigma parameter

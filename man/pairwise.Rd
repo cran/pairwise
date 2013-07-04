@@ -45,7 +45,7 @@
   using an mle or wle approach, for example implementetd in
   the R-package \code{{PP}} by Manuel Reif.
 
-  The recent version of the package 'pairwise' (0.1.3-1)
+  The recent version of the package 'pairwise' (0.1.4)
   computes item parameters for dichotomous and polytomous
   item responses according the 1PL (when using the function
   \code{\link{itempar.dicho}}) and the partial credit model

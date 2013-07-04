@@ -1,0 +1,6 @@
+Changes in Version 0.1.4
+
+  o added the argument zerocor in the functions for parameter calculations - see descriptions of functions
+
+  o changed some matrix calculations to enhance processing speed (due to a tip from Alexander Robitzsch)
+

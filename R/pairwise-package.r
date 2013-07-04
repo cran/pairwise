@@ -13,7 +13,7 @@
 #' 
 #' Based on the explicit calculated item parameters for a dataset, the person parameters may thereupon be estimated using an mle or wle approach, for example implementetd in the R-package \code{{PP}} by Manuel Reif.
 #' 
-#' The recent version of the package 'pairwise' (0.1.3-1) computes item parameters for dichotomous and polytomous item responses according the 1PL (when using the function \code{\link{itempar.dicho}}) and the partial credit model (when using the function \code{\link{itempar.poly}}).
+#' The recent version of the package 'pairwise' (0.1.4) computes item parameters for dichotomous and polytomous item responses according the 1PL (when using the function \code{\link{itempar.dicho}}) and the partial credit model (when using the function \code{\link{itempar.poly}}).
 #' 
 #' The calculation of standard errors, when using functions \code{\link{ipSE.dicho}} or \code{\link{ipSE.poly}} is realized by bootstrap or jack-knife technique. 
 #' 

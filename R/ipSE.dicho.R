@@ -28,13 +28,17 @@
 #' 
 #' @param pot logical, if TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations.
 #' 
+#' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz(2011, p.373).
+#' 
 #' @param ... additional parameters passed through.
 #' 
 #' @return An object of class ipSE containing the item difficulty parameter Sigma and standard errors for item difficulties Sigma.
 #' @exportClass ipSE
 #' @references Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
 #' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
-#' 
+#'
+#' @references Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
+#'  
 #' @examples data(cog) # loading example data set
 #' 
 #' # calculating itemparameters and their SE for 31 math items
@@ -57,7 +61,7 @@
 #' # plot(se_sigma_400) 
 #' 
 ############## funktions beginn ########################################################
-ipSE.dicho<-function(daten, sortdif=TRUE, nsample=30, size=0.50, seed="no", pot=TRUE, ...){
+ipSE.dicho<-function(daten, sortdif=TRUE, nsample=30, size=0.50, seed="no", pot=TRUE, zerocor=TRUE, ...){
 # Berechnung von Standardfehlern nach dem Bootstrap Verfahren 
 
 ##### check der Daten ---------------------
@@ -82,11 +86,11 @@ if(length(colnames(daten))==0){
   for (i in 1:nsample){
   sx<-daten[sample(1:dim(daten)[1],nsize),] # ziehen einer stichprobe mit größe size aus daten  
   cat("sample ", i , "of",nsample, "with size n =",nsize,"\n")
-  ergmat[i,]<-itempar.dicho(sx,sortdif=FALSE, pot=pot)
+  ergmat[i,]<-itempar.dicho(sx,sortdif=FALSE, pot=pot, zerocor=zerocor)
   }  
   erglist<-as.list(data.frame((ergmat)))
   erg<-sapply(erglist,sd,na.rm=TRUE)
-  uoSigma<-itempar.dicho(daten,sortdif=FALSE, pot=pot) # berechnen von Sigma zur Sortierung
+  uoSigma<-itempar.dicho(daten,sortdif=FALSE, pot=pot, zerocor=zerocor) # berechnen von Sigma zur Sortierung
 
 ##### aufbereitung der ergebnisse und ausgabe ----------------
 Itemnames<-colnames(daten)

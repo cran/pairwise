@@ -2,7 +2,8 @@
 \alias{itempar.dicho}
 \title{Item Parameter dichotomous 1PL}
 \usage{
-  itempar.dicho(daten, sortdif = TRUE, pot = TRUE, ...)
+  itempar.dicho(daten, sortdif = TRUE, pot = TRUE,
+    zerocor = TRUE, ...)
 }
 \arguments{
   \item{daten}{a data matrix, potentially with missing
@@ -15,6 +16,11 @@
   \item{pot}{logical, if TRUE (default) a power of three of
   the pairwise comparison matrix is used for further
   calculations.}
+
+  \item{zerocor}{logical, if TRUE (default) unobserved
+  combinations (1-0, 0-1) in data for each pair of items
+  are given a frequency of one conf. proposal by
+  Alexandrowicz(2011, p.373).}
 
   \item{...}{additional parameters passed through}
 }
@@ -64,5 +70,9 @@ plot(sigma) # plotting item difficulties
   Choppin, B. (1985). A fully conditional estimation
   procedure for Rasch model parameters. \emph{Evaluation in
   Education, 9}(1), 29-42.
+
+  Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free
+  Software for Categorical Data Analysis. \emph{Social
+  Science Computer Review, 30}(3), 369-379.
 }
 
