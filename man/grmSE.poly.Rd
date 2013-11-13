@@ -3,7 +3,8 @@
 \title{Graphical Model Check for polytomous PCM}
 \usage{
   grmSE.poly(daten, m = max(daten, na.rm = TRUE) + 1,
-    teil = "no", splitseed = "no", sortdif = FALSE, ...)
+    teil = "no", splitseed = "no", sortdif = FALSE,
+    verbose = TRUE, ...)
 }
 \arguments{
   \item{daten}{daten a data matrix with optionaly named
@@ -61,6 +62,10 @@
   argument \code{sortdif} here is set to \code{FALSE}, so
   the items will kept in original order - see description
   for \code{\link{ipSE.poly}}.}
+
+  \item{verbose}{logical, if verbose = TRUE (default) a
+  message about subsampling whe calculation standrderrors
+  is sent to console}
 
   \item{...}{additional arguments \code{nsample},
   \code{size}, \code{seed}, \code{pot} for caling

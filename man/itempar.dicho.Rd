@@ -2,7 +2,7 @@
 \alias{itempar.dicho}
 \title{Item Parameter dichotomous 1PL}
 \usage{
-  itempar.dicho(daten, sortdif = TRUE, pot = TRUE,
+  itempar.dicho(daten, sortdif = FALSE, pot = TRUE,
     zerocor = TRUE, ...)
 }
 \arguments{
@@ -10,7 +10,8 @@
   values, comprising dichotomous responses of respondents
   (rows) on some items (colums) coded in the 0 1 manner.}
 
-  \item{sortdif}{logical, if TRUE (default) items are
+  \item{sortdif}{logical default is \code{sortdif=FALSE}.
+  If argument is set to \code{sortdif=TRUE} the items are
   sorted in an ascending order by difficulty for output.}
 
   \item{pot}{logical, if TRUE (default) a power of three of

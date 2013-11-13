@@ -33,6 +33,8 @@
 #' # calculating itemparameters and SE for two random allocated subsamples
 #' grmse<-grmSE.dicho(daten=cog[,4:34], teil = "random") 
 #' 
+#' summary(grmse)
+#' 
 #' # some examples for plotting options ########
 #' # plotting item difficulties for two subsamples against each other 
 #' # with elipses for a CI = 95% .

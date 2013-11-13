@@ -12,7 +12,7 @@
 #'
 #'    
 #' @param daten a data matrix, potentially with missing values, comprising dichotomous responses of respondents (rows) on some items (colums) coded in the 0 1 manner.
-#' @param sortdif logical, if TRUE (default) items are sorted in an ascending order by difficulty for output.
+#' @param sortdif logical default is \code{sortdif=FALSE}. If argument is set to \code{sortdif=TRUE} the items are sorted in an ascending order by difficulty for output.
 #' @param pot logical, if TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations.
 #' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz(2011, p.373).
 #' @param ... additional parameters passed through
@@ -28,7 +28,7 @@
 #' #######
 #' plot(sigma) # plotting item difficulties
 ############## funktions beginn ########################################################
-itempar.dicho<-function(daten, sortdif=TRUE, pot=TRUE, zerocor=TRUE, ...)
+itempar.dicho<-function(daten, sortdif=FALSE, pot=TRUE, zerocor=TRUE, ...)
 {
   ######### hier erste einzelne hilfsfunktionen 
   ### mat.mult - erweiterte matrix multiplikation mit NA's

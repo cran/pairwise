@@ -13,23 +13,27 @@
 #' 
 #' Based on the explicit calculated item parameters for a dataset, the person parameters may thereupon be estimated using an mle or wle approach, for example implementetd in the R-package \code{{PP}} by Manuel Reif.
 #' 
-#' The recent version of the package 'pairwise' (0.1.4) computes item parameters for dichotomous and polytomous item responses according the 1PL (when using the function \code{\link{itempar.dicho}}) and the partial credit model (when using the function \code{\link{itempar.poly}}).
+#' The recent version of the package 'pairwise' computes item parameters for dichotomous and polytomous item responses according the 1PL (when using the function \code{\link{itempar.dicho}}) and the partial credit model (when using the function \code{\link{itempar.poly}}).
 #' 
 #' The calculation of standard errors, when using functions \code{\link{ipSE.dicho}} or \code{\link{ipSE.poly}} is realized by bootstrap or jack-knife technique. 
 #' 
 #'  Splitting the data (e.g. by rawscore or by random) and calculating model parameter for each subsample can be done with the functions \code{\link{grmSE.dicho}} and \code{\link{grmSE.poly}}    
 #'
 #' @author Joerg-Henrik Heine <jhheine@@googlemail.com>
-#' @export itempar.dicho itempar.poly ipSE.dicho ipSE.poly grmSE.dicho grmSE.poly
-#' @exportClass ippw ippwpo ipSE ippwpose grmSE grmSEpo
+#' @export itempar.dicho itempar.poly ipSE.dicho ipSE.poly grmSE.dicho grmSE.poly thetaML.dicho ppML.dicho
+#' @exportClass ippw ippwpo ipSE ippwpose grmSE grmSEpo thetaMLdicho ppMLdicho thetaWLdicho ppWLdicho
 #' @S3method summary ippw
 #' @S3method summary ipSE
 #' @S3method summary ippwpo
-#' @S3method summary ippwpose
+#' @S3method summary ippwpoSE
+#' @S3method summary grmSE
+#' @S3method summary grmSEpo
+#' @S3method summary ppMLdicho
+#' @S3method summary ppWLdicho
 #' @S3method plot ippw
 #' @S3method plot ippwpo
 #' @S3method plot ipSE
-#' @S3method plot ippwpose
+#' @S3method plot ippwpoSE
 #' @S3method plot grmSE
 #' @S3method plot grmSEpo
 #' @references 

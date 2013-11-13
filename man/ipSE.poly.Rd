@@ -4,7 +4,7 @@
 \usage{
   ipSE.poly(daten, m = max(daten, na.rm = TRUE) + 1,
     sortdif = TRUE, nsample = 30, size = 0.5, seed = "no",
-    pot = TRUE, ...)
+    pot = TRUE, verbose = TRUE, ...)
 }
 \arguments{
   \item{daten}{a data matrix with optionaly named colums
@@ -48,10 +48,14 @@
   the pairwise comparison matrix is used for further
   calculations.}
 
+  \item{verbose}{logical, if verbose = TRUE (default) a
+  message about subsampling whe calculation standrderrors
+  is sent to console.}
+
   \item{...}{additional parameters passed through.}
 }
 \value{
-  A (list) object of class ippwpose containing the item
+  A (list) object of class ippwpoSE containing the item
   category thresholds, difficulties sigma and their standrd
   errors.
 }

@@ -23,6 +23,7 @@
 #'   
 #' @param sortdif logical, In contrast to to the default setting in the function \code{\link{ipSE.poly}} the argument \code{sortdif} here is set to \code{FALSE}, so the items will kept in original order - see description for \code{\link{ipSE.poly}}.
 #' 
+#' @param verbose logical, if verbose = TRUE (default) a message about subsampling whe calculation standrderrors is sent to console
 #' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{ipSE.poly}} are passed through - see description for \code{\link{ipSE.poly}}.
 #' 
 #' @return A (list) object of class grmSEpo containing the item difficulty parameter sigma and their standard errors for two or more subsamples.
@@ -64,7 +65,7 @@
 #' 
 ############## funktions beginn ########################################################
 
-grmSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, teil="no", splitseed="no", sortdif=FALSE, ...){ 
+grmSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, teil="no", splitseed="no", sortdif=FALSE,verbose=TRUE, ...){ 
 #### abfragen der teilungskriterien und teiler vorbereiten
   if(teil=="no"){
     teiler<-rep(1,dim(daten)[1])
@@ -107,7 +108,7 @@ datalist<-vector("list",length=length(as.numeric(names(table(teiler))))) #vorber
    datalist[[i]]<-daten[which(teiler==i),]  #hier die zuordnung der subsamples aus daten
  }      
      
-     grmSEpo <- lapply(datalist, ipSE.poly, sortdif=sortdif, ...) 
+     grmSEpo <- lapply(datalist, ipSE.poly, sortdif=sortdif, verbose=verbose,...) 
      class(grmSEpo) <- c("grmSEpo","list")
 
   return(grmSEpo)

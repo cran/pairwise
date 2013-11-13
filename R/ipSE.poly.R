@@ -31,10 +31,12 @@
 #' 
 #' @param pot logical, if TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations.
 #' 
+#' @param verbose logical, if verbose = TRUE (default) a message about subsampling whe calculation standrderrors is sent to console.
+#' 
 #' @param ... additional parameters passed through.
 #' 
-#' @return A (list) object of class ippwpose containing the item category thresholds, difficulties sigma and their standrd errors.
-#' @exportClass ippwpose
+#' @return A (list) object of class ippwpoSE containing the item category thresholds, difficulties sigma and their standrd errors.
+#' @exportClass ippwpoSE
 #' @references Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
 #' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
 #' 
@@ -54,7 +56,7 @@
 #' # plot(neuro_itempar_400) 
 #'    
 ############## funktions beginn ########################################################
-ipSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, nsample=30, size=0.50, seed="no", pot=TRUE, ...){
+ipSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, nsample=30, size=0.50, seed="no", pot=TRUE, verbose=TRUE, ...){
 # Berechnung von Standardfehlern nach dem Bootstrap Verfahren 
 
 ######## check der Daten ------------------
@@ -80,7 +82,7 @@ ipSE.poly<-function(daten, m=max(daten,na.rm=TRUE)+1, sortdif=TRUE, nsample=30, 
   ergli<-vector("list", length=nsample)                  #list( , ncol=k ,nrow=nsample)
   for (i in 1:nsample){
   sx<-daten[sample(1:dim(daten)[1],nsize),] # ziehen einer stichprobe mit größe size aus daten  
-  cat("sample ", i , "of",nsample, "with size n =",nsize,"\n")
+  if(verbose==TRUE){cat("sample ", i , "of",nsample, "with size n =",nsize,"\n")}
   ####################################################################
   ergli[[i]]<-itempar.poly(sx, m = m, sortdif=FALSE, ...) ###
   ####################################################################
@@ -106,8 +108,8 @@ if(sortdif==TRUE){SE<-SEerg[sortsig,] ; parameter<-parametererg[sortsig,]  }
 if(sortdif==FALSE){SE<-SEerg ; parameter<-parametererg}
 
 itppSE<-list(parameter=parameter, SE=SE)
-class(itppSE) <- c("ippwpose","list")
+class(itppSE) <- c("ippwpoSE","list")
 
 return(itppSE)
-# summary.ippwpose(itpSE)
+# summary.ippwpoSE(itpSE)
 }

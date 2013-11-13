@@ -1,3 +1,16 @@
+Changes in Version 0.1.5
+
+  o added function for Point Biserial Correlations ptbis.dicho() (dicotoumous items)
+
+  o added function for handling booklet designs make.incidenz()
+
+  o added functions for person parameter estimation (ML & WL) and summary method (dicotoumous items)
+
+  o added summary method for graphical model-check dichotomuos (object of class 'grmSE')
+
+  o added summary method for graphical model-check polytomuos (object of class 'grmSEpo')
+
+
 Changes in Version 0.1.4
 
   o added the argument zerocor in the functions for parameter calculations - see descriptions of functions
