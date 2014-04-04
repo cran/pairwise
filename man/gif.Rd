@@ -1,0 +1,55 @@
+\name{gif}
+\alias{gif}
+\title{Graphical Item Fit Plots}
+\usage{
+  gif(pers_obj, itemnumber = 1, ra = 4, integ = "raw",
+    kat = "all", ...)
+}
+\arguments{
+  \item{pers_obj}{an object of class \code{"pers"} as a
+  result from function \code{\link{pers}}.}
+
+  \item{itemnumber}{an integer, defining the number of the
+  item to plot the respective categoy probability for. This
+  is set to an arbitrary default value of \code{itemnumber
+  = 1} to avoid error messages when you forget to choose an
+  item to plot the expected score curves for.}
+
+  \item{ra}{an integer, defining the (logit) range for
+  x-axis}
+
+  \item{integ}{either an integer, defining the number of
+  integration points along the (logit) range on the x-axis
+  to integrate the empirical theta values, or the character
+  expression \code{"raw"} (default) which will use the
+  rawscore groups as integration points.}
+
+  \item{kat}{either an integer, defining for which category
+  the empirical category probabilities should be plotted
+  over the model derived category probability curves, or
+  the character expression \code{"all"} (default) which
+  will plot the empirical category probabilities for all
+  categories.}
+
+  \item{...}{arguments passed to plot}
+}
+\value{
+  a plot with category probabilities.
+}
+\description{
+  plotting function for plotting empirical and model
+  derived category probability curves.
+}
+\details{
+  to come ...
+}
+\examples{
+########
+data(bfiN)
+pers_obj <- pers(pair(bfiN))
+#### plot empirical category probabilities
+gif(pers_obj = pers_obj, itemnumber = 1 )
+gif(pers_obj = pers_obj, itemnumber = 1 , integ=8) # integration over 8 points
+gif(pers_obj = pers_obj, itemnumber = 1 , integ=8, kat=1) # only for category number 1
+}
+

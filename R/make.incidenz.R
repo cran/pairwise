@@ -1,6 +1,6 @@
 #' @title Converting a booklet allocation table into a incidenz matrix
 #' @export make.incidenz
-#' @description This function converts a booklet allocation table (like in \code{\link{cogBOOKLET}}) into a incidenz matrix used in the function \code{\link{ppML.dicho}}.
+#' @description This function converts a booklet allocation table (like in \code{\link{cogBOOKLET}}) into a incidenz matrix used in the function \code{\link{pers}}.
 #' @details It is assumed that there is an equal replicate factor for each item used when constructing the bookletdesign - so every items occures with the same frequency over al booklets of the entire set of booklets.
 #'
 #' @param tab a booklet allocation table as a \code{data.frame}. The first column is assumed to contain the item names as a character vector (not a factor!) the other columns must be integer vectors containing the information in which booklet(s) the respective item is allocated.

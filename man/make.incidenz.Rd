@@ -36,7 +36,7 @@
 \description{
   This function converts a booklet allocation table (like
   in \code{\link{cogBOOKLET}}) into a incidenz matrix used
-  in the function \code{\link{ppML.dicho}}.
+  in the function \code{\link{pers}}.
 }
 \details{
   It is assumed that there is an equal replicate factor for

@@ -1,0 +1,42 @@
+\name{plot.pair}
+\alias{plot.pair}
+\title{S3 Plotting Thustonian Thresholds}
+\usage{
+  \method{plot}{pair} (x, sortdif = FALSE, ra = "auto",
+    main = NULL, col.lines = (1:dim(x$threshold)[2]),
+    type = "b", xlab = "items", ylab = "logits",
+    pch = (1:dim(x$threshold)[2]), las = 3, cex.axis = 0.8,
+    ...)
+}
+\arguments{
+  \item{x}{object of class\code{"pair"}}
+
+  \item{sortdif}{logical wether to order items by
+  difficulty}
+
+  \item{ra}{either the character \code{"auto"} (default) or
+  an numeric, defining the (logit) range for y-axis}
+
+  \item{main}{see \code{\link{plot}}}
+
+  \item{col.lines}{vector of colors for threshold profile
+  lines}
+
+  \item{type}{see \code{\link{plot}}}
+
+  \item{xlab}{see \code{\link{plot}}}
+
+  \item{ylab}{see \code{\link{plot}}}
+
+  \item{pch}{see \code{\link{plot}}}
+
+  \item{las}{see \code{\link{plot}}}
+
+  \item{cex.axis}{see \code{\link{plot}}}
+
+  \item{...}{other parameters passed to plot}
+}
+\description{
+  S3 plotting Method for object of class\code{"pair"}
+}
+

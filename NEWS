@@ -1,3 +1,33 @@
+Changes in Version 0.2.2
+
+  o added main function pair() for item parameter calculation for dicho- or polytomuous data . Data with unequal number of categories for items can be processed. 
+
+  o added main function pers() for person parameter (WLE) calculation for dicho- or polytomuous data. Data with unequal number of categories for items can be processed. 
+
+  o added function ptbis() for calculation of point biserial correlations for dicho- or polytomous item categories with total scale.
+
+  o added person - pairwise.person.fit() - and item - pairwise.item.fit() - fit indices. 
+
+  o added function for tabulation of response data - ftab(). 
+
+  o added function for expected score curves plots - esc().
+
+  o added function for category probability plots - catprob(). 
+
+  o added function for graphical item fit by empirical category probability plots - gif().
+
+  o added another (small) example dataset sim200x3, containing simulated Data with one dichotomous and two polytoumous items with 200 observations.
+
+  o added a (large) example data structure DEU_PISA2012 - for a detailed description of the data structure see the section User guides, package vignettes and other documentation.
+
+  o changed the plotting methods for "pair"", "grm" and "pairSE" and added documentation for them.
+
+  o removed deprecated functions (from version 0.1.5): 
+itempar.dicho(), itempar.poly(), grmSE.dicho(), grmSE.poly(), ipSE.dicho(), ipSE.poly(), ppML.dicho(), ppWL.dicho(), thetaML.dicho(), thetaWL.dicho, ptbis.dicho(). 
+Those functions are therefore only available in older version of pairwise in the CRAN archive.
+
+----------------------------------------------------------------------------------------
+
 Changes in Version 0.1.5
 
   o added function for Point Biserial Correlations ptbis.dicho() (dicotoumous items)

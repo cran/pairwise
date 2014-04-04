@@ -5,18 +5,19 @@
 \title{Rasch Model Parameters with pairwise}
 \description{
   The package \code{pairwise} performs the explicit
-  calculation, not estimation!, of the Rasch item
+  calculation -- not estimation! -- of the Rasch item
   parameters for dichotomous an polytomous response formats
   using a pairwise comparison approach (Choppin, 1968,
   1985).
 }
 \details{
-  In case of dichotomous answer formats the parameter
-  calculation is based on the construction of a pairwise
-  comparison matrix M\emph{nij} with entries f\emph{ij}
-  representing the number of respondents who got item
-  \emph{i} right and item \emph{j} wrong according to
-  Choppin's (1968, 1985) conditional pairwise algorithm.
+  In case of dichotomous answer formats the item parameter
+  calculation for the Rasch Model (Rasch, 1960), is based
+  on the construction of a pairwise comparison matrix
+  M\emph{nij} with entries f\emph{ij} representing the
+  number of respondents who got item \emph{i} right and
+  item \emph{j} wrong according to Choppin's (1968, 1985)
+  conditional pairwise algorithm.
 
   For the calculation of the item thresholds and difficulty
   in case of polytomous answer formats, according to the
@@ -40,25 +41,17 @@
   amount of missing values, as long as the items are still
   proper linked together.
 
-  Based on the explicit calculated item parameters for a
-  dataset, the person parameters may thereupon be estimated
-  using an mle or wle approach, for example implementetd in
-  the R-package \code{{PP}} by Manuel Reif.
-
   The recent version of the package 'pairwise' computes
   item parameters for dichotomous and polytomous item
-  responses according the 1PL (when using the function
-  \code{\link{itempar.dicho}}) and the partial credit model
-  (when using the function \code{\link{itempar.poly}}).
+  responses -- and a mixture of both -- according the
+  partial credit model using the function
+  \code{\link{pair}}.
 
-  The calculation of standard errors, when using functions
-  \code{\link{ipSE.dicho}} or \code{\link{ipSE.poly}} is
-  realized by bootstrap or jack-knife technique.
-
-  Splitting the data (e.g. by rawscore or by random) and
-  calculating model parameter for each subsample can be
-  done with the functions \code{\link{grmSE.dicho}} and
-  \code{\link{grmSE.poly}}
+  Based on the explicit calculated item parameters for a
+  dataset, the person parameters may thereupon be estimated
+  using any estimation approach. The function
+  \code{\link{pers}} implemented in the package uses WLE
+  for estimation of the person parameter.
 }
 \author{
   Joerg-Henrik Heine <jhheine@googlemail.com>
@@ -92,8 +85,8 @@
   Masters, G. N. (1982). A Rasch model for partial credit
   scoring. \emph{Psychometrika, 47}(2), 149-174.
 
-  Reif, M. (2012). PP: Person Parameter estimation. \emph{R
-  package version 0.2}, Abgerufen von
-  http://CRAN.R-project.org/package=PP
+  Rasch, G. (1960). \emph{Probabilistic models for some
+  intelligence and attainment tests.} Copenhagen: Danmarks
+  pædagogiske Institut.
 }
 

@@ -1,0 +1,60 @@
+#' @method plot grm
+#' @title S3 Plotting Graphical Model Check
+#' @description S3 plotting Method for object of class\code{"grm"}
+#' @param x object of class\code{"grm"}
+#' @param xymin optional lower limit for xy-axis
+#' @param xymax optional upper limit for xy-axis
+#' 
+#' @param ci numeric defining confidence intervall for point estimator
+#' @param main see \code{\link{plot}}
+#' @param col.error vector of colors for error bars
+
+#' @param itemNames logical wether to plot itemnames
+#' @param cex.names magnification factor for itemnames
+#' @param type see \code{\link{plot}}
+#' @param xlab see \code{\link{plot}}
+#' @param ylab see \code{\link{plot}}
+#' @param pch see \code{\link{plot}}
+#' @param las see \code{\link{plot}}
+#' @param cex.axis see \code{\link{plot}}
+#' @param ... other parameters passed to plot
+########################### hier die plot method für grm #############################
+plot.grm<-function(x, xymin=NULL, xymax=NULL, ci=2, main=NULL, col.error="blue", itemNames=FALSE, cex.names=.8, type="b", xlab="", ylab="", pch=43, las=3, cex.axis = 0.5, ...){  
+  
+  if(length(main)==0){main<-deparse(substitute(x))}
+  
+  #sonderfall 2 subsamples
+  if (length(x)==2){
+    Itemnames<-names(x[[1]]$parameter[,dim(x[[2]]$parameter)[2]])
+    X<-x[[1]]$parameter[,dim(x[[2]]$parameter)[2]]
+    Y<-x[[2]]$parameter[,dim(x[[1]]$parameter)[2]]
+    XS<-x[[1]]$SE[,dim(x[[2]]$SE)[2]]
+    YS<-x[[2]]$SE[,dim(x[[1]]$SE)[2]]
+
+    ##### plotingrange festlegen mit leerplot
+    if(length(xymax)==0){xymax<-max(c(max(X),max(Y))) + 3*(max(c(max(XS),max(YS))))}
+    if(length(xymin)==0){xymin<-min(c(min(X),min(Y))) - 3*(max(c(max(XS),max(YS))))}
+    
+    Sample_1<-c(xymin,xymax); Sample_2<-c(xymin,xymax)
+    plot(Sample_1,Sample_2,type="n",bty="n", main=main, ...)
+    # hilfsfunktion elipse
+    eli<-function(x.cent,y.cent,xb,yh, ...){
+      # plotten einer elipse
+      nseg=360
+      xx <- x.cent + xb*cos( seq(0,2*pi, length.out=nseg) )
+      yy <- y.cent + yh*sin( seq(0,2*pi, length.out=nseg) )
+      lines(xx,yy,col=col.error,...) 
+    }
+    ##############
+    ##### plotten der grafik    
+    if (itemNames==TRUE){pch=""}
+    if (itemNames==TRUE){text(X,Y,Itemnames,cex=cex.names,...)}
+    points(X,Y,pch=pch,...) 
+    abline(0,1,col="red",...) 
+    for (i in 1: length(X)){ eli(X[i],Y[i],XS[i]*ci,YS[i]*ci) }
+}
+  
+  if (length(x)!=2){cat("actualy no plotting method for", length(x) ,"subsample(s) available","\n")  }
+  
+}
+  

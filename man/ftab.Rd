@@ -1,0 +1,42 @@
+\name{ftab}
+\alias{ftab}
+\title{Tabulating Answer Categories in Data}
+\usage{
+  ftab(X, catgories = NULL, na.omit = FALSE)
+}
+\arguments{
+  \item{X}{Data as a \code{"matrix"}, a \code{"data.frame"}
+  or even a \code{"vector"} or \code{"factor"}.
+  \code{"vector"} or \code{"factor"} are coerced to a
+  \code{"data.frame"} with one column.}
+
+  \item{catgories}{optional a vector (\code{"numeric"} or
+  \code{"character"}) containig the categories to tabulate.
+  At default (\code{catgories=NULL}) the fuction looks for
+  unique categories in \code{X}.}
+
+  \item{na.omit}{logical (default: \code{na.omit=FALSE} )
+  wether to return frequencies for missing values,
+  \code{NA}s.}
+}
+\value{
+  a \code{"matrix"} with category frequencies
+}
+\description{
+  function tabulating (answer) categories in \code{X}.
+}
+\details{
+  \code{X} can either be a (\code{"numeric"} or
+  \code{"character"}) \code{"matrix"} containing response
+  vectors of persons (rows) or a \code{"data.frame"}
+  containing \code{"numeric"}, \code{"character"} or
+  \code{"factor"} variables (columns).
+}
+\examples{
+########
+data(bfiN)
+ftab(bfiN)
+data(sim200x3)
+ftab(sim200x3)
+}
+
