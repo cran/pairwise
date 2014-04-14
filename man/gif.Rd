@@ -41,7 +41,7 @@
   derived category probability curves.
 }
 \details{
-  to come ...
+  no details in the moment.
 }
 \examples{
 ########

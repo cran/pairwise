@@ -18,7 +18,7 @@
   default \emph{m} is defined as \code{m =
   max(daten,na.rm=TRUE)+1}.}
 
-  \item{teil}{Specifies the splitting criterion. Basicly
+  \item{teil}{Specifies the splitting criterion. Basically
   there are three different options available - each with
   several modes - which are controlled by passing the
   corresponding character expression to the argument.
@@ -54,11 +54,11 @@
 
   \item{splitseed}{numeric, used for
   \code{set.seed(splitseed)} for random splitting - see
-  argument \code{teil}}
+  argument \code{teil}.}
 
-  \item{verbose}{logical, if verbose = TRUE (default) a
-  message about subsampling whe calculation standrderrors
-  is sent to console}
+  \item{verbose}{logical, if \code{verbose = TRUE}
+  (default) a message about subsampling is sent to console
+  when calculating standard errors.}
 
   \item{...}{additional arguments \code{nsample},
   \code{size}, \code{seed}, \code{pot} for caling
@@ -72,17 +72,16 @@
 }
 \description{
   This function makes the basic calculations for the
-  graphical model check for dicho- or polytomous
-  itemresponse formats. It is more or less a wraper
-  function, internaly calling the function
-  \code{\link{pairSE}}. Several splitting options are
-  available (see arguments).
+  graphical model check for dicho- or polytomous item
+  response formats. It is more or less a wraper function,
+  internaly calling the function \code{\link{pairSE}}.
+  Several splitting options are available (see arguments).
 }
 \details{
   The data is splitted in two or more subsamples and then
   item thresholds, the parameter (Sigma) and their standard
   errors (SE) for the items according the PCM are
-  calculatetd for each subsample. Additional arguments (see
+  calculated for each subsample. Additional arguments (see
   description of function \code{\link{pairSE}}) for
   parameter calculation are passed through.
 
@@ -92,7 +91,7 @@
   to reach is equal while using the raw value as splitting
   criterion.
 }
-\section{A Note on Standard Errors}{
+\section{A note on standard errors}{
   Estimation of standard errors is done by repeated
   calculation of item parameters for subsamples of the
   given data. This procedure is mainly controlled by the

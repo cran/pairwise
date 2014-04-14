@@ -4,7 +4,7 @@
 \title{Booklet allocation table for Math PISA (2003) data
 }
 \description{
-a \code{data.frame} containing a booklet allocation table for the cognitive Data \code{\link{cog}} in this packge, which holds 31 dichotomous items from the math task from the german sample of the PISA 2003 survey.
+a \code{data.frame} containing a booklet allocation table for the cognitive Data \code{\link{cog}} in this package, which holds 31 dichotomous items from the math task from the german sample of the PISA 2003 survey.
 }
 \usage{
   data(cogBOOKLET)

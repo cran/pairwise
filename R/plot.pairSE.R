@@ -1,6 +1,6 @@
 #' @method plot pairSE
 #' @title S3 Plotting Thustonian Thresholds with SE
-#' @description S3 plotting Method for object of class\code{"pairSE"}
+#' @description S3 plotting method for object of class\code{"pairSE"}
 #' @param x object of class\code{"pairSE"}
 #' @param sortdif logical wether to order items by difficulty
 #' @param ra either the character \code{"auto"} (default) or an numeric, defining the (logit) range for y-axis

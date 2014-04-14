@@ -2,7 +2,7 @@
 pvx<-function(theta,thres,xm=NULL){
   # func. by joerg-henrik heine jhheine(at)googlemail.com
   # nichts geändert aber zum merken theta: einzelne zahl; thres: thurstonian threshold eines items
-  # korrigierte formel aus markus buch seite 330
+  # korrigierte formel aus markus buch seite 330 siehe auch s. 522 2006
   s<-0:length(thres)
   thres<-c(0,thres)
   oben<- exp((s*theta)-cumsum(thres))

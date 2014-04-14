@@ -2,17 +2,24 @@
 \alias{summary.pers}
 \title{S3 Summary for Thetas}
 \usage{
-  \method{summary}{pers} (object, sortwle = FALSE, ...)
+  \method{summary}{pers} (object, short = TRUE,
+    sortwle = FALSE, ...)
 }
 \arguments{
   \item{object}{object of class\code{"pers"}}
 
-  \item{sortwle}{logical wether to order persons by
-  ability}
+  \item{short}{logical with default \code{short=TRUE} - if
+  set to \code{short=FALSE} a "data.frame" with WLE
+  estimates (and their respective standard errors) for
+  every row (person) in the original dataset will be
+  returned.}
+
+  \item{sortwle}{logical wether to order persons by ability
+  - ignored when \code{short=TRUE}}
 
   \item{...}{other parameters passed trough}
 }
 \description{
-  S3 summary Method for object of class\code{"pers"}
+  S3 summary method for object of class\code{"pers"}
 }
 

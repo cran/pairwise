@@ -1,6 +1,6 @@
 \name{make.incidenz}
 \alias{make.incidenz}
-\title{Converting a booklet allocation table into a incidenz matrix}
+\title{Converting a booklet allocation table into a incidence matrix}
 \usage{
   make.incidenz(tab, bookid, item_order = NULL,
     info = FALSE)
@@ -18,30 +18,30 @@
   information which booklet was assigned to each person.}
 
   \item{item_order}{optional a character vector with the
-  item names in the order of the itmes in the response data
+  item names in the order of the items in the response data
   (from first to last column in the response data). By
   default it is assumend that the item order in the booklet
   allocation table is already the same as in the response
   data.}
 
   \item{info}{logical default: \code{info=FALSE} to return
-  just the incidenz matrix. If set to \code{info=TRUE} more
-  detailed information about the booklet design ist
+  just the incidence matrix. If set to \code{info=TRUE}
+  more detailed information about the booklet design ist
   returned.}
 }
 \value{
-  an incidenz matrix as an object of class "matrix" with
+  an incidence matrix as an object of class "matrix" with
   0,1 coding or a "list" with detailed information.
 }
 \description{
   This function converts a booklet allocation table (like
-  in \code{\link{cogBOOKLET}}) into a incidenz matrix used
+  in \code{\link{cogBOOKLET}}) into a incidence matrix used
   in the function \code{\link{pers}}.
 }
 \details{
   It is assumed that there is an equal replicate factor for
-  each item used when constructing the bookletdesign - so
-  every items occures with the same frequency over al
+  each item used, when constructing the bookletdesign - so
+  every items occures with the same frequency over all
   booklets of the entire set of booklets.
 }
 \examples{
@@ -50,11 +50,11 @@ data(cog);data(cogBOOKLET) # loading reponse and allocation data
 table(cog$BOOKID)# show n persons per booklet
 names(table(c(as.matrix(cogBOOKLET[,2:5])))) # show booklets in allocation data
 d<-(cog[cog$BOOKID!=14,]) # skip persons which got booklet No.14.
-inc<-make.incidenz(tab=cogBOOKLET, bookid=d$BOOKID) # make just the incidenz matrix
+inc<-make.incidenz(tab=cogBOOKLET, bookid=d$BOOKID) # make just the incidence matrix
 inc
 make.incidenz(tab=cogBOOKLET, bookid=d$BOOKID, info=TRUE) # get some info too
 # in this case not necessary but just to show
-# using the (item) names in cog to secure the item order in incidenz matrix:
+# using the (item) names in cog to secure the item order in incidence matrix:
 make.incidenz(tab=cogBOOKLET, bookid=d$BOOKID, item_order=names(cog)[4:34])
 #######################
 }

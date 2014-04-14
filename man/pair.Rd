@@ -19,8 +19,8 @@
   \item{m}{an integer (will be recycled to a vector of
   length k) or a vector giving the number of response
   categories for all items - by default \code{(m = NULL)},
-  m is calculatetd from data, assuming that every response
-  category is at least once present in data. For
+  \code{m} is calculated from data, assuming that every
+  response category is at least once present in data. For
   \emph{'sparse' data} it is \emph{strongly recomended} to
   explicitly \emph{define the number of categories} by
   defining this argument.}
@@ -54,7 +54,7 @@
   (Masters, 1982), using a generalization of the pairwise
   comparison algorithm (Choppin, 1968, 1985; Wright &
   Masters, 1982). The number of (response) categories may
-  vary accross Items. Missing values up to an high amount
+  vary accross items. Missing values up to an high amount
   in data are allowed, as long as items are proper linked
   together.
 }
@@ -79,6 +79,11 @@
 
   In general, it is recommended to use the argument with
   default value \code{pot=TRUE}.
+
+  For a graphic representation of the item 'estimates' the
+  plotting S3 method \code{\link{plot.pair}} is available.
+  For plotting the item category probabilities the function
+  \code{\link{catprob}} can be used.
 }
 \examples{
 data(bfiN) # loading example data set
@@ -107,7 +112,7 @@ plot(res)
   procedure for Rasch model parameters. \emph{Evaluation in
   Education, 9}(1), 29-42.
 
-  Masters, G. (1982). A rasch model for partial credit
+  Masters, G. (1982). A Rasch model for partial credit
   scoring. \emph{Psychometrika, 47}(2), 149–174.
 
   Rasch, G. (1960). \emph{Probabilistic models for some

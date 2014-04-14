@@ -4,7 +4,7 @@
 \title{5 polytomous personality items
 }
 \description{
-Data from 2800 subjects answering to 5 neuroticism items with 6 answer categories (0-5) of the bfi dataset originally included in the R-package \code{{psych}} with artificial missing data (see details) .
+Data from 2800 subjects answering to 5 neuroticism items with 6 answer categories (0-5) of the bfi dataset originally included in the R-package \code{{psych}} with artificial missing data (see details).
 }
 \usage{
   data(bfiN_miss)

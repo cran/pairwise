@@ -1,7 +1,7 @@
 #' @title Item Parameter calculation with Standard Errors for polytomous Partial Credit  Model
 #' @export pairSE
-#' @description Calculation of the item parameter for dichotomous (difficulty) or polytomous items (thurstonian thresholds) and their standard errors (SE) respectively.
-#' All parameters are calculatetd using a generalization of the pairwise comparison algorithm (Choppin, 1968, 1985).
+#' @description Calculation of the item parameters for dichotomous (difficulty) or polytomous items (thurstonian thresholds) and their standard errors (SE) respectively.
+#' All parameters are calculated using a generalization of the pairwise comparison algorithm (Choppin, 1968, 1985).
 #' Missing values up to an high amount in data matrix are allowed, as long as items are proper linked together.
 #'
 #'@details Parameter calculation is based on the construction of a paired comparison matrix M\emph{nicjc} with entries f\emph{icjc}, representing the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional pairwise algorithm to polytomous item response formats. 
@@ -13,14 +13,14 @@
 #' 
 #'In general, it is recommended to use the argument with default value \code{pot=TRUE}.
 #'
-#'@section A Note on Standard Errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
+#'@section A note on standard errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} may be the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
 #'    
 #' @param daten a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
-#' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \emph{m = NULL} m is calculatetd from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.
+#' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{m = NULL}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.
 #' 
 #' @param nsample numeric specifying the number of subsamples sampled from data, which is the number of replications of the parameter calculation. 
 #' 
-#' WARNING! specifying high values for \code{nsample} ( > 100 ) may result in long computing time without leadig to "better" estimates for SE. This may also be the case when choosing argument \code{size="jack"} (see argument \code{size}) in combination with large datasets (\emph{N} > 5000).
+#' WARNING! specifying high values for \code{nsample} ( > 100 ) may result in long computing time without leading to "better" estimates for SE. This may also be the case when choosing argument \code{size="jack"} (see argument \code{size}) in combination with large datasets (\emph{N} > 5000).
 #'   
 #' @param size numeric with valid range between 0 and 1 (but not exactly 0 or 1) specifying the size of the subsample of \code{data} when bootstraping for SE estimation. As an alternative, \code{size} can be set to the character \code{"jack"} (\code{size="jack"}). This will set the subsample size to \emph{N}-1 and set \code{nsample=N} (see argument \code{nsample}), with \emph{N} beeing the number of persons in \code{daten}.
 #'  
@@ -30,7 +30,7 @@
 #' 
 #' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz(2011, p.373).
 #' 
-#' @param verbose logical, if verbose = TRUE (default) a message about subsampling whe calculation standrderrors is sent to console.
+#' @param verbose logical, if \code{verbose = TRUE} (default) a message about subsampling is sent to console when calculating standard errors.
 #' 
 #' @param ... additional parameters passed through.
 #' 

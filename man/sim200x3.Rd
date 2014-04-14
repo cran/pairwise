@@ -22,7 +22,7 @@ This simulated data is used as an example in the rasch module of the 'ALMO - Sta
 }
 
 \references{
-To come ...
+  Holm, K. (2014). ALMO Statistik-System. \emph{P14.8 Das allgemeine ordinale Rasch-Modell} \href{http://www.almo-statistik.de/download/Ordinales_Rasch_Modell.pdf}{http://www.almo-statistik.de/download/Ordinales_Rasch_Modell.pdf}
 }
 
 \examples{

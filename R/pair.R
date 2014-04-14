@@ -1,6 +1,6 @@
 #' @title Rasch Item Parameter (Main Function) 
 #' @export pair
-#' @description This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982), using a generalization of the pairwise comparison algorithm (Choppin, 1968, 1985; Wright & Masters, 1982). The number of (response) categories may vary accross Items. 
+#' @description This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982), using a generalization of the pairwise comparison algorithm (Choppin, 1968, 1985; Wright & Masters, 1982). The number of (response) categories may vary accross items. 
 #' Missing values up to an high amount in data are allowed, as long as items are proper linked together.
 #' 
 #'@details Parameter calculation is based on the construction of a paired comparison matrix M\emph{nicjc} with entries f\emph{icjc} representing the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional pairwise algorithm to polytomous item response formats. This algorithm is simply realized by matrix multiplication.
@@ -9,9 +9,11 @@
 #' 
 #'In general, it is recommended to use the argument with default value \code{pot=TRUE}.
 #'
+#'For a graphic representation of the item 'estimates' the plotting S3 method \code{\link{plot.pair}} is available. For plotting the item category probabilities the function \code{\link{catprob}} can be used.  
+#'
 #'    
 #' @param daten a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
-#' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, m is calculatetd from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.
+#' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.
 #' @param pot logical, if TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations.
 #' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373).
 #' @param ccf logical with default \code{ccf=FALSE} to perform normal item parameter calculation, if set to \code{ccf=TRUE} just the conditional item (category) frequencies are returned.
@@ -21,7 +23,7 @@
 #' @references Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
 #' @references Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
 #' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
-#' @references Masters, G. (1982). A rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
+#' @references Masters, G. (1982). A Rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
 #' @references Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainment tests.} Copenhagen: Danmarks pædagogiske Institut.
 #' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 #' 

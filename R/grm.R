@@ -1,17 +1,17 @@
 #' @title Graphical Model Check
 #' @export grm
-#' @description This function makes the basic calculations for the graphical model check for dicho- or polytomous itemresponse formats. It is more or less a wraper function, internaly calling the function \code{\link{pairSE}}. Several splitting options are available (see arguments).    
+#' @description This function makes the basic calculations for the graphical model check for dicho- or polytomous item response formats. It is more or less a wraper function, internaly calling the function \code{\link{pairSE}}. Several splitting options are available (see arguments).    
 #' 
-#'@details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM  are calculatetd for each subsample. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through. 
+#'@details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM  are calculated for each subsample. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through. 
 #'
 #'WARNING: When using data based on booklet designs with systematically missing values (by design) you have to ensure that in each of the booklet the maximum raw value to reach is equal while using the raw value as splitting criterion.
 #' 
-#' @section A Note on Standard Errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
+#' @section A note on standard errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
 #'
 #' @param daten daten a data matrix with optionaly named colums (names of items) or a data.frame, potentially with missing values, comprising polytomous responses of respondents (rows) on some items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing the number of categories for all items.
 #' @param m number of response categories for all items - by default \emph{m} is defined as \code{m = max(daten,na.rm=TRUE)+1}.
 #' 
-#' @param teil Specifies the splitting criterion. Basicly there are three different options available - each with several modes - which are controlled by passing the corresponding character expression to the argument. 
+#' @param teil Specifies the splitting criterion. Basically there are three different options available - each with several modes - which are controlled by passing the corresponding character expression to the argument. 
 #' 
 #' 1) Using the rawscore for splitting into subsamples with the following modes: \code{teil = "median"} median raw score split - high score group and low score group; \code{teil = "mean"} mean raw score split - high score group and low score group; \code{teil = "score"} splitting \code{daten} into as many subsamples as there are raw score groups (discarding min and max score group) 
 #' 
@@ -19,9 +19,9 @@
 #' 
 #' 3) The third option is using a manifest variable as a splitting criterion. In this case a numeric indicating the column number of the variable in \code{daten} must be passed to the argument - e.g. \code{teil = 1} indicates that the variable in the first column of \code{daten} will be used as splitting criterion - (this variable will of course be used only as splitting criterion). The variable in \code{daten} should be coded as \code{factor} or a numeric integer vector with min = 1 if \code{daten} is a matrix.    
 #' 
-#' @param splitseed numeric, used for \code{set.seed(splitseed)} for random splitting - see argument \code{teil}
+#' @param splitseed numeric, used for \code{set.seed(splitseed)} for random splitting - see argument \code{teil}.
 #' 
-#' @param verbose logical, if verbose = TRUE (default) a message about subsampling whe calculation standrderrors is sent to console
+#' @param verbose logical, if \code{verbose = TRUE} (default) a message about subsampling is sent to console when calculating standard errors.
 #' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{pairSE}} are passed through - see description for \code{\link{pairSE}}.
 #' 
 #' @return A (list) object of class \code{"grm"} containing the item difficulty parameter sigma and their standard errors for two or more subsamples.

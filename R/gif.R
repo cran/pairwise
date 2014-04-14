@@ -1,7 +1,7 @@
 #' @title Graphical Item Fit Plots
 #' @export gif
 #' @description plotting function for plotting empirical and model derived category probability curves.
-#' @details to come ...
+#' @details no details in the moment.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.
 #' @param itemnumber an integer, defining the number of the item to plot the respective categoy probability for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the expected score curves for.
 #' @param ra an integer, defining the (logit) range for x-axis
@@ -55,7 +55,7 @@ dim(p)
 ##### plotting model derived category probabilities-------------------------
 plot(y=p[,1], x= seq(-ra,ra,length.out=(ra*2+1)*10), ylim=c(0,1) ,bty="n",type="n",xaxt="n", ylab=("p"), xlab="logits", main=paste("model derived and empirical \n category probability curves for item ", itemname,sep=""),...)
 for (i in 1:dim(p)[2]){
-  lines(y=p[,i], x=seq(-ra,ra,length.out=(ra*2+1)*10),...)#, ...
+  lines(y=p[,i], x=seq(-ra,ra,length.out=(ra*2+1)*10),lty="dotted",col="grey50",...)#, ...
 }
 #pos <- (1:((ra*2+1)*10))[((1:length(-ra:ra))*10)-ra]
 ticks <- unique(round(seq(-ra,ra,length.out=(ra*2+1)*10)))

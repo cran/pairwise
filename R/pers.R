@@ -2,22 +2,23 @@
 #' @export pers
 #' @description This is the (new) main function for calculation of person estimates based on answering dichotomous or polytomous items according theRasch Model (Rasch, 1960) and Partial Credit Model (Masters, 1982), given the item parameters (object of class \code{"pair"} - as a result of \code{\link{pair}()}) and and the datamatrix (argument \code{daten}) containing the person respose vectors (rows), using an WL approach, introduced by Warm (1989).
 #' @details no detail in the moment.
-#' @param itempar The item parameter prior calculated or estimated. A list object of class \code{"pair"} as a result of applying the function \code{\link{pair}()}) to the data. Or an 'ordinary' \code{"matrix"} with \code{nrow = k} (number of items) and \code{ncol = m} (maximum number of thresholds), holding  the 'thurstonian' thresholds of the respective item. some matrix entries may be \code{NA}, depending on the number of categories of the respective item.
-#' @param daten A \code{"matrix"} (or \code{"data.frame"}) optionaly with named colums (names of items) and named rows (Persone IDs). This argument can be left empty when the argument itempar (above) is of class \code{"pair"}. \code{daten} holds polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \code{m-1} for highest category, with m beeing a vector (with length k) with the number of categories for the respective item. Responses in \code{daten} must be stored as \code{"integers"} (not \code{"factors"} !) and may have missing values.
-#' @param incidenz This argument is only relevant when items are assigned to different booklets. For such a booklet-design a \code{"matrix"} should be assigned to this argument with the same dimensions like \code{daten}, containig 0 and 1 integer codes, giving the information (for every person) if the respective item was in the booklet (coded 1) given to the person or not (coded 0).    
-#' @param na_treat optionaly an integer (vector) defining the type of treatment to missing responses in the argument \code{daten}. If set to \code{na_treat=NULL} (default) missing responses are treated as missings and the respective person is assigned to an coresponding missing group for estimation. An option is to set \code{na_treat} to any integer value between 0 (lowest category) and the numeric code for the maximum ctaegory of the respective item.
+#' @param itempar The item parameter prior calculated or estimated. A list object of class \code{"pair"} as a result of applying the function \code{\link{pair}()} to the data. Or an 'ordinary' \code{"matrix"} with \code{nrow = k} (number of items) and \code{ncol = m} (maximum number of thresholds), holding  the 'thurstonian' thresholds of the respective item. Some matrix entries may be \code{NA}, depending on the number of categories of the respective item.
+#' @param daten A \code{"matrix"} (or \code{"data.frame"}) optionaly with named colums (names of items) and named rows (person IDs). This argument can be left empty when the argument itempar (above) is of class \code{"pair"}. \code{daten} holds polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \code{m-1} for highest category, with m beeing a vector (with length k) with the number of categories for the respective item. Responses in \code{daten} must be stored as \code{"integers"} (not \code{"factors"} !) and may have missing values.
+#' @param incidenz This argument is only relevant when items are assigned to different booklets. For such a booklet-design a \code{"matrix"} should be assigned to this argument, with the same dimensions like \code{daten}, containig 0 and 1 integer codes, giving the information (for every person) if the respective item was in the respective booklet (coded 1) given to the person or not (coded 0).    
+#' @param na_treat optionaly an integer (vector) defining the type of treatment to missing responses in the argument \code{daten}. If set to \code{na_treat=NULL} (default) missing responses are treated as missings and the respective person is assigned to an corresponding missing group for estimation. An option is to set \code{na_treat} to any integer value between 0 (lowest category) and the numeric code for the maximum ctaegory of the respective item.
 #' @param limit numeric giving the limit at which accuracy the WL-algorithm stops.
 #' @param iter numeric giving the maximum numer of iteration to perform.
-#' @param tecout logical default set to\code{FALSE}. If set to \code{TRUE} the result will be a (very) long list with estimation details for every case in \code{daten}. In case of a booklet-design the list entrys will be divided by "booklet".
+#' @param tecout logical default set to \code{FALSE}. If set to \code{TRUE} the result will be a (very) long list with estimation details for every case in \code{daten}. In case of a booklet-design the list entries will be divided by "booklet".
 #' @return An object of class \code{c("pers", "data.frame")} or a (very long) \code{"list"} (when setting on \code{techout=TRUE}) containing the person parameters.
 #' @exportClass pers
-#' @references Masters, G. (1982). A rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
+#' @references Masters, G. (1982). A Rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
 #' @references Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainment tests.} Copenhagen: Danmarks pædagogiske Institut.
 #' @references Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. \emph{Psychometrika, 54}(3), 427–450.
 #' @examples ############
 #' data(sim200x3)
 #' result <- pers(itempar=pair(sim200x3))
 #' summary(result)
+#' plot(result)
 
 pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,iter=50,tecout=FALSE){
 
@@ -37,22 +38,28 @@ pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,it
 ###################### check der Argumente #######################
 ##### infos aus itempar class matrix---------------------
 if(any(class(itempar)=="matrix")){
-  
+  if(length(daten)==0){stop("no data assigned to argument daten")}
   # hier noch Baustelle !!!!!!!!!!!!!!!
-  
-  #sb <-   
-  #m <- 
-#   k <- length(m)
-#   if(length(unique(m))!=1){
-#     maxLen <- max(sapply(sb, length))
-#     # create a new list with elements padded out with 0s
-#     newsb <- lapply(sb, function(.ele){c(.ele, rep(0, maxLen))[1:maxLen]})
-#     sb <- do.call(rbind, newsb)
-#   }
-#   if(length(unique(m))==1){
-#     sb<-do.call(rbind, sb)
-#   }
-#  itempar_pair <-
+  threshold <- apply(itempar,1,function(x){(na.omit(x))})  
+  ### berechnung der sb; sb als liste!!!!
+  sb<-(lapply(threshold,function(x){cumsum(x)})) # richtig: umrechnung threshold (tau) in sb !!!!!!!!! OK
+  sb_return <- sb
+  m <- apply(itempar,1,function(x){length(na.omit(x))+1}) # OK
+  k <- length(m)
+  if(length(unique(m))!=1){
+    maxLen <- max(sapply(sb, length))
+    # create a new list with elements padded out with 0s
+    newsb <- lapply(sb, function(.ele){c(.ele, rep(0, maxLen))[1:maxLen]})
+    sb <- do.call(rbind, newsb)
+  }
+  if(length(unique(m))==1){
+    sb<-do.call(rbind, sb)
+  }
+  ### some minor consitency checks between daten and itempar
+  if(dim(daten)[2]!=k){stop("missmatch: number of items in daten and itempar")}
+  # aufbereiten für ausgabe mit den separat eingegbenen daten aus argument daten
+  itempar_pair <- list(threshold=itempar,sigma=rowMeans(itempar,na.rm=TRUE),sb=sb_return ,resp=dataprep1(daten)) 
+  class(itempar_pair) <- c("pair", "list")
 }
 
 ##### infos aus itempar:  class(itempar)=="pair" & daten == NULL---------------------
@@ -89,7 +96,8 @@ if(   (any(class(itempar)=="pair")) & (length(daten)!=0)    ){
     sb<-do.call(rbind, sb)
   }
   # aufbereiten für ausgabe mit den separat eingegbenen daten aus argument daten
-  itempar_pair <- list(threshold=itempar[["threshold"]],itempar=itempar[["itempar"]],sb=itempar[["sb"]] ,resp=dataprep1(daten)) 
+  if(any(colnames(daten) != names(sb))){stop("mismatch: item names in daten and itempar")}
+  itempar_pair <- list(threshold=itempar[["threshold"]],sigma=itempar[["sigma"]],sb=itempar[["sb"]] ,resp=dataprep1(daten)) 
   class(itempar_pair) <- c("pair", "list")
 }
 
@@ -151,9 +159,10 @@ if(length(uni_nullbook)!=0){stop("some persons got booklets with no items and mu
     }
     names(daten_booklet_list)<-uni_incpat
 # ENDE aufteilen der daten nach "booklets" in liste
-      
+  # lapply(daten_booklet_list, function(x){ dim(x$daten)})  # Check   
+  # lapply(daten_booklet_list, function(x){ ftab(x$daten)}) # Check
+  # sink(file="test.txt");lapply(daten_booklet_list, function(x){ print(x$daten)}) ;sink() # Check
 
-# bis hier bin ich mit der durchsicht gekommen 
 #daten_booklet_list ok; na_treat ok
 
 #### hier mit schleife über alle "booklets" -------------------------------------------------
@@ -224,21 +233,18 @@ if(tecout==FALSE){
   res2 <- res1[order(res1$persID) ,]
   res3 <- data.frame(book=all_incpat,res2)
   
-  result <- list(pers=res3 , pair=itempar_pair)
+  # WLE Reliability rost 2004 p 381 see also http://www.rasch.org/erp7.htm
+  reldat1 <- data.frame(WLE=res3$WLE,SE.WLE=res3$SE.WLE)
+  reldat2 <- reldat1[complete.cases(reldat1),]
+  # dim(reldat1) 
+  r.WLE.rel <- var(reldat2$WLE) / (mean((reldat2$SE.WLE)^2) + var(reldat2$WLE))
+  n.WLE.rel <- dim(reldat2)[1]
+  WLE.rel <- list(r.WLE.rel=r.WLE.rel,n.WLE.rel=n.WLE.rel)
+  # END WLE Reliability    
+  result <- list(pers=res3 , pair=itempar_pair, WLE.rel=WLE.rel)
   
   class(result) <- c("pers","list")
   
-  #   hier begann das desaster--
-#   book <- (rep(names(ee1), sapply(ee1,function(x){dim(x)[1]})))
-#   ee2 <- do.call(rbind,list(ee1))  # <-  F E H L E R    hier !!!! ,deparse.level = 0
-#   ee3 <- data.frame(book=book, ee2) ;row.names(ee3)<-NULL
-#   ee4 <- ee3[order(ee3[,"PERS"]),c(3, 1, 2, 7, 4, 5, 6 )  ]
-#   row.names(ee4)<-ee4[,1]
-#   ee5 <- ee4[,2:7]
-#   ee6 <-   as.list(ee5)
-#   ee6[["persID"]] <- rownames(ee5)
-#   result <- list(pers=ee6 , pair=itempar_pair)
-#   class(result) <- c("pers","list")
 }
 
   return(result)

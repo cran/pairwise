@@ -18,6 +18,10 @@ expscore <- function(pers_obj){
   }
   Eni <- t(sapply(pers_obj$pers$WLE, foo1, pers_obj ,nitems))
   dimnames(Eni) <- dimnames(emp_resp)
+  ### replace cells missing in emp_resp by NA in Eni new approach!----
+  # affects Wni and Cni and all the other _ni's too
+  Eni[is.na(emp_resp)] <- NA
+
   # matplot(Eni[order(pers_obj$pers$WLE),],type="l") # ggf. noch machen
   # return(Eni)
   
@@ -35,7 +39,7 @@ expscore <- function(pers_obj){
   }
   Wni <- sapply(1:nitems, foo2, pers_obj, Eni)
   dimnames(Wni) <- dimnames(emp_resp)
-  # return(Eni)
+  # return(Wni)
   
   ## Kurtosis Cni (of xni)--------
   foo3 <- function(i, pers_obj=pers_obj, Eni=Eni){

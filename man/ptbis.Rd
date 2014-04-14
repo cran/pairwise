@@ -11,13 +11,13 @@
   \code{daten}.}
 
   \item{daten}{if argument y is not an object of class
-  \code{"pers"}, a \code{data.frame}, potentially with
+  \code{"pers"}, a \code{"data.frame"}, potentially with
   missing values, comprising dicho- or polytomous items
   (columns).}
 }
 \value{
-  An object of class "data.frame" and "ptbis" containing
-  item statistics.
+  An object of class \code{c("data.frame", "ptbis")}
+  containing item statistics.
 }
 \description{
   Calculation of the point biserial correlations for dicho-
@@ -25,7 +25,7 @@
   parameter).
 }
 \details{
-  to come ...
+  no details in the moment.
 }
 \examples{
 ######################

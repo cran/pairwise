@@ -1,6 +1,7 @@
 S3method(plot,grm)
 S3method(plot,pair)
 S3method(plot,pairSE)
+S3method(plot,pers)
 S3method(summary,grm)
 S3method(summary,pair)
 S3method(summary,pairSE)

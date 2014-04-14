@@ -31,10 +31,10 @@
   \item{...}{arguments passed to plot}
 }
 \description{
-  plotting function for plotting expected score curves
+  plotting function for plotting expected score curves.
 }
 \details{
-  to come ...
+  no details in the moment.
 }
 \examples{
 ########

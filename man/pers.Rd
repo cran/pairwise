@@ -9,17 +9,17 @@
 \arguments{
   \item{itempar}{The item parameter prior calculated or
   estimated. A list object of class \code{"pair"} as a
-  result of applying the function \code{\link{pair}()}) to
+  result of applying the function \code{\link{pair}()} to
   the data. Or an 'ordinary' \code{"matrix"} with
   \code{nrow = k} (number of items) and \code{ncol = m}
   (maximum number of thresholds), holding the 'thurstonian'
-  thresholds of the respective item. some matrix entries
+  thresholds of the respective item. Some matrix entries
   may be \code{NA}, depending on the number of categories
   of the respective item.}
 
   \item{daten}{A \code{"matrix"} (or \code{"data.frame"})
   optionaly with named colums (names of items) and named
-  rows (Persone IDs). This argument can be left empty when
+  rows (person IDs). This argument can be left empty when
   the argument itempar (above) is of class \code{"pair"}.
   \code{daten} holds polytomous or dichotomous (or mixted
   category numbers) responses of \code{n} respondents
@@ -33,16 +33,17 @@
   \item{incidenz}{This argument is only relevant when items
   are assigned to different booklets. For such a
   booklet-design a \code{"matrix"} should be assigned to
-  this argument with the same dimensions like \code{daten},
-  containig 0 and 1 integer codes, giving the information
-  (for every person) if the respective item was in the
-  booklet (coded 1) given to the person or not (coded 0).}
+  this argument, with the same dimensions like
+  \code{daten}, containig 0 and 1 integer codes, giving the
+  information (for every person) if the respective item was
+  in the respective booklet (coded 1) given to the person
+  or not (coded 0).}
 
   \item{na_treat}{optionaly an integer (vector) defining
   the type of treatment to missing responses in the
   argument \code{daten}. If set to \code{na_treat=NULL}
   (default) missing responses are treated as missings and
-  the respective person is assigned to an coresponding
+  the respective person is assigned to an corresponding
   missing group for estimation. An option is to set
   \code{na_treat} to any integer value between 0 (lowest
   category) and the numeric code for the maximum ctaegory
@@ -54,10 +55,10 @@
   \item{iter}{numeric giving the maximum numer of iteration
   to perform.}
 
-  \item{tecout}{logical default set to\code{FALSE}. If set
+  \item{tecout}{logical default set to \code{FALSE}. If set
   to \code{TRUE} the result will be a (very) long list with
   estimation details for every case in \code{daten}. In
-  case of a booklet-design the list entrys will be divided
+  case of a booklet-design the list entries will be divided
   by "booklet".}
 }
 \value{
@@ -83,9 +84,10 @@
 data(sim200x3)
 result <- pers(itempar=pair(sim200x3))
 summary(result)
+plot(result)
 }
 \references{
-  Masters, G. (1982). A rasch model for partial credit
+  Masters, G. (1982). A Rasch model for partial credit
   scoring. \emph{Psychometrika, 47}(2), 149–174.
 
   Rasch, G. (1960). \emph{Probabilistic models for some

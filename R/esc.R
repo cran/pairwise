@@ -1,7 +1,7 @@
 #' @title Expected Score Curves Plots
 #' @export esc
-#' @description plotting function for plotting expected score curves
-#' @details to come ...
+#' @description plotting function for plotting expected score curves.
+#' @details no details in the moment.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.
 #' @param itemnumber an integer, defining the number of the item to plot the respective categoy probability for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the expected score curves for.
 #' @param integ either an integer defining the number of (ability) groups to integrate the empirical theta vector or the character expression \code{"all"} to plot the empirical theta distribution at the respective item score using symbols (see example).  

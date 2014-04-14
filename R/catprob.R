@@ -1,9 +1,9 @@
 #' @title Category Probability Plots
 #' @export catprob
-#' @description plotting function for plotting categoy probability curves
-#' @details to come ...
+#' @description plotting function for plotting category probability curves.
+#' @details no details in the moment.
 #' @param pair_obj an object of class \code{"pair"} as a result from function \code{\link{pair}}.
-#' @param itemnumber an integer, defining the number of the item to plot the respective categoy probability for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the expected score curves for.
+#' @param itemnumber an integer, defining the number of the item to plot the respective category probability for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the expected score curves for.
 #' @param ra an integer, defining the (logit) range for x-axis
 #' @param plot a logical (default \code{plot = TRUE}), defining wether to supress plotting an just return a matrix of category probabilities 
 #' @param ... arguments passed to plot

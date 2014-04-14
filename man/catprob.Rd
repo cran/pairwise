@@ -10,10 +10,11 @@
   result from function \code{\link{pair}}.}
 
   \item{itemnumber}{an integer, defining the number of the
-  item to plot the respective categoy probability for. This
-  is set to an arbitrary default value of \code{itemnumber
-  = 1} to avoid error messages when you forget to choose an
-  item to plot the expected score curves for.}
+  item to plot the respective category probability for.
+  This is set to an arbitrary default value of
+  \code{itemnumber = 1} to avoid error messages when you
+  forget to choose an item to plot the expected score
+  curves for.}
 
   \item{ra}{an integer, defining the (logit) range for
   x-axis}
@@ -28,10 +29,11 @@
   a plot or a matrix with category probabilities.
 }
 \description{
-  plotting function for plotting categoy probability curves
+  plotting function for plotting category probability
+  curves.
 }
 \details{
-  to come ...
+  no details in the moment.
 }
 \examples{
 ########

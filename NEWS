@@ -1,3 +1,13 @@
+Changes in Version 0.2.4
+
+  o fixed a mismatch when calcualting item and person fit statistic under booklet design circumstances
+  o fixed some error messages which occur under extreme sparse data situations in some internal functions.
+  o added WLE Reliability in object of class "pers".
+
+  o changed summary method for object of class "pers".
+
+  o added plotting method for object of class "pers" and documentation. This plots a person item map. 
+
 Changes in Version 0.2.2
 
   o added main function pair() for item parameter calculation for dicho- or polytomuous data . Data with unequal number of categories for items can be processed. 
