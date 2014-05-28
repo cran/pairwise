@@ -4,6 +4,7 @@
 #' @description function for calculating item fit indices. The procedures for calculating the fit indices are based on the formulas given in Wright & Masters, (1982, P. 100), with further clarification given in \code{http://www.rasch.org/rmt/rmt34e.htm}.
 #' @details contrary to many IRT software using Ml based item parameter estimation, \code{pairwise} will not exclude persons, showing perfect response vectors (e.g. c(0,0,0) for dataset with three variables), prior to the scaling. Therefor the fit statistics computed with \code{pairwise} may deviate somewhat from the fit statistics produced by IRT software using Ml based item parameter estimation (e.g. R-package \code{eRm}), depending on the amount of persons with perfect response vectors in the data.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}
+#' @param na_treat value to be assigned to residual cells which have missing data in the original response matrix. default is set to \code{na_treat=NA} to ignore these cells in further calculations. An option is to set these residuals to 0 using \code{na_treat=0}, which implys that they are imputed as 'fitting data', i.e., zero residuals. This can attenuate contrasts (see. http://www.rasch.org/rmt/rmt142m.htm).
 #' @return an object of class \code{c("pairwise_item_fit", "data.frame")} containing item fit indices.
 #' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 #' @examples ########
@@ -14,9 +15,9 @@
 ####################################################
 
 
-pairwise.item.fit <- function(pers_obj){
+pairwise.item.fit <- function(pers_obj,na_treat=NA){
   # needs internal functions pvx,  pvx.matrix and expscore
-  obj <- expscore(pers_obj) # calls internal function  
+  obj <- expscore(pers_obj,na_treat=na_treat) # calls internal function  
   emp_resp <- pers_obj$pair$resp
   Eni <- obj$Eni # expected scores (Expected Mean of ...) gegencheck eRm OK
   Wni <- obj$Wni # Variance of ... gegencheck eRm OK

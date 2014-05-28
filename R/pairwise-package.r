@@ -20,6 +20,10 @@
 #' 
 #' Further investigation of item fit can be done by using the function \code{\link{ptbis}} for point biserial correlations. For a graphical representation of the item fit, the function \code{\link{gif}} for plotting empirical and model derived category probability curves, or the function \code{\link{esc}} for plotting expected (and empirical) score curves, can be used.
 #' 
+#' The function \code{\link{iff}} plots or returns values of the item information function and the function \code{\link{tff}} plots or returns values of the test information function.
+#' 
+#' To detect multidimensionality within a set of Items a rasch residual factor analysis proposed by Wright (1996) and further discussed by Linacre (1998) can be performed using the function \code{\link{rfa}}. 
+#' 
 #' For a 'heuristic' model check the function \code{\link{grm}} makes the basic calculations for the graphical model check for dicho- or polytomous item response formats. The corresponding S3 plotting method is \code{\link{plot.grm}}. 
 #'
 #' @author Joerg-Henrik Heine <jhheine@@googlemail.com>
@@ -27,8 +31,11 @@
 #' @S3method summary pairSE
 #' @S3method summary grm
 #' @S3method summary pers
+#' @S3method summary rfa
+#' @S3method logLik pers
 #' @S3method plot pair
 #' @S3method plot pers
+#' @S3method plot rfa
 #' @S3method plot pairSE
 #' @S3method plot grm
 #' @references 
@@ -40,8 +47,11 @@
 #' @references
 #' Heine, J. H., Tarnai, Ch. & Hartmann, F. G. (2011). Eine Methode zur Parameterbestimmung im Rasch-Modell bei fehlenden Werten. \emph{Vortrag auf der 10. Tagung der Fachgruppe Methoden & Evaluation der DGPs.} [A method for parameter estimation in the Rasch model for missing values. Paper presented at the 10th Meeting of the Section Methods & Evaluation of DGPs.] Bamberg, Germany, 21.09.2011 - 23.09. 2011.
 #' @references Heine, J. H., & Tarnai, Ch. (2013). Die Pairwise-Methode zur Parameterschätzung im ordinalen Rasch-Modell. \emph{Vortrag auf der 11. Tagung der Fachgruppe Methoden & Evaluation der DGPs.} [The pairwise method for parameter estimation in the ordinal Rasch model. Paper presented at the 11th Meeting of the Section Methods & Evaluation of DGPs.] Klagenfurt, Austria, 19.09.2013 -  21.09. 2013.
+#' @references Linacre, J. M. (1998). Detecting multidimensionality: which residual data-type works best? \emph{Journal of outcome measurement, 2}, 266–283.
 #' @references Masters, G. N. (1982). A Rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149-174.
 #' @references Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainment tests.} Copenhagen: Danmarks pædagogiske Institut.
 #' @references Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. \emph{Psychometrika, 54}(3), 427–450.
 #' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
+#' @references Wright, B. D. (1996). Comparing Rasch measurement and factor analysis. \emph{Structural Equation Modeling: A Multidisciplinary Journal, 3}(1), 3–24.
+
 NULL

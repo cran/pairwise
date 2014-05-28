@@ -2,9 +2,10 @@
 \alias{plot.pers}
 \title{S3 Plotting Person - Item Map}
 \usage{
-  \method{plot}{pers} (x, ra = 4, sortdif = FALSE,
+  \method{plot}{pers} (x, ra = NULL, sortdif = FALSE,
     main = NULL, ylab = "Logits", fillCol = "grey60",
-    lineCol = "grey40", cex = 0.7, pos = 4, ...)
+    lineCol = "grey40", cex = 0.7, pos = 4,
+    breaks = "Sturges", ...)
 }
 \arguments{
   \item{x}{object of class\code{"pers"}}
@@ -29,7 +30,10 @@
 
   \item{pos}{see \code{\link{text}}}
 
-  \item{...}{other parameters passed to plot and hist.}
+  \item{breaks}{see \code{\link{hist}}}
+
+  \item{...}{other parameters passed to \code{\link{hist}}
+  and \code{\link{text}}.}
 }
 \description{
   S3 plotting method for object of class\code{"pers"}

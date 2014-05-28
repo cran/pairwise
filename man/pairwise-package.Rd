@@ -82,6 +82,16 @@
   or the function \code{\link{esc}} for plotting expected
   (and empirical) score curves, can be used.
 
+  The function \code{\link{iff}} plots or returns values of
+  the item information function and the function
+  \code{\link{tff}} plots or returns values of the test
+  information function.
+
+  To detect multidimensionality within a set of Items a
+  rasch residual factor analysis proposed by Wright (1996)
+  and further discussed by Linacre (1998) can be performed
+  using the function \code{\link{rfa}}.
+
   For a 'heuristic' model check the function
   \code{\link{grm}} makes the basic calculations for the
   graphical model check for dicho- or polytomous item
@@ -126,6 +136,10 @@
   Evaluation of DGPs.] Klagenfurt, Austria, 19.09.2013 -
   21.09. 2013.
 
+  Linacre, J. M. (1998). Detecting multidimensionality:
+  which residual data-type works best? \emph{Journal of
+  outcome measurement, 2}, 266–283.
+
   Masters, G. N. (1982). A Rasch model for partial credit
   scoring. \emph{Psychometrika, 47}(2), 149-174.
 
@@ -139,5 +153,9 @@
 
   Wright, B. D., & Masters, G. N. (1982). \emph{Rating
   Scale Analysis.} Chicago: MESA Press.
+
+  Wright, B. D. (1996). Comparing Rasch measurement and
+  factor analysis. \emph{Structural Equation Modeling: A
+  Multidisciplinary Journal, 3}(1), 3–24.
 }
 

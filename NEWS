@@ -1,3 +1,23 @@
+Changes in Version 0.2.5
+
+  o added the S3 method logLik.pers to extract the Log-Likelihood for object of class "pers"
+
+  o added the function rfa() and its plotting and summary S3 method to perfom rasch residual factor analysis proposed by Wright (1996) and further discussed by Linacre (1998).
+
+  o added the function iff() to plot or return values for Item Information Function.
+
+  o added the function tff() to plot or return values for Test Information Function.
+
+  o added two example dataset (kft5 and Neoffi) used in Rost (2004).
+
+  o added an optional argument in function pers() for calculation of the WLE reliability.
+
+  o changed spliting argument in function grm() and changed S3 methods plot and summary for objects of class "grm"
+
+  o fixed a minor bug in S3 method plot.grm when defining axis annotation 
+
+  o fixed a error messages which occured under extreme sparse data situations using function pers()
+
 Changes in Version 0.2.4
 
   o fixed a mismatch when calcualting item and person fit statistic under booklet design circumstances

@@ -2,11 +2,20 @@
 \alias{pairwise.item.fit}
 \title{Item Fit Indices}
 \usage{
-  pairwise.item.fit(pers_obj)
+  pairwise.item.fit(pers_obj, na_treat = NA)
 }
 \arguments{
   \item{pers_obj}{an object of class \code{"pers"} as a
   result from function \code{\link{pers}}}
+
+  \item{na_treat}{value to be assigned to residual cells
+  which have missing data in the original response matrix.
+  default is set to \code{na_treat=NA} to ignore these
+  cells in further calculations. An option is to set these
+  residuals to 0 using \code{na_treat=0}, which implys that
+  they are imputed as 'fitting data', i.e., zero residuals.
+  This can attenuate contrasts (see.
+  http://www.rasch.org/rmt/rmt142m.htm).}
 }
 \value{
   an object of class \code{c("pairwise_item_fit",

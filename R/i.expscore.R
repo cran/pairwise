@@ -1,4 +1,4 @@
-expscore <- function(pers_obj){
+expscore <- function(pers_obj, na_treat=NA){
   # returns a matrix with dims like resp matrix with expected scores and more ...
   # func. by joerg-henrik heine jhheine(at)googlemail.com
   # needs func. \code{pvx} in i.pvx.R and \code{pvx.matrix} in i.pvx.matrix.R
@@ -20,7 +20,8 @@ expscore <- function(pers_obj){
   dimnames(Eni) <- dimnames(emp_resp)
   ### replace cells missing in emp_resp by NA in Eni new approach!----
   # affects Wni and Cni and all the other _ni's too
-  Eni[is.na(emp_resp)] <- NA
+  Eni[is.na(emp_resp)] <- NA 
+  # Eni[is.na(emp_resp)] <- 0 # nicht nötig passiert weiter unten
 
   # matplot(Eni[order(pers_obj$pers$WLE),],type="l") # ggf. noch machen
   # return(Eni)
@@ -40,6 +41,7 @@ expscore <- function(pers_obj){
   Wni <- sapply(1:nitems, foo2, pers_obj, Eni)
   dimnames(Wni) <- dimnames(emp_resp)
   # return(Wni)
+  Wni[is.na(emp_resp)] <- na_treat # new
   
   ## Kurtosis Cni (of xni)--------
   foo3 <- function(i, pers_obj=pers_obj, Eni=Eni){
@@ -61,9 +63,11 @@ expscore <- function(pers_obj){
   
   ## Score Residual  Yni--------
   Yni <- emp_resp-Eni
+  Yni[is.na(emp_resp)] <- na_treat
   
   ## Standardised Residual  Zni--------
   Zni <- Yni / sqrt(Wni) 
+  Zni[is.na(emp_resp)] <- na_treat
   
   ## Score Residual Squared Y2ni--------
   Y2ni <- Wni* (Zni)^2
@@ -73,3 +77,4 @@ expscore <- function(pers_obj){
   
   return(list(Eni=Eni, Wni=Wni, Cni=Cni, Yni=Yni, Zni=Zni, Y2ni=Y2ni, Z2ni=Z2ni))  
 }
+

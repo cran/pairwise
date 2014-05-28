@@ -4,7 +4,7 @@
 \usage{
   pers(itempar, daten = NULL, incidenz = NULL,
     na_treat = NULL, limit = 1e-05, iter = 50,
-    tecout = FALSE)
+    Nrel = FALSE, tecout = FALSE)
 }
 \arguments{
   \item{itempar}{The item parameter prior calculated or
@@ -55,6 +55,12 @@
   \item{iter}{numeric giving the maximum numer of iteration
   to perform.}
 
+  \item{Nrel}{logical with default set to \code{Nrel=FALSE}
+  to include persons with perfect response vectors for
+  calculating WLE reliability. If set to \code{Nrel=TRUE}
+  persons with perfect response vectors are excluded for
+  calculating WLE reliability.}
+
   \item{tecout}{logical default set to \code{FALSE}. If set
   to \code{TRUE} the result will be a (very) long list with
   estimation details for every case in \code{daten}. In
@@ -85,6 +91,22 @@ data(sim200x3)
 result <- pers(itempar=pair(sim200x3))
 summary(result)
 plot(result)
+logLik(result) # Log-Likelihood for 'estimated' model
+logLik(result, sat=TRUE) # Log-Likelihood for saturated model
+AIC(logLik(result)) # AIC for 'estimated' model
+AIC(logLik(result, sat=TRUE)) # AIC for saturated model
+BIC(logLik(result)) # BIC for 'estimated' model
+BIC(logLik(result, sat=TRUE)) # BIC for saturated model
+###### following example requires package eRm ######
+# require(eRm)
+# # itemparameter with eRm:
+# itempar_eRm <- thresholds(PCM(sim200x3))$ threshtable[[1]][,2:3]
+# # pairwise personparameter with eRm-itemparameter and data:
+# summary(pers(itempar=itempar_eRm,daten=sim200x3))
+# # eRm personparameter:
+# person.parameter(PCM(sim200x3))
+# # personparameter with pairwise:
+# summary(pers(pair(sim200x3)))
 }
 \references{
   Masters, G. (1982). A Rasch model for partial credit

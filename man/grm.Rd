@@ -2,7 +2,7 @@
 \alias{grm}
 \title{Graphical Model Check}
 \usage{
-  grm(daten, m = NULL, teil = "random", splitseed = "no",
+  grm(daten, m = NULL, split = "random", splitseed = "no",
     verbose = TRUE, ...)
 }
 \arguments{
@@ -18,43 +18,39 @@
   default \emph{m} is defined as \code{m =
   max(daten,na.rm=TRUE)+1}.}
 
-  \item{teil}{Specifies the splitting criterion. Basically
+  \item{split}{Specifies the splitting criterion. Basically
   there are three different options available - each with
   several modes - which are controlled by passing the
   corresponding character expression to the argument.
 
   1) Using the rawscore for splitting into subsamples with
-  the following modes: \code{teil = "median"} median raw
+  the following modes: \code{split = "median"} median raw
   score split - high score group and low score group;
-  \code{teil = "mean"} mean raw score split - high score
-  group and low score group; \code{teil = "score"}
+  \code{split = "mean"} mean raw score split - high score
+  group and low score group; \code{split = "score"}
   splitting \code{daten} into as many subsamples as there
   are raw score groups (discarding min and max score group)
 
   2) Dividing the persons in \code{daten} into subsamples
   with equal size by random allocation with the following
-  modes: \code{teil = "random"} (which is equivalent to
-  \code{teil = "random.2"}) divides persons into two
+  modes: \code{split = "random"} (which is equivalent to
+  \code{split = "random.2"}) divides persons into two
   subsamples with equal size. In general the number of
   desired subsamples must be expressed after the dot in the
-  character expression - e.g. \code{teil = "random.6"}
+  character expression - e.g. \code{split = "random.6"}
   divides persons into 6 subsamples (with equal size) by
   random allocation etc.
 
   3) The third option is using a manifest variable as a
-  splitting criterion. In this case a numeric indicating
-  the column number of the variable in \code{daten} must be
-  passed to the argument - e.g. \code{teil = 1} indicates
-  that the variable in the first column of \code{daten}
-  will be used as splitting criterion - (this variable will
-  of course be used only as splitting criterion). The
-  variable in \code{daten} should be coded as \code{factor}
-  or a numeric integer vector with min = 1 if \code{daten}
-  is a matrix.}
+  splitting criterion. In this case a vector with the same
+  length as number of cases in \code{daten} must be passed
+  to the argument grouping the data into subsamples. This
+  vector should be coded as \code{"factor"} or a
+  \code{"numeric"} integer vector with min = 1.}
 
   \item{splitseed}{numeric, used for
   \code{set.seed(splitseed)} for random splitting - see
-  argument \code{teil}.}
+  argument \code{split}.}
 
   \item{verbose}{logical, if \code{verbose = TRUE}
   (default) a message about subsampling is sent to console
@@ -109,35 +105,39 @@
 data(bfiN) # loading example data set
 
 # calculating itemparameters and SE for two random allocated subsamples
-grm<-grm(daten=bfiN, teil = "random")
+grm_med<-grm(daten=bfiN, split = "median")
+summary(grm_med)
+plot(grm_med)
 
-summary(grm)
+grm_ran<-grm(daten=bfiN, split = "random")
+
+summary(grm_ran)
 
 # some examples for plotting options
 # plotting item difficulties for two subsamples against each other
 # with elipses for a CI = 95\% .
-plot(grm)
+plot(grm_ran)
 
 # using triangles as plotting pattern
-plot(grm,pch=2)
+plot(grm_ran,pch=2)
 
 #plotting without CI ellipses
-plot(grm,ci=0,pch=2)
+plot(grm_ran,ci=0,pch=2)
 
 # plotting with item names
-plot(grm,itemNames=TRUE)
+plot(grm_ran,itemNames=TRUE)
 
 # Changing the size of the item names
-plot(grm,itemNames=TRUE, cex.names = 1.3)
+plot(grm_ran,itemNames=TRUE, cex.names = 1.3)
 
 # Changing the color of the CI ellipses
-plot(grm,itemNames=TRUE, cex.names = .8, col.error="green")
+plot(grm_ran,itemNames=TRUE, cex.names = .8, col.error="green")
 
 ###### example from details section 'Some Notes on Standard Errors' ########
-grm<-grm(daten=bfiN, teil = "random",splitseed=13)
-plot(grm)
+grm_def<-grm(daten=bfiN, split = "random",splitseed=13)
+plot(grm_def)
 ######
-grm_400<-grm(daten=bfiN, teil = "random", splitseed=13 ,nsample=400)
+grm_400<-grm(daten=bfiN, split = "random", splitseed=13 ,nsample=400)
 plot(grm_400)
 }
 \references{

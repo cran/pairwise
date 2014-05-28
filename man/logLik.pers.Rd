@@ -1,0 +1,23 @@
+\name{logLik.pers}
+\alias{logLik.pers}
+\title{S3 logLik for Object of class "pers"}
+\usage{
+  \method{logLik}{pers} (object, sat = FALSE, ...)
+}
+\arguments{
+  \item{object}{object of class\code{"pers"}}
+
+  \item{sat}{a "logical" with default set to
+  \code{sat=FALSE} to return the Log-Likelihood of the data
+  for the unrestricted modell based on parameters estimated
+  with function \code{\link{pers}}. If set to
+  \code{sat=TRUE} the Log-Likelihood of the saturated model
+  is returned instead.}
+
+  \item{...}{not used jet.}
+}
+\description{
+  S3 logLik method to extract the Log-Likelihood for object
+  of class\code{"pers"}
+}
+

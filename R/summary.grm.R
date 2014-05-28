@@ -3,8 +3,8 @@
 summary.grm<-function(object,ci=2,...){
   fu1<-function(x,ci){ cbind(x$parameter[,"sigma"]-(x$SE[,"sigma"]*ci) ,  x$parameter[,"sigma"]+(x$SE[,"sigma"]*ci))   }
   erg<-lapply(object,fu1,ci) 
-  dimnames(erg[[1]])[[2]]<-c("samp1_lower", "samp1_upper")
-  dimnames(erg[[2]])[[2]]<-c("samp2_lower", "samp2_upper")
+  dimnames(erg[[1]])[[2]]<-paste(names(erg)[1] ,c("ci_l", "ci_u"))
+  dimnames(erg[[2]])[[2]]<-paste(names(erg)[2] ,c("ci_l", "ci_u"))
   erg1<-cbind(erg[[1]],erg[[2]])
   u1<-erg1[,1]
   o1<-erg1[,2]

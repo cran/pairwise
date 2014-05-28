@@ -19,24 +19,29 @@
 #' @param cex.axis see \code{\link{plot}}
 #' @param ... other parameters passed to plot
 ########################### hier die plot method für grm #############################
-plot.grm<-function(x, xymin=NULL, xymax=NULL, ci=2, main=NULL, col.error="blue", itemNames=FALSE, cex.names=.8, type="b", xlab="", ylab="", pch=43, las=3, cex.axis = 0.5, ...){  
+plot.grm<-function(x, xymin=NULL, xymax=NULL, ci=2, main=NULL, col.error="blue", itemNames=FALSE, cex.names=.8, type="b", xlab=NULL, ylab=NULL, pch=43, las=3, cex.axis = 0.5, ...){  
   
   if(length(main)==0){main<-deparse(substitute(x))}
   
   #sonderfall 2 subsamples
   if (length(x)==2){
+    subsamp_names <- names(x)
+    
     Itemnames<-names(x[[1]]$parameter[,dim(x[[2]]$parameter)[2]])
-    X<-x[[1]]$parameter[,dim(x[[2]]$parameter)[2]]
-    Y<-x[[2]]$parameter[,dim(x[[1]]$parameter)[2]]
-    XS<-x[[1]]$SE[,dim(x[[2]]$SE)[2]]
-    YS<-x[[2]]$SE[,dim(x[[1]]$SE)[2]]
+    X<-x[[subsamp_names[1]]]$parameter[,dim(x[[ subsamp_names[1] ]]$parameter)[2]]
+    Y<-x[[subsamp_names[2]]]$parameter[,dim(x[[ subsamp_names[2] ]]$parameter)[2]]
+    XS<-x[[ subsamp_names[1] ]]$SE[,dim(x[[ subsamp_names[1] ]]$SE)[2]]
+    YS<-x[[ subsamp_names[2] ]]$SE[,dim(x[[ subsamp_names[2] ]]$SE)[2]]
 
     ##### plotingrange festlegen mit leerplot
     if(length(xymax)==0){xymax<-max(c(max(X),max(Y))) + 3*(max(c(max(XS),max(YS))))}
     if(length(xymin)==0){xymin<-min(c(min(X),min(Y))) - 3*(max(c(max(XS),max(YS))))}
     
-    Sample_1<-c(xymin,xymax); Sample_2<-c(xymin,xymax)
-    plot(Sample_1,Sample_2,type="n",bty="n", main=main, ...)
+    xx<-c(xymin,xymax); yy<-c(xymin,xymax)
+    if (length(xlab)==0) {xlab <- subsamp_names[1]}
+    if (length(ylab)==0) {ylab <- subsamp_names[2]}
+    
+    plot(x=xx,y=yy,type="n",bty="n", main=main, xlab=xlab, ylab=ylab, ...)
     # hilfsfunktion elipse
     eli<-function(x.cent,y.cent,xb,yh, ...){
       # plotten einer elipse

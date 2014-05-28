@@ -8,6 +8,7 @@
 #' @param na_treat optionaly an integer (vector) defining the type of treatment to missing responses in the argument \code{daten}. If set to \code{na_treat=NULL} (default) missing responses are treated as missings and the respective person is assigned to an corresponding missing group for estimation. An option is to set \code{na_treat} to any integer value between 0 (lowest category) and the numeric code for the maximum ctaegory of the respective item.
 #' @param limit numeric giving the limit at which accuracy the WL-algorithm stops.
 #' @param iter numeric giving the maximum numer of iteration to perform.
+#' @param Nrel logical with default set to \code{Nrel=FALSE} to include persons with perfect response vectors for calculating WLE reliability. If set to \code{Nrel=TRUE} persons with perfect response vectors are excluded for calculating WLE reliability.
 #' @param tecout logical default set to \code{FALSE}. If set to \code{TRUE} the result will be a (very) long list with estimation details for every case in \code{daten}. In case of a booklet-design the list entries will be divided by "booklet".
 #' @return An object of class \code{c("pers", "data.frame")} or a (very long) \code{"list"} (when setting on \code{techout=TRUE}) containing the person parameters.
 #' @exportClass pers
@@ -19,9 +20,26 @@
 #' result <- pers(itempar=pair(sim200x3))
 #' summary(result)
 #' plot(result)
+#' logLik(result) # Log-Likelihood for 'estimated' model
+#' logLik(result, sat=TRUE) # Log-Likelihood for saturated model
+#' AIC(logLik(result)) # AIC for 'estimated' model
+#' AIC(logLik(result, sat=TRUE)) # AIC for saturated model
+#' BIC(logLik(result)) # BIC for 'estimated' model
+#' BIC(logLik(result, sat=TRUE)) # BIC for saturated model
+#' ###### following example requires package eRm ######
+#' # require(eRm)
+#' # # itemparameter with eRm:
+#' # itempar_eRm <- thresholds(PCM(sim200x3))$ threshtable[[1]][,2:3]
+#' # # pairwise personparameter with eRm-itemparameter and data:
+#' # summary(pers(itempar=itempar_eRm,daten=sim200x3))
+#' # # eRm personparameter:
+#' # person.parameter(PCM(sim200x3))
+#' # # personparameter with pairwise:
+#' # summary(pers(pair(sim200x3))) 
 
-pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,iter=50,tecout=FALSE){
+pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,iter=50,Nrel=FALSE,tecout=FALSE){
 
+#  daten=NULL; incidenz=NULL;na_treat=NULL;limit=0.00001;iter=50;tecout=FALSE
 ##################################################################
 # na_treat=NULL;limit=0.00001;iter=50;tecout=FALSE
 # m wird aus der struktur des arguments itempar berechnet
@@ -39,8 +57,9 @@ pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,it
 ##### infos aus itempar class matrix---------------------
 if(any(class(itempar)=="matrix")){
   if(length(daten)==0){stop("no data assigned to argument daten")}
-  # hier noch Baustelle !!!!!!!!!!!!!!!
-  threshold <- apply(itempar,1,function(x){(na.omit(x))})  
+  
+  threshold <-lapply(1:nrow(itempar), function(i) {na.omit(itempar[i,])})
+
   ### berechnung der sb; sb als liste!!!!
   sb<-(lapply(threshold,function(x){cumsum(x)})) # richtig: umrechnung threshold (tau) in sb !!!!!!!!! OK
   sb_return <- sb
@@ -60,24 +79,6 @@ if(any(class(itempar)=="matrix")){
   # aufbereiten für ausgabe mit den separat eingegbenen daten aus argument daten
   itempar_pair <- list(threshold=itempar,sigma=rowMeans(itempar,na.rm=TRUE),sb=sb_return ,resp=dataprep1(daten)) 
   class(itempar_pair) <- c("pair", "list")
-}
-
-##### infos aus itempar:  class(itempar)=="pair" & daten == NULL---------------------
-if(   (any(class(itempar)=="pair")) & (length(daten)==0)    ){
-  daten <- itempar$resp
-  sb <- itempar$sb
-  m <- sapply(sb,length)+1
-  k <- length(m)
-  if(length(unique(m))!=1){
-    maxLen <- max(sapply(sb, length))
-    # create a new list with elements padded out with 0s
-    newsb <- lapply(sb, function(.ele){c(.ele, rep(0, maxLen))[1:maxLen]})
-    sb <- do.call(rbind, newsb)
-  }
-  if(length(unique(m))==1){
-    sb<-do.call(rbind, sb)
-  }
-  itempar_pair <- itempar # übernahme wie im argument eingegeben
 }
 
 ##### infos aus itempar: class(itempar)=="pair" & daten != NULL ---------------------
@@ -101,15 +102,35 @@ if(   (any(class(itempar)=="pair")) & (length(daten)!=0)    ){
   class(itempar_pair) <- c("pair", "list")
 }
 
+##### infos aus itempar:  class(itempar)=="pair" & daten == NULL---------------------
+if(   (any(class(itempar)=="pair")) & (length(daten)==0)    ){
+  daten <- itempar$resp
+  sb <- itempar$sb
+  m <- sapply(sb,length)+1
+  k <- length(m)
+  if(length(unique(m))!=1){
+    maxLen <- max(sapply(sb, length))
+    # create a new list with elements padded out with 0s
+    newsb <- lapply(sb, function(.ele){c(.ele, rep(0, maxLen))[1:maxLen]})
+    sb <- do.call(rbind, newsb)
+  }
+  if(length(unique(m))==1){
+    sb<-do.call(rbind, sb)
+  }
+  itempar_pair <- itempar # übernahme wie im argument eingegeben
+} 
+
+
+######################################################################################
 ##### sortierbare zeilennamen für daten; item namen neu nur wenn fehlend -------------
 daten<-dataprep1(daten)
 
 ##### some category checks with m and k ---------------------------------------------
-if (all(apply(daten,2,function(x){min(x,na.rm=TRUE)})== 0) == FALSE){stop("item categories must start with 0") }
-if(length(m)==0){m<-apply(daten,2,function(x){max(x,na.rm=TRUE)+1})}
-if(length(m)==1){m<-rep(m,dim(daten)[2])} 
-if(any (m < apply(daten,2,function(x){max(x,na.rm=TRUE)+1}))){stop("some items in data have more categories than defined in m","\n","max item categories in data are: ",paste(apply(daten,2,function(x){max(x,na.rm=TRUE)+1}),collapse=" , "),"\n", "but m was defined: ",paste(m,collapse=" , ")  )}
-if(dim(daten)[2]!=k){stop("number of items dose not match with argument itempar") }
+#if (all(apply(daten,2,function(x){min(x,na.rm=TRUE)})== 0) == FALSE){stop("item categories must start with 0") }
+#if(length(m)==0){m<-apply(daten,2,function(x){max(x,na.rm=TRUE)+1})}
+#if(length(m)==1){m<-rep(m,dim(daten)[2])} 
+#if(any (m < apply(daten,2,function(x){max(x,na.rm=TRUE)+1}))){stop("some items in data have more categories than defined in m","\n","max item categories in data are: ",paste(apply(daten,2,function(x){max(x,na.rm=TRUE)+1}),collapse=" , "),"\n", "but m was defined: ",paste(m,collapse=" , ")  )}
+#if(dim(daten)[2]!=k){stop("number of items dose not match with argument itempar") }
   
 
 ##### herstellen bzw. übergabe der incidenz matrix -----------------------------------
@@ -229,17 +250,25 @@ if(tecout==FALSE){
   ITER <-  unlist(lapply(ee1,function(x){ x[["ITER"]]} ),T)
   NA.group <-  unlist(lapply(ee1,function(x){ x[["NA.group"]]} ),T)
 
-  res1 <- data.frame(persID=PERS,NA.group,raw,WLE,SE.WLE,ITER)
+  res1 <- data.frame(persID=PERS,NA.group,raw,WLE,SE.WLE,ITER,row.names = PERS)
   res2 <- res1[order(res1$persID) ,]
   res3 <- data.frame(book=all_incpat,res2)
   
   # WLE Reliability rost 2004 p 381 see also http://www.rasch.org/erp7.htm
   reldat1 <- data.frame(WLE=res3$WLE,SE.WLE=res3$SE.WLE)
+  N=dim(reldat1)[1]
+  if (Nrel==TRUE){
+    reldat1 <- reldat1[!(res3$raw==sum(m-1) | res3$raw==0),  ]
+    N2=dim(reldat1)[1]
+  } else{N2=N}  
+  
   reldat2 <- reldat1[complete.cases(reldat1),]
   # dim(reldat1) 
+  
   r.WLE.rel <- var(reldat2$WLE) / (mean((reldat2$SE.WLE)^2) + var(reldat2$WLE))
+  
   n.WLE.rel <- dim(reldat2)[1]
-  WLE.rel <- list(r.WLE.rel=r.WLE.rel,n.WLE.rel=n.WLE.rel)
+  WLE.rel <- list(r.WLE.rel=r.WLE.rel,n.WLE.rel=n.WLE.rel,N.perf=N-N2)
   # END WLE Reliability    
   result <- list(pers=res3 , pair=itempar_pair, WLE.rel=WLE.rel)
   

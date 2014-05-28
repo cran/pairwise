@@ -5,7 +5,7 @@
   \method{plot}{grm} (x, xymin = NULL, xymax = NULL,
     ci = 2, main = NULL, col.error = "blue",
     itemNames = FALSE, cex.names = 0.8, type = "b",
-    xlab = "", ylab = "", pch = 43, las = 3,
+    xlab = NULL, ylab = NULL, pch = 43, las = 3,
     cex.axis = 0.5, ...)
 }
 \arguments{

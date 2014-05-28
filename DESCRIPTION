@@ -1,9 +1,9 @@
 Package: pairwise
 Type: Package
 Maintainer: Joerg-Henrik Heine <jhheine@googlemail.com>
-Date: 2014-14-04
+Date: 2014-05-28
 Author: Joerg-Henrik Heine <jhheine@googlemail.com>
-Version: 0.2.4
+Version: 0.2.5
 Encoding: UTF-8
 License: GPL-3
 Depends: R (>= 2.10.1)
@@ -21,8 +21,10 @@ Collate: 'pairwise-package.r' 'ftab.R' 'pair.R' 'plot.pair.R'
         'summary.grm.R' 'pairwise.item.fit.R' 'pairwise.person.fit.R'
         'gif.R' 'i.ptb.R' 'i.dummy.R' 'i.polyptb.R' 'i.pvx.R'
         'i.pvx.matrix.R' 'i.str.pattern.R' 'i.expscore.R' 'i.GewLL.R'
-        'i.PersPar.R' 'i.dataprep1.R' 'i.missing_group.R'
-Packaged: 2014-04-14 13:47:48 UTC; jh
+        'i.PersPar.R' 'i.dataprep1.R' 'i.missing_group.R' 'iff.R'
+        'i.pvx.super.R' 'logLik.pers.R' 'plot.rfa.R' 'rfa.R'
+        'summary.rfa.R' 'tff.R'
+Packaged: 2014-05-28 22:17:21 UTC; jh
 NeedsCompilation: no
 Repository: CRAN
-Date/Publication: 2014-04-14 19:20:49
+Date/Publication: 2014-05-29 00:43:36
