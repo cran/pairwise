@@ -62,6 +62,6 @@ P_VTikorr <- ( (P_Vikorr^(1/3)-1) * (3/P_Vqi) ) + (P_Vqi/3)
 #-----------------------------------------------------------------
 erg <- as.data.frame(list(Chi=round(P_Chi,4), df=P_df, p=round(P_pChi,4), OUTFIT.MSQ=round(P_Ui,4) , OUTFIT.ZSTD=round(P_UTi,4) ,INFIT.MSQ=round(P_Vi,4), INFIT.ZSTD=round(P_VTi,4), OUTFIT.MSQ.REL=round(P_Uikorr,4), OUTFIT.ZSTD.REL=round(P_UTikorr,4), INFIT.MSQ.REL=round(P_Vikorr,4), INFIT.ZSTD.REL=round(P_VTikorr,4)    ))
 
-class(erg) <- c("pairwise_person_fit","data.frame")
+class(erg) <- c("pairwise.person.fit","data.frame")
 return( erg )
 }

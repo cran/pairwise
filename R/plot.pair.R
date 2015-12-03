@@ -1,5 +1,5 @@
-#' @method plot pair
-#' @title S3 Plotting Thustonian Thresholds
+#' @export plot.pair
+#' @title S3 Plotting Thurstonian Thresholds
 #' @description S3 plotting Method for object of class\code{"pair"}
 #' @param x object of class\code{"pair"}
 #' @param sortdif logical wether to order items by difficulty

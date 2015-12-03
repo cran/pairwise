@@ -84,19 +84,22 @@ ergli_thr <- t(sapply(ergli,function(x){x$threshold}))
 SE_thr <- matrix((apply(ergli_thr, 2, sd,na.rm=TRUE)),nrow=nvar,ncol=nthr,byrow=F)
 rownames(SE_thr) <- names(SE_sig)
 colnames(SE_thr) <- paste("threshold",1:nthr,sep=".")
-SE <- cbind(SE_thr,sigma=SE_sig)
-
+#SE <- cbind(SE_thr,sigma=SE_sig)
+SE <- SE_thr
+SEsigma <- SE_sig
 ##### berechnung der ergebnisse parameter---------------- 
 ####################################################################
 parametererg <- pair(daten, m=m, pot=pot,zerocor=zerocor)
 ####################################################################
 parametererg_1 <- parametererg$threshold
-colnames(parametererg_1) <- paste("threshold",1:nthr,sep=".")
-parameter <- cbind(parametererg_1,sigma=parametererg$sigma)
+# colnames(parametererg_1) <- paste("threshold",1:nthr,sep=".")
+# parameter <- cbind(parametererg_1,sigma=parametererg$sigma)
 
 
 ##### aufbereitung der ergebnisse und ausgabe ----------------
-erg<-list(parameter=parameter, SE=SE)
+#erg<-list(parameter=parameter, SE=SE)
+erg<-list(threshold=parametererg_1, sigma=parametererg$sigma, SE=SE, SEsigma=SEsigma)
+
 class(erg) <- c("pairSE","list")
 
 return(erg)

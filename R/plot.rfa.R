@@ -1,4 +1,4 @@
-#' @method plot rfa
+#' @export plot.rfa
 #' @title S3 Plotting Rasch Residual Factor Analysis
 #' @description S3 plotting Method for object of class\code{"rfa"}
 #' @param x object of class\code{"rfa"}
@@ -23,7 +23,8 @@ plot.rfa<-function(x, com=1, ra="auto", main=NULL , labels=NULL, xlab="logits", 
   bereich <- ra
   
   yy <- x$pca$loadings[,com]
-  xx <- x$pers_obj$pair$sigma
+  if(x$transposed==FALSE){xx <- x$pers_obj$pair$sigma} # added: 17-12-2014 
+  if(x$transposed==TRUE){xx <- x$pers_obj$pers$WLE} # added: 17-12-2014
   
    ##### plotingrange festlegen mit leerplot
   ## automatische x achsen skalierung

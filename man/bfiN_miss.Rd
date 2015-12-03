@@ -11,20 +11,21 @@ Data from 2800 subjects answering to 5 neuroticism items with 6 answer categorie
 }
 
 \format{
-  A data frame containing 5 variables and 2800 obsevations.
+  A \code{"data.frame"} containing 5 variables and 2800 obsevations.
 }
 
 \details{
 This dataset is the same like the dataset \code{{bfiN}} included in this package, exept for the amount of missing data, which were additional created in that way, having aprox. 15\% missing for each of the 5 variables by random.
 
-The other variables from the original bfi dataset were skipped to have a simple example data frame. For further Information on the original dataset see R-package \code{{psych}}.
+The other variables from the original bfi dataset were skipped and the categories are 'downcoded' to '0,1,2,3,4,5' to have a simple, ready to use example data frame. For further Information on the original dataset see R-package \code{{psych}}. 
+The covariates like gender, education and age are in a seperate dataset \code{cov_bfi}
 }
 \source{
-\href{http://cran.r-project.org/web/packages/psych/index.html}{http://cran.r-project.org/web/packages/psych/index.html}
+\href{https://cran.r-project.org/package=psych}{https://cran.r-project.org/package=psych}
 }
 
 \references{
-Revelle, William (2012), psych: Procedures for Psychological, Psychometric, and Personality Research.\emph{R package version 1.2.12}
+Revelle, William (2015), psych: Procedures for Psychological, Psychometric, and Personality Research.\emph{R package version 1.5.1}
 }
 
 \examples{

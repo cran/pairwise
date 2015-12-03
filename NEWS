@@ -1,3 +1,32 @@
+Changes in Version 0.3.0
+
+  o added wighted Likelihood in result object of function pers().
+ 
+  o added summary function for pairwise.person.fit().
+  
+  o added summary function for pairwise.item.fit().
+
+  o added function simra().
+
+  o added function andersentest.pers().
+
+  o added covariate data to the bfiN and bfiN_miss data sets.
+
+  o added logical option itemNames = 'TRUE / FALSE' in ploting method for objects of class "pers". 
+
+  o changed structure of result in pairSE() and changed depending functions.
+
+  o added the function lrtest.pers() to perform a likelihood ratio test against the saturated model  for object of class "pers"
+
+  o changed internal calculations for powers of the pairwise comparison matrix.
+
+  o make use of transpose logical in S3 method for rfa - plot.rfa().
+
+  o extended options of argument pot in func. pair().
+
+  o fixed a bug in S3 method logLik.pers when calculating the degrees of freedom.
+
+
 Changes in Version 0.2.5
 
   o added the S3 method logLik.pers to extract the Log-Likelihood for object of class "pers"
@@ -18,6 +47,7 @@ Changes in Version 0.2.5
 
   o fixed a error messages which occured under extreme sparse data situations using function pers()
 
+
 Changes in Version 0.2.4
 
   o fixed a mismatch when calcualting item and person fit statistic under booklet design circumstances
@@ -27,6 +57,7 @@ Changes in Version 0.2.4
   o changed summary method for object of class "pers".
 
   o added plotting method for object of class "pers" and documentation. This plots a person item map. 
+
 
 Changes in Version 0.2.2
 

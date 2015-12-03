@@ -1,7 +1,13 @@
-#' @method summary grm
+#' @export summary.grm
+#' @title S3 Summary for graphical Model Check
+#' @description S3 summary method for object of class\code{"grm"}
+#' @param object object of class\code{"grm"}
+#' @param ci numeric with default \code{ci=2} to return cinfidence intervalls for point estimator.
+#' @param ... other parameters passed trough
 ########################### hier die summary method #class grm #######################
 summary.grm<-function(object,ci=2,...){
-  fu1<-function(x,ci){ cbind(x$parameter[,"sigma"]-(x$SE[,"sigma"]*ci) ,  x$parameter[,"sigma"]+(x$SE[,"sigma"]*ci))   }
+  #fu1<-function(x,ci){ cbind(x$parameter[,"sigma"]-(x$SE[,"sigma"]*ci) ,  x$parameter[,"sigma"]+(x$SE[,"sigma"]*ci))   }
+  fu1<-function(x,ci){ cbind(x$sigma-(x$SEsigma*ci) ,  x$sigma+(x$SEsigma*ci))   }
   erg<-lapply(object,fu1,ci) 
   dimnames(erg[[1]])[[2]]<-paste(names(erg)[1] ,c("ci_l", "ci_u"))
   dimnames(erg[[2]])[[2]]<-paste(names(erg)[2] ,c("ci_l", "ci_u"))

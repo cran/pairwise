@@ -1,4 +1,4 @@
-#' @method plot pers
+#' @export plot.pers
 #' @title S3 Plotting Person - Item Map
 #' @description S3 plotting method for object of class\code{"pers"}
 #' @param x object of class\code{"pers"}
@@ -6,14 +6,16 @@
 #' @param sortdif logical wether to order items by difficulty
 #' @param main see \code{\link{plot}}
 #' @param ylab see \code{\link{plot}}
+#' @param itemNames logical wether to use itemnames in the resulting plot
 #' @param fillCol color for bar filling of the ability histogram
 #' @param lineCol color for bar lines of the ability histogram
 #' @param cex see \code{\link{text}}
 #' @param pos see \code{\link{text}}
 #' @param breaks see \code{\link{hist}}
+#' @param pch see \code{\link{points}}
 #' @param ... other parameters passed to \code{\link{hist}} and \code{\link{text}}.
 
-plot.pers<-function(x, ra=NULL, sortdif=FALSE, main=NULL, ylab="Logits", fillCol="grey60", lineCol="grey40", cex=.7, pos=4, breaks = "Sturges", ...){ 
+plot.pers<-function(x, ra=NULL, sortdif=FALSE, main=NULL, ylab="Logits", itemNames=TRUE,fillCol="grey60", lineCol="grey40", cex=.7, pos=4, breaks = "Sturges", pch = 1, ...){ 
   if(length(main)==0){
     main<-paste("Person - Item Map ","\n ", deparse(substitute(x)) , sep="")
     #main<-deparse(substitute(x))
@@ -22,15 +24,19 @@ plot.pers<-function(x, ra=NULL, sortdif=FALSE, main=NULL, ylab="Logits", fillCol
 if(sortdif==TRUE){
   threshold <- pers_obj$pair$threshold
   sigma <- pers_obj$pair$sigma
+  spaltennamen <- colnames(threshold)
   #####
-  threshold <- threshold[order(sigma), ]
+  threshold <- as.matrix(threshold[order(sigma), ])
+  colnames(threshold) <- spaltennamen
   sigma <- sort(sigma)
   cat("(ordered by location) \n")
-}else {threshold <- pers_obj$pair$threshold
-       sigma <- pers_obj$pair$sigma}
+}else{
+  threshold <- pers_obj$pair$threshold
+  sigma <- pers_obj$pair$sigma}
+  
 
 #---------------------------------
-hist_obj <- hist(pers_obj$pers$WLE, plot = FALSE, breaks=breaks , ...)
+hist_obj <- hist(pers_obj$pers$WLE, plot = FALSE, breaks=breaks)#  , ...
 
 binWidth <- hist_obj$breaks[2] - hist_obj$breaks[1]
 xscale <- 1 * 0.90 / max(hist_obj$density)
@@ -59,10 +65,13 @@ par(mar=c(3,1,0,3))
 #-------------
 # plot(x=1:(length(sigma)+1),y=seq(min(hist_obj$breaks),max(hist_obj$breaks),length.out=(length(sigma)+1)),type="n",bty="n",ylab="" ,yaxt="n",xaxt="n" ,xlab="items")
 plot(x=1:(length(sigma)+1),y=seq(-ra,ra,length.out=(length(sigma)+1)),type="n",bty="n",ylab="" ,yaxt="n",xaxt="n" ,xlab="items")
-text(x=1:length(sigma),y=sigma, labels=names(sigma),cex=cex,pos=pos, ...)
+
+if (itemNames==TRUE){text(x=1:length(sigma),y=sigma, labels=names(sigma),cex=cex,pos=pos, ...)}
+
 #-------------
 for ( i in 1:dim(threshold)[1] ){
-  lines(x=rep(i,length(na.omit(threshold[i,])) ), y= na.omit(threshold[i,]),type="o")
+  lines(x=rep(i,length(na.omit(threshold[i,])) ), y= na.omit(threshold[i,]), type = "l")
+  points(x=rep(i,length(na.omit(threshold[i,])) ), y= na.omit(threshold[i,]), pch=pch)
 }
 #-------------
 title(main = main, sub = NULL, xlab = NULL, ylab = NULL,line = 1, outer = TRUE)

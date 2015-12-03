@@ -1,4 +1,9 @@
-#' @method summary rfa
+#' @export summary.rfa
+#' @title S3 Summary for rasch factor analysis
+#' @description S3 summary method for object of class\code{"pair"}
+#' @param object object of class\code{"pair"}
+#' @param sortdif logical with default \code{sortdif=FALSE} wether to order items / persons by difficulty / ability.
+#' @param ... other parameters passed trough
 ########################### hier die summary method fuer rfa #############################
 summary.rfa<-function(object, sortdif=FALSE, ...){
   ### item analysis performed

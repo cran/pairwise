@@ -1,4 +1,4 @@
-#' @method plot pairSE
+#' @export plot.pairSE
 #' @title S3 Plotting Thustonian Thresholds with SE
 #' @description S3 plotting method for object of class\code{"pairSE"}
 #' @param x object of class\code{"pairSE"}
@@ -18,21 +18,28 @@
 ########################### hier die plot method für pairSE #############################
 #ci=2; sortdif=FALSE; ra="auto"; main=NULL; col.lines=1:(dim(x$parameter)[2]-1); col.error=1:(dim(x$parameter)[2]-1); type="b";xlab="items"; ylab="logits"; pch=20; las=3; cex.axis = 0.8
 
-plot.pairSE<-function(x, ci=2, sortdif=FALSE, ra="auto", main=NULL, col.lines=1:(dim(x$parameter)[2]-1), col.error=1:(dim(x$parameter)[2]-1), type="b",xlab="items", ylab="logits", pch=20, las=3, cex.axis = 0.8, ...){
+#plot.pairSE<-function(x, ci=2, sortdif=FALSE, ra="auto", main=NULL, col.lines=1:(dim(x$parameter)[2]-1), col.error=1:(dim(x$parameter)[2]-1), type="b",xlab="items", ylab="logits", pch=20, las=3, cex.axis = 0.8, ...){
+plot.pairSE<-function(x, ci=2, sortdif=FALSE, ra="auto", main=NULL, col.lines=1:(dim(x$threshold)[2]), col.error=1:(dim(x$threshold)[2]), type="b",xlab="items", ylab="logits", pch=20, las=3, cex.axis = 0.8, ...){
   
   if(length(main)==0){main<-deparse(substitute(x))}
   
   bereich <- ra
   
   if(sortdif==TRUE){
-    sorter <- order(x$parameter[,"sigma"])
-    x$parameter <- x$parameter[sorter,]
+    #sorter <- order(x$parameter[,"sigma"])
+    sorter <- order(x$sigma)
+    # x$parameter <- x$parameter[sorter,]
     x$SE <- x$SE[sorter,]
+    x$SEsigma <- x$SEsigma[sorter]
+    x$threshold <- x$threshold[sorter,] 
+    x$sigma <- x$sigma[sorter] 
     cat("(ordered by location) \n")
   }
   #ende der sortierung
-  thresholds<-as.matrix(x$parameter[,1:(dim(x$parameter)[2]-1)])
-  SEthresholds<-as.matrix(x$SE[,1:(dim(x$SE)[2]-1)])
+  # thresholds<-as.matrix(x$parameter[,1:(dim(x$parameter)[2]-1)])
+  thresholds <- x$threshold
+  # SEthresholds<-as.matrix(x$SE[,1:(dim(x$SE)[2]-1)])
+  SEthresholds <- x$SE
   if(dim(thresholds)[2]==1){colnames(thresholds)="sigma"}
   thresholds->logit
   maxLen <- dim(logit)[2]; nitem <- dim(logit)[1]
@@ -56,10 +63,16 @@ plot.pairSE<-function(x, ci=2, sortdif=FALSE, ra="auto", main=NULL, col.lines=1:
   axis(1, 1:(nitem), labels=c(rownames(logit)),las=las, cex.axis=cex.axis)#, ... 
   mtext(text=colnames(logit), side = 4, at = colMeans(logit,na.rm=TRUE), padj = NA, cex = cex.axis, col = col.lines,las=1)
   
-  for (i in 1:(dim(x$parameter)[2]-1)){
-    segments( 1:(dim(x$parameter)[1]), thresholds[,i]+SEthresholds[,i]*ci, 1:(dim(x$parameter)[1]), thresholds[,i]-SEthresholds[,i]*ci ,col=col.error[i])#,... 
-    segments( 1:(dim(x$parameter)[1])-((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]+SEthresholds[,i]*ci, 1:(dim(x$parameter)[1])+((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]+SEthresholds[,i]*ci ,col=col.error[i])#,... 
-    segments( 1:(dim(x$parameter)[1])-((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]-SEthresholds[,i]*ci, 1:(dim(x$parameter)[1])+((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]-SEthresholds[,i]*ci ,col=col.error[i])#,...  
+  #for (i in 1:(dim(x$parameter)[2]-1)){
+  for (i in 1:(dim(x$threshold)[2])){
+    #segments( 1:(dim(x$parameter)[1]), thresholds[,i]+SEthresholds[,i]*ci, 1:(dim(x$parameter)[1]), thresholds[,i]-SEthresholds[,i]*ci ,col=col.error[i])#,... 
+    segments( 1:(dim(x$threshold)[1]), thresholds[,i]+SEthresholds[,i]*ci, 1:(dim(x$threshold)[1]), thresholds[,i]-SEthresholds[,i]*ci ,col=col.error[i])#,... 
+    
+    #segments( 1:(dim(x$parameter)[1])-((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]+SEthresholds[,i]*ci, 1:(dim(x$parameter)[1])+((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]+SEthresholds[,i]*ci ,col=col.error[i])#,...
+    segments( 1:(dim(x$threshold)[1])-((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]+SEthresholds[,i]*ci, 1:(dim(x$threshold)[1])+((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]+SEthresholds[,i]*ci ,col=col.error[i])#,... 
+    
+    #segments( 1:(dim(x$parameter)[1])-((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]-SEthresholds[,i]*ci, 1:(dim(x$parameter)[1])+((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]-SEthresholds[,i]*ci ,col=col.error[i])#,...  
+    segments( 1:(dim(x$threshold)[1])-((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]-SEthresholds[,i]*ci, 1:(dim(x$threshold)[1])+((.15*(SEthresholds[,i]!=0))*ci), thresholds[,i]-SEthresholds[,i]*ci ,col=col.error[i])#,... 
   }
   par(op) # reset graphics setting
   

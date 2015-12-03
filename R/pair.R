@@ -14,7 +14,7 @@
 #'    
 #' @param daten a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
 #' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.
-#' @param pot logical, if TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations.
+#' @param pot either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.
 #' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373).
 #' @param ccf logical with default \code{ccf=FALSE} to perform normal item parameter calculation, if set to \code{ccf=TRUE} just the conditional item (category) frequencies are returned.
 #' @param ... additional parameters passed through.
@@ -43,6 +43,7 @@
 
 pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
   
+  fuargs <- list(daten=daten, m=m, pot=pot, zerocor=zerocor, ccf=ccf, ...=...)
   #### some internal functions ------
   dataprep1<-function(X){
   X<-as.matrix(X)
@@ -111,15 +112,35 @@ pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
   }
   }
   
-  cube<-function(M){
-  Mp<-M%*%M%*%M
-  return(Mp)
-  }
+#   cube<-function(M){
+#   Mp<-M%*%M%*%M
+#   return(Mp)
+#   }
   
+  cube<-function(M, POTT=3){
+    Mp <- M
+    for (i in 1:(POTT-1)){
+      Mp<-Mp%*%M
+    }
+    return(Mp)
+  }
+    
   Dmat<-function(X){
   dmat <- t(X) / X
   return (dmat) 
   }
+#### compute arbitrary powers of matrix 
+pow <- function (x, k) 
+{  n <- nrow(x)
+   # return(pow(solve(x), -k))
+   x.k <- x
+   i <- 2
+   while (i <= k) {
+     x.k <- x.k %*% x
+     i <- i + 1
+   }
+   return(x.k)
+}
   #### END internal functions ------
   
   #### start data preparation ------
@@ -127,8 +148,8 @@ pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
   
   ### some category checks for m ----
   if(length(m)==0){if (all(apply(d,2,function(x){min(x,na.rm=TRUE)})== 0) == FALSE){stop("item categories must start with 0") }}
-  if (length(m)==0){m<-apply(d,2,function(x){max(x,na.rm=TRUE)+1})}
-  if (length(m)==1){m<-rep(m,dim(d)[2])} 
+  if (length(m)==0){m<-apply(d,2,function(x){max(x,na.rm=TRUE)+1}); comment(m) <- "estimated from data"}
+  if (length(m)==1){m<-rep(m,dim(d)[2]); comment(m) <- "user defined (recycled)"}else{comment(m) <- "user defined"} 
   if (any (m < apply(d,2,function(x){max(x,na.rm=TRUE)+1}))){stop("some items in data have more categories than defined in m","\n","max item categories in data are: ",paste(apply(d,2,function(x){max(x,na.rm=TRUE)+1}),collapse=" , "),"\n", "but m was defined: ",paste(m,collapse=" , ")  )}
 
   #### start itemparameter calculation ------
@@ -137,9 +158,17 @@ pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
   f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE)
   mVector<-f$mVector
   # powers of nij ?
+  if(class(pot)=="logical"){
   if(pot==FALSE){nij <- f$fmat}
   if(pot==TRUE){nij <- cube(f$fmat) }
-  
+  }
+  if(class(pot)=="numeric"){
+    if(pot<2){stop("pot must be >= than 2")}
+    else{
+      nij <- pow(f$fmat,pot)
+    }
+  }
+   
   # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
   if(zerocor==TRUE){nij[nij==0]<-1}
   
@@ -169,7 +198,7 @@ pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
     # rownames(threshold) <- colnames(d)
   }
 
-  erg<-list(threshold=threshold,sigma=sigma,sb=sb,resp=d)
+  erg<-list(threshold=threshold,sigma=sigma,sb=sb,resp=d, fuargs=fuargs, m=m)
   class(erg) <- c("pair","list")
   
   #invisible(erg)
@@ -182,8 +211,16 @@ pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
   f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE)
   mVector<-f$mVector
   # powers of nij ?
-  if(pot==FALSE){nij <- f$fmat}
-  if(pot==TRUE){nij <- cube(f$fmat) }
+  if(class(pot)=="logical"){
+    if(pot==FALSE){nij <- f$fmat}
+    if(pot==TRUE){nij <- cube(f$fmat) }
+  }
+  if(class(pot)=="numeric"){
+    if(pot<2){stop("pot must be >= than 2")}
+    else{
+      nij <- cube(f$fmat, POTT=pot)
+    }
+  }
   
   # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
   if(zerocor==TRUE){nij[nij==0]<-1}

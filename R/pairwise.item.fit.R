@@ -68,6 +68,6 @@ VTikorr <- ( (Vikorr^(1/3)-1) * (3/Vqi) ) + (Vqi/3)
 #-----------------------------------------------------------------
 erg <- as.data.frame(list(Chi=round(Chi,4), df=df, p=round(pChi,4), OUTFIT.MSQ=round(Ui,4) , OUTFIT.ZSTD=round(UTi,4) ,INFIT.MSQ=round(Vi,4), INFIT.ZSTD=round(VTi,4) , OUTFIT.MSQ.REL=round(Uikorr,4), OUTFIT.ZSTD.REL=round(UTikorr,4) ,INFIT.MSQ.REL=round(Vikorr,4), INFIT.ZSTD.REL=round(VTikorr,4) ))
 
-class(erg) <- c("pairwise_item_fit","data.frame")
+class(erg) <- c("pairwise.item.fit","data.frame")
 return( erg )
 }

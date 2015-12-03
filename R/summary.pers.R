@@ -1,4 +1,4 @@
-#' @method summary pers
+#' @export summary.pers
 #' @title S3 Summary for Thetas
 #' @description S3 summary method for object of class\code{"pers"}
 #' @param object object of class\code{"pers"}

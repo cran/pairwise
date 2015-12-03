@@ -38,6 +38,7 @@
 #' # summary(pers(pair(sim200x3))) 
 
 pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,iter=50,Nrel=FALSE,tecout=FALSE){
+fuargs <- list(itempar=itempar, daten=daten, incidenz=incidenz, na_treat=na_treat, limit=limit, iter=iter, Nrel=Nrel, tecout=tecout)
 
 #  daten=NULL; incidenz=NULL;na_treat=NULL;limit=0.00001;iter=50;tecout=FALSE
 ##################################################################
@@ -208,7 +209,7 @@ for (i in 1:length(daten_booklet_list)){
   
   est.details <- mapply(PersPar,np_gr,sb_gr,m_gr,iter,limit,SIMPLIFY=FALSE)
   scoL <- lapply(d_gr,rowSums)
-  e1 <- mapply(function(x,y){(data.frame( PERS=names(x),raw=x, WLE=y$fw[x+1], SE.WLE=y$se.fw[x+1], ITER=rep(y$itmax,length(x)),row.names=names(x),stringsAsFactors=FALSE))},scoL, est.details, SIMPLIFY = FALSE)
+  e1 <- mapply(function(x,y){(data.frame( PERS=names(x),raw=x, WLE=y$fw[x+1], SE.WLE=y$se.fw[x+1], ITER=rep(y$itmax,length(x)), WLL=rep(y$wLL,length(x)) ,row.names=names(x),stringsAsFactors=FALSE))},scoL, est.details, SIMPLIFY = FALSE)
   
   nag <- as.vector(unlist(mapply(rep, names(e1), sapply(e1,function(x){dim(x)[1]}))))# as.vector ergänzt
   e2 <- do.call(rbind,e1)
@@ -219,7 +220,7 @@ for (i in 1:length(daten_booklet_list)){
   if(length(PeNA)!=0){ # weglassen falls länge null 
   mi_PeNA <- rep(names(PeNA),sapply(PeNA,length))
   wh_PeNA <- unlist(lapply(PeNA,names))
-  e4 <- data.frame(NA.group=mi_PeNA, PERS=wh_PeNA,raw=NA, WLE=NA, SE.WLE=NA, ITER=NA) ;row.names(e4)<-NULL
+  e4 <- data.frame(NA.group=mi_PeNA, PERS=wh_PeNA,raw=NA, WLE=NA, SE.WLE=NA, ITER=NA, WLL=NA) ;row.names(e4)<-NULL
   ## ende personen mit WLE = NA:
   e5 <- rbind(e3,e4)
   ergL[[i]] <- list(est.result=e5, est.details=est.details) 
@@ -249,10 +250,12 @@ if(tecout==FALSE){
   SE.WLE <-  unlist(lapply(ee1,function(x){ x[["SE.WLE"]]} ),T)
   ITER <-  unlist(lapply(ee1,function(x){ x[["ITER"]]} ),T)
   NA.group <-  unlist(lapply(ee1,function(x){ x[["NA.group"]]} ),T)
+  WLL <- unlist(lapply(ee1,function(x){ x[["WLL"]]} ),T) #added 24.11.2015
 
-  res1 <- data.frame(persID=PERS,NA.group,raw,WLE,SE.WLE,ITER,row.names = PERS)
+  res1 <- data.frame(persID=PERS,NA.group,raw,WLE,SE.WLE,ITER,WLL,row.names = PERS)
   res2 <- res1[order(res1$persID) ,]
   res3 <- data.frame(book=all_incpat,res2)
+   
   
   # WLE Reliability rost 2004 p 381 see also http://www.rasch.org/erp7.htm
   reldat1 <- data.frame(WLE=res3$WLE,SE.WLE=res3$SE.WLE)
@@ -269,8 +272,10 @@ if(tecout==FALSE){
   
   n.WLE.rel <- dim(reldat2)[1]
   WLE.rel <- list(r.WLE.rel=r.WLE.rel,n.WLE.rel=n.WLE.rel,N.perf=N-N2)
-  # END WLE Reliability    
-  result <- list(pers=res3 , pair=itempar_pair, WLE.rel=WLE.rel)
+  # END WLE Reliability  
+  res3 <- as.list(res3) # changed 27-3-2015 --> pers is now a list
+  res3$resp <- daten_booklet_list # changed 27-3-2015 --> pers is now a list
+  result <- list(pers=res3 , pair=itempar_pair, WLE.rel=WLE.rel, fuargs=fuargs)
   
   class(result) <- c("pers","list")
   
