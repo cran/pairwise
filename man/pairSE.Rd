@@ -49,6 +49,7 @@ In general, it is recommended to use the argument with default value \code{pot=T
 \section{A note on standard errors}{
  Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} may be the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).
 }
+
 \examples{
 data(bfiN) # loading example data set
 
@@ -71,4 +72,3 @@ Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5
 
 Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
 }
-

@@ -14,4 +14,3 @@ lrtest.pers(object, ...)
 \description{
 Function to perform a likelihood ratio test for the estimated model 'against' the saturated model for object of class\code{"pers"}.
 }
-

@@ -40,4 +40,3 @@ simra(itempar = itempar)
 simra(itempar = itempar,replicate = 10) # draw 10 replications
 
 }
-

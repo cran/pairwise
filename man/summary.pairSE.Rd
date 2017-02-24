@@ -16,4 +16,3 @@
 \description{
 S3 summary method for object of class\code{"pairSE"}
 }
-

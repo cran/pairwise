@@ -21,4 +21,3 @@
 \description{
 S3 summary method for object of class\code{c("pairwise.item.fit", "data.frame" )}
 }
-

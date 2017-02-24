@@ -45,4 +45,3 @@
 \description{
 S3 plotting Method for object of class\code{"grm"}
 }
-

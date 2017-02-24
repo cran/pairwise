@@ -39,4 +39,3 @@ for(i in 1:5){esc(pers_obj=result,i,lwd=2)}
 esc(pers_obj=result,2,integ="all",lwd=2) # plot for secod item
 
 }
-

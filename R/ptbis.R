@@ -39,5 +39,7 @@ ptbis <- function(y, daten=NULL){# daten = data.frame mit polytomen variablen; y
   
   colnames(ergmat) <- c(sapply(0:((dim(ergmat)[2]/2)-1),function(x){paste(x,c("rptb","n"),sep=".")}))
  
+  class(ergmat) <- c("data.frame", "ptbis")
+  
   return(ergmat)
 }

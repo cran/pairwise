@@ -29,9 +29,20 @@ plot.pairSE<-function(x, ci=2, sortdif=FALSE, ra="auto", main=NULL, col.lines=1:
     #sorter <- order(x$parameter[,"sigma"])
     sorter <- order(x$sigma)
     # x$parameter <- x$parameter[sorter,]
-    x$SE <- x$SE[sorter,]
+    SE <- x$SE[sorter,]## new 31-5-2016
+    dim(SE) <- dim(x$SE)## new 31-5-2016
+    colnames(SE) <- colnames(x$SE)## new 31-5-2016
+    rownames(SE) <- (rownames(x$SE))[sorter]## new 31-5-2016
+    
+    threshold <- x$threshold[sorter,]## new 31-5-2016
+    dim(threshold) <- dim(x$threshold)## new 31-5-2016
+    colnames(threshold) <- colnames(x$threshold)## new 31-5-2016
+    rownames(threshold) <- (rownames(x$threshold))[sorter]## new 31-5-2016
+    
+    x$SE <- SE
+    x$threshold <- threshold
+    
     x$SEsigma <- x$SEsigma[sorter]
-    x$threshold <- x$threshold[sorter,] 
     x$sigma <- x$sigma[sorter] 
     cat("(ordered by location) \n")
   }

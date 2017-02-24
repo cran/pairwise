@@ -29,4 +29,3 @@ ftab(bfiN)
 data(sim200x3)
 ftab(sim200x3)
 }
-

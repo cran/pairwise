@@ -38,4 +38,3 @@ make.incidenz(tab=cogBOOKLET, bookid=d$BOOKID, info=TRUE) # get some info too
 make.incidenz(tab=cogBOOKLET, bookid=d$BOOKID, item_order=names(cog)[4:34])  
 #######################
 }
-

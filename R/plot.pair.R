@@ -26,11 +26,20 @@ plot.pair<-function(x, sortdif=FALSE, ra="auto", main=NULL , col.lines=(1:dim(x$
     #sb <- x$sb
     sigma <- x$sigma
     #####
+    thrcolnames <- colnames(threshold)## new 31-5-2016
+    thrrownames <- rownames(threshold)## new 31-5-2016
+    
     threshold <- threshold[order(sigma), ]
+    thrrownames <- thrrownames[order(sigma)]## new 31-5-2016
+    
+    dim(threshold) <- dim(x$threshold) ## new 31-5-2016
+    colnames(threshold) <- thrcolnames ## new 31-5-2016
+    rownames(threshold) <- thrrownames ## new 31-5-2016
+    
     #sb <- sb[order(sigma), ]
     sigma <- sort(sigma)
     x<-list(threshold=threshold,sigma=sigma)
-    class(x)<-c("pair", "list")
+    # class(x)<-c("pair", "list")
     cat("(ordered by location) \n")
   }
   

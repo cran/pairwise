@@ -16,14 +16,14 @@ a \code{data.frame} containing a booklet allocation table for the cognitive Data
 
 \details{
 For further Information on variables and their meaning see the codebook PDF file 
-available at \href{http://pisa2003.acer.edu.au/downloads.php}{http://pisa2003.acer.edu.au/downloads.php}
+available at \href{https://www.oecd.org/pisa/data/}{https://www.oecd.org/pisa/data/}
 }
 
 \source{
-\href{http://pisa2003.acer.edu.au/downloads.php}{http://pisa2003.acer.edu.au/downloads.php}
+\href{https://www.oecd.org/pisa/data/}{https://www.oecd.org/pisa/data/}
 }
 \references{
-Database - PISA 2003, \emph{Downloadable Data}, \href{http://pisa2003.acer.edu.au/downloads.php}{http://pisa2003.acer.edu.au/downloads.php}
+Database - PISA 2003, \emph{Downloadable Data}, \href{https://www.oecd.org/pisa/data/}{https://www.oecd.org/pisa/data/}
 }
 \examples{
 data(cogBOOKLET)

@@ -99,7 +99,7 @@ if(   (any(class(itempar)=="pair")) & (length(daten)!=0)    ){
   }
   # aufbereiten für ausgabe mit den separat eingegbenen daten aus argument daten
   if(any(colnames(daten) != names(sb))){stop("mismatch: item names in daten and itempar")}
-  itempar_pair <- list(threshold=itempar[["threshold"]],sigma=itempar[["sigma"]],sb=itempar[["sb"]] ,resp=dataprep1(daten)) 
+  itempar_pair <- list(threshold=itempar[["threshold"]],sigma=itempar[["sigma"]],sb=itempar[["sb"]] ,resp=dataprep1(daten), fuargs=itempar[["fuargs"]], m=itempar[["m"]]) 
   class(itempar_pair) <- c("pair", "list")
 }
 

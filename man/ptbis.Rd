@@ -30,4 +30,3 @@ ptbis(y=y, daten=sim200x3)
 result <- pers(pair(sim200x3))
 ptbis(y= result)
 }
-

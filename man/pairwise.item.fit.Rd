@@ -29,4 +29,3 @@ pairwise.item.fit(pers_obj=result) # item fit statistic
 \references{
 Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 }
-

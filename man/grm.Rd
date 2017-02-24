@@ -40,6 +40,7 @@ WARNING: When using data based on booklet designs with systematically missing va
 \section{A note on standard errors}{
  Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).
 }
+
 \examples{
 data(bfiN) # loading example data set
 
@@ -90,4 +91,3 @@ plot(grm_400)
 \references{
 description of function \code{\link{pairSE}}\code{{pairwise}}.
 }
-

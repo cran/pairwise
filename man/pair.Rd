@@ -63,4 +63,3 @@ Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainmen
 
 Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 }
-

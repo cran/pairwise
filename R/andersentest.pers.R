@@ -43,7 +43,7 @@
 
 andersentest.pers<-function(pers_obj, split="median", splitseed="no", pot=NULL, zerocor=NULL){
   if(!is(pot, "NULL")){pers_obj$pair$fuargs$pot <- pot}
-  if(!is(zerocor, "NULL")){pers_obj$pair$fuargs$pot <- pot}
+  if(!is(zerocor, "NULL")){pers_obj$pair$fuargs$zerocor <- zerocor}
   ### auslesen von pers_obj
   daten <- pers_obj$pair$resp  
   

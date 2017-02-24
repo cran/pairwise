@@ -2,8 +2,8 @@
 % Please edit documentation in R/pairwise-package.r
 \docType{package}
 \name{pairwise-package}
-\alias{pairwise}
 \alias{pairwise-package}
+\alias{pairwise}
 \title{Rasch Model Parameters with pairwise}
 \description{
 Performs the explicit calculation -- not estimation! -- of the Rasch item parameters for dichotomous and polytomous response formats using a pairwise comparison approach (Choppin, 1968, 1985). On the basis of the item parameters, person parameters (WLE) are calculated according to Warm's weighted likelihood approach (Warm, 1989). Item- and person fit statistics and several functions for plotting are available.
@@ -30,9 +30,6 @@ To detect multidimensionality within a set of Items a rasch residual factor anal
 
 For a 'heuristic' model check the function \code{\link{grm}} makes the basic calculations for the graphical model check for dicho- or polytomous item response formats. The corresponding S3 plotting method is \code{\link{plot.grm}}.
 }
-\author{
-Joerg-Henrik Heine <jhheine@googlemail.com>
-}
 \references{
 Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
 
@@ -58,4 +55,6 @@ Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: M
 
 Wright, B. D. (1996). Comparing Rasch measurement and factor analysis. \emph{Structural Equation Modeling: A Multidisciplinary Journal, 3}(1), 3–24.
 }
-
+\author{
+Joerg-Henrik Heine <jhheine@googlemail.com>
+}

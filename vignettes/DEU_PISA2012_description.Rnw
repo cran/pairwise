@@ -20,13 +20,13 @@
 
 \section{Loading Data}
 
-First install and load the package pairwise.
+First install and load the package 'pairwise'.
 
 <<>>=
 library(pairwise)
 @
 
-Once you have installed the package 'pairwise' the selected PISA 2012 Data for the german subsample can easy be loaed by simply typing the following comand into the R console.
+Once you have installed the package 'pairwise' the selected PISA 2012 Data for the german subsample can be loaded by simply typing the following comand into the R console.
 
 <<>>=
 data(DEU_PISA2012)
@@ -36,7 +36,7 @@ data(DEU_PISA2012)
 
 The data is organized as an multiple nested list. 
 
-The respective name of every list entry at any level should give an idea of its content. For a first  overview look at the names of the first levels of the list object.
+The respective name of every list entry at any level should give an idea of its content. For a first overview look at the names of the first levels of the list object.
 
 <<>>=
 names(DEU_PISA2012)

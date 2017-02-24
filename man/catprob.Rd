@@ -35,4 +35,3 @@ data(bfiN)
 result <- pair(bfiN)
 catprob(pair_obj = result, itemnumber = 3 )
 }
-

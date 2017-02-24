@@ -26,4 +26,3 @@ data(sim200x3)
 result <- pers(pair(sim200x3))
 pairwise.person.fit(pers_obj=result) # item fit statistic
 }
-

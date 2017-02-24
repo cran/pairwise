@@ -50,4 +50,3 @@ result <- pair(bfiN)
 tff(pair_obj = result)
 tff(pair_obj = result, cat=TRUE) # TIF plot 
 }
-

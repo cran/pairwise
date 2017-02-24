@@ -48,6 +48,11 @@ simra <- function(itempar=matrix(seq(-2,2,length=5)), theta=100, pers_obj=NULL, 
     personnames <- paste("P",formatC(1:length(theta), width = Pname, format = "d", flag = "0"),sep="")  
   }
   
+  if (is.vector(theta)==TRUE){
+    Pname<-nchar(paste(length(theta)))
+    personnames <- paste("P",formatC(1:length(theta), width = Pname, format = "d", flag = "0"),sep="")  
+  }
+  
   if (length(pers_obj)!=0){
     itemnames <- rownames(pers_obj$pair$threshold)
     personnames <- as.character(pers_obj$pers$persID)

@@ -157,6 +157,19 @@ pow <- function (x, k)
     
   f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE)
   mVector<-f$mVector
+  
+  # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
+  # modified 04-29-2016 :
+#   fm <- f$fmat
+#   fm[fm==0]<-NA
+#   min(fm,na.rm = T)
+#   max(fm,na.rm = T)
+#   zkor <- max(fm,na.rm = T) / min(fm,na.rm = T)
+#   zkor <- 1
+#   if(zerocor==TRUE){f$fmat[f$fmat==0]<-zkor} ## this now in v0.3.2 befor powering
+  
+  
+
   # powers of nij ?
   if(class(pot)=="logical"){
   if(pot==FALSE){nij <- f$fmat}
@@ -173,7 +186,12 @@ pow <- function (x, k)
   if(zerocor==TRUE){nij[nij==0]<-1}
   
   # calculation thresholds / dificulties
-  tau<-rowMeans(log(Dmat(nij)), na.rm = TRUE)
+  logD <- log(Dmat(nij)) # new 04-29-2016
+  logD_ <- logD # new 04-29-2016
+  #logD_[logD_==0]<-colMeans(logD_, na.rm = TRUE) # new 04-29-2016
+  # logD_[logD_==0]<-NA # new 04-29-2016
+  # logD_[is.na(logD_)]<-rowMeans(logD_, na.rm = TRUE) # new 04-29-2016
+  tau<-rowMeans(logD_, na.rm = TRUE)
   # formatieren der ausgabe
   vo <- (cumsum((mVector)-1) ) - ((mVector)-2)
   bi <- cumsum((mVector)-1)

@@ -3,10 +3,11 @@
 #' @description S3 logLik method to extract the log-likelihood for object of class\code{"pers"} 
 #' @param object object of class\code{"pers"}
 #' @param sat a "logical" with default set to \code{sat=FALSE} to return the Log-Likelihood of the data for the unrestricted modell based on parameters estimated with function \code{\link{pers}}. If set to \code{sat=TRUE} the Log-Likelihood of the saturated model is returned instead.
+#' @param p a "logical" with default set to \code{p=FALSE} to return the category propabilities for the empirical data.
 #' @param ... not used jet.
 
 ########################### hier die logLik method fuer pers #############################
-logLik.pers<-function(object, sat=FALSE, ...){
+logLik.pers<-function(object, sat=FALSE, p=FALSE, ...){
   
   # compute m_v - number of categories per item as vector - used in both cases
   #m_v <-sapply(1:nrow(object$pair$threshold), function(i) {length(na.omit(object$pair$threshold[i,]))+1})
@@ -58,5 +59,9 @@ logLik.pers<-function(object, sat=FALSE, ...){
     lik.sat<-sum(log((zaehl/nen)^zaehl)) # compute log likelihood of saturated model
     result <- structure(lik.sat, nall = l, nobs = l, df = df, class = "logLik")   
   }
+  if(p==TRUE){
+    result <- P
+  }
+  
   return(result)
 }

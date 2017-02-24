@@ -1,3 +1,23 @@
+ Changes in Version 0.4.1
+
+  o added function delta() to compute delta or rather item step parameters from thurstonian threshold parameters.
+    
+  o added argument p in funktion logLink.pers().
+
+ Changes in Version 0.4.0
+
+  o fixed minor bug in function pers relating to passing throug arguments from pair object under special data situations.
+ 
+  o fixed minor bug in function andersen.pers concerning reading arguments from pers object.
+ 
+ Changes in Version 0.3.2
+
+  o further enhancements.
+ 
+  o fixed a minor bug in function gif.
+   
+  o fixed a minor bug in plotting methods for item parameters.
+
 Changes in Version 0.3.0
 
   o added wighted Likelihood in result object of function pers().

@@ -41,7 +41,10 @@ gif <- function(pers_obj, itemnumber=1, ra=4, integ="raw", kat="all",...  ){
  
   # start calculating empirical cat probs ------------  
   Lresp <- list()
-  for (i in 1:(max(interv))){Lresp[[i]] <- responsesi_sort[interv==i]}
+    for (i in min(interv):(max(interv))){Lresp[[i]] <- responsesi_sort[interv==i]}
+  Lresp <- Lresp[which(!sapply(Lresp, is.null))] # new:22.Juni 2016: elemente mit NULL rausnehmen
+  Lresp <- Lresp[which(sapply(Lresp, length)!=0)] # new:22.Juni 2016: elemente mit der länge 0 rausnehmen
+  
   Lftab <- lapply(Lresp, ftab, catgories = 0:mi) # Kateg. häufig. in bre theta bereichen
   Ln <- lapply(Lftab, function(x){ sum(x[2:(mi+2),1])}) # n Pers. ohne NA in interv theta bereichen 
   ecp <- mapply(function(x,y){x[2:(mi+2),1] / y }, Lftab, Ln,SIMPLIFY = TRUE)
