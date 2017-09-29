@@ -59,7 +59,7 @@ rfa <- function(pers_obj, na_treat=0, tr=FALSE ,use="complete.obs", res="stdr", 
   variance.proportion <- eig$values/sum(eig$values) # Proportion of Variance explained
   loadings <- eig$vectors # loadings
   
-  erg <- list(pers_obj=pers_obj, pca=list(eigen.values=eigen.values, loadings=loadings, variance.proportion=variance.proportion, variance.total=variance.total), transposed=tr)
+  erg <- list(pers_obj=pers_obj, pca=list(eigen.values=eigen.values, loadings=loadings, variance.proportion=variance.proportion, variance.total=variance.total, transposed=tr))
   class(erg) <- c("rfa","list")
   return(erg)
 }

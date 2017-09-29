@@ -1,9 +1,9 @@
 Package: pairwise
 Type: Package
 Maintainer: Joerg-Henrik Heine <jhheine@googlemail.com>
-Date: 2017-02-24
+Date: 2017-09-29
 Author: Joerg-Henrik Heine <jhheine@googlemail.com>
-Version: 0.4.1
+Version: 0.4.3-2
 Encoding: UTF-8
 License: GPL-3
 Imports: graphics, stats, methods
@@ -17,6 +17,6 @@ Description: Performs the explicit calculation
 Suggests: psych
 RoxygenNote: 6.0.1
 NeedsCompilation: no
-Packaged: 2017-02-24 16:54:15 UTC; jh
+Packaged: 2017-09-29 15:05:06 UTC; jh
 Repository: CRAN
-Date/Publication: 2017-02-24 23:38:30
+Date/Publication: 2017-09-29 15:26:43 UTC

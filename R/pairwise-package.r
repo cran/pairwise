@@ -15,9 +15,11 @@
 #' @S3method summary pairwise.person.fit
 #' @S3method summary pers
 #' @S3method summary rfa
+#' @S3method summary pair.S
+#' @importFrom utils combn
 #' @importFrom graphics abline axis hist layout lines matlines matplot mtext par plot points rect segments symbols text title
 #' @importFrom methods is
-#' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm
+#' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm pnorm cor cov
 #' @description Performs the explicit calculation -- not estimation! -- of the Rasch item parameters for dichotomous and polytomous response formats using a pairwise comparison approach (Choppin, 1968, 1985). On the basis of the item parameters, person parameters (WLE) are calculated according to Warm's weighted likelihood approach (Warm, 1989). Item- and person fit statistics and several functions for plotting are available.
 #'
 #' @details 

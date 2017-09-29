@@ -24,6 +24,7 @@ ptbis <- function(y, daten=NULL){# daten = data.frame mit polytomen variablen; y
     abil <- y$pers$WLE
   }
   if(is.vector(y)==TRUE){
+    if(class(daten)!="data.frame"){stop("daten must be a data.frame")}
     daten <- daten
     abil <- y
   }
@@ -38,6 +39,7 @@ ptbis <- function(y, daten=NULL){# daten = data.frame mit polytomen variablen; y
   ergmat <- do.call(rbind, newM)
   
   colnames(ergmat) <- c(sapply(0:((dim(ergmat)[2]/2)-1),function(x){paste(x,c("rptb","n"),sep=".")}))
+  ergmat <- as.data.frame(ergmat)
  
   class(ergmat) <- c("data.frame", "ptbis")
   

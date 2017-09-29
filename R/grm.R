@@ -8,7 +8,7 @@
 #' 
 #' @section A note on standard errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} is the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
 #'
-#' @param daten a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
+#' @param daten a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixed category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
 #' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{m = NULL}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.
 #' 
 #' @param split Specifies the splitting criterion. Basically there are three different options available - each with several modes - which are controlled by passing the corresponding character expression to the argument. 
@@ -88,7 +88,7 @@ if(!(length(teil) > 1)) {
     teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),2))
     #OK
     }
-  if(nchar(teil)>6){
+  if((substr(teil, 1, 6)=="random") && (nchar(teil)>6)){ # enhancement on 26-2-2017
     nteil<-as.numeric(unlist(strsplit(teil,".",TRUE))[2]) 
     if (class(splitseed)=="numeric"){set.seed(splitseed)}
     teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),nteil))

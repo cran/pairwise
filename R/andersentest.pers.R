@@ -27,8 +27,9 @@
 #'@references Andersen, E. B. (1973). A goodness of fit test for the rasch model. \emph{Psychometrika, 38}(1), 123–140. 
 #'@references Rost, J. (2004). \emph{Lehrbuch Testtheorie - Testkonstruktion} (2 nd Ed.) Huber: Bern.
 #'
-#' @examples data(bfiN) # loading example data set
-#' 
+#'@examples 
+#'\dontrun{
+#' data(bfiN) # loading example data set
 #' data(bfi_cov) # loading covariates to bfiN data set
 #' model <- pers(pair(bfiN,m=6))
 #' andersentest.pers(model, split = bfi_cov$gender)
@@ -38,6 +39,7 @@
 #' data("sim200x3")
 #' model2 <- pers(pair(sim200x3))
 #' andersentest.pers(model2, split = "median")
+#'}
 
 ############## funktions beginn ########################################################
 

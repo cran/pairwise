@@ -8,7 +8,7 @@ grm(daten, m = NULL, split = "random", splitseed = "no",
   verbose = FALSE, ...)
 }
 \arguments{
-\item{daten}{a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
+\item{daten}{a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixed category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
 
 \item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{m = NULL}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.}
 

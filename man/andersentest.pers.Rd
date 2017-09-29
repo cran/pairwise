@@ -37,8 +37,8 @@ The Andersen likelihood ratio test is based on splitting the dataset into subgro
 Andersen (1973) proposed to split the dataset by [raw] score groups, which can be achieved setting the argument \code{split = "score"}. However as pointed out by Rost (2004) there might be several different splitting criteria for testing subsample invariance of the raschmodel. Thus the argument \code{split} provides some other options for splitting the data - see description of arguments.
 }
 \examples{
+\dontrun{
 data(bfiN) # loading example data set
-
 data(bfi_cov) # loading covariates to bfiN data set
 model <- pers(pair(bfiN,m=6))
 andersentest.pers(model, split = bfi_cov$gender)
@@ -48,6 +48,7 @@ andersentest.pers(model, split = "median")
 data("sim200x3")
 model2 <- pers(pair(sim200x3))
 andersentest.pers(model2, split = "median")
+}
 }
 \references{
 Andersen, E. B. (1973). A goodness of fit test for the rasch model. \emph{Psychometrika, 38}(1), 123–140.

@@ -8,7 +8,7 @@
 \usepackage{apacite}
 \usepackage{tabularx}
 
-\title{Description for the included PISA 2012 data in the package pairwise}
+\title{Description for the PISA 2012 data included in the package pairwise}
 \date{26.03.2014}
 \author{Joerg-Henrik Heine}
 

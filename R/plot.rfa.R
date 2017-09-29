@@ -23,8 +23,8 @@ plot.rfa<-function(x, com=1, ra="auto", main=NULL , labels=NULL, xlab="logits", 
   bereich <- ra
   
   yy <- x$pca$loadings[,com]
-  if(x$transposed==FALSE){xx <- x$pers_obj$pair$sigma} # added: 17-12-2014 
-  if(x$transposed==TRUE){xx <- x$pers_obj$pers$WLE} # added: 17-12-2014
+  if(x$pca$transposed==FALSE){xx <- x$pers_obj$pair$sigma} # added: 17-12-2014 
+  if(x$pca$transposed==TRUE){xx <- x$pers_obj$pers$WLE} # added: 17-12-2014
   
    ##### plotingrange festlegen mit leerplot
   ## automatische x achsen skalierung

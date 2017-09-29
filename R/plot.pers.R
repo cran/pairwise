@@ -66,8 +66,11 @@ par(mar=c(3,1,0,3))
 # plot(x=1:(length(sigma)+1),y=seq(min(hist_obj$breaks),max(hist_obj$breaks),length.out=(length(sigma)+1)),type="n",bty="n",ylab="" ,yaxt="n",xaxt="n" ,xlab="items")
 plot(x=1:(length(sigma)+1),y=seq(-ra,ra,length.out=(length(sigma)+1)),type="n",bty="n",ylab="" ,yaxt="n",xaxt="n" ,xlab="items")
 
-if (itemNames==TRUE){text(x=1:length(sigma),y=sigma, labels=names(sigma),cex=cex,pos=pos, ...)}
-
+if(class(itemNames)=="logical"){if (itemNames==TRUE){text(x=1:length(sigma),y=sigma, labels=names(sigma),cex=cex,pos=pos, ...)}}
+if(class(itemNames)=="character"){
+  stopifnot(length(sigma)==length(itemNames))
+  text(x=1:length(sigma),y=sigma, labels=itemNames,cex=cex,pos=pos, ...)
+}
 #-------------
 for ( i in 1:dim(threshold)[1] ){
   lines(x=rep(i,length(na.omit(threshold[i,])) ), y= na.omit(threshold[i,]), type = "l")

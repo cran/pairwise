@@ -1,20 +1,40 @@
+Changes in Version 0.4.3-1
+
+  o added function Q() to compute the Q person-fit-index proposed by Tarnai and Rost (1990).
+
+Changes in Version 0.4.2-1
+
+  o added function q3() to compute Yen's Q3 fit statistic.
+  
+  o changed structure of result object of function rfa().
+
+Changes in Version 0.4.2-1
+
+  o fixed a bug in function ptbis().
+
+Changes in Version 0.4.2
+
+  o enhanced plotting method for object of class "pers".
+
+  o added function pairwise.S() to perform the Fischer-Scheiblechner statistic 'S'; a 'Wald like test' on item level. 
+  
  Changes in Version 0.4.1
 
-  o added function delta() to compute delta or rather item step parameters from thurstonian threshold parameters.
+  o added function deltapar() to compute delta or rather item step parameters from thurstonian threshold parameters.
     
-  o added argument p in funktion logLink.pers().
+  o added argument p in function logLik.pers().
 
  Changes in Version 0.4.0
 
-  o fixed minor bug in function pers relating to passing throug arguments from pair object under special data situations.
+  o fixed minor bug in function pers() relating to passing throug arguments from "pair" object under special data situations.
  
-  o fixed minor bug in function andersen.pers concerning reading arguments from pers object.
+  o fixed minor bug in function andersen.pers() concerning reading arguments from "pers" object.
  
  Changes in Version 0.3.2
 
   o further enhancements.
  
-  o fixed a minor bug in function gif.
+  o fixed a minor bug in function gif().
    
   o fixed a minor bug in plotting methods for item parameters.
 
@@ -117,9 +137,9 @@ Changes in Version 0.1.5
 
   o added functions for person parameter estimation (ML & WL) and summary method (dicotoumous items)
 
-  o added summary method for graphical model-check dichotomuos (object of class 'grmSE')
+  o added summary method for graphical model-check dichotomuos (object of class "grmSE")
 
-  o added summary method for graphical model-check polytomuos (object of class 'grmSEpo')
+  o added summary method for graphical model-check polytomuos (object of class "grmSEpo")
 
 
 Changes in Version 0.1.4

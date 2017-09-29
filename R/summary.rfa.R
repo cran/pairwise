@@ -7,7 +7,7 @@
 ########################### hier die summary method fuer rfa #############################
 summary.rfa<-function(object, sortdif=FALSE, ...){
   ### item analysis performed
-  if(object$transposed==FALSE){
+  if(object$pca$transposed==FALSE){
     cat("Principal Components over items of Rasch Residuals: \n") 
     if(sortdif==TRUE){
     threshold <- object$pers_obj$pair$threshold
@@ -22,7 +22,7 @@ summary.rfa<-function(object, sortdif=FALSE, ...){
     }
   }
   ### person analysis performed
-  if(object$transposed==TRUE){  
+  if(object$pca$transposed==TRUE){  
     cat("Principal Components over persons of Rasch Residuals: \n") 
     if(sortdif==TRUE){
       WLE <- object$pers_obj$pers$WLE
