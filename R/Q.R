@@ -2,7 +2,10 @@
 #' @export Q
 #' @description function for calculating the person fit index Q, which was proposed by Tarnai and Rost (1990).
 #' @param obj an object of class \code{"pers"} or class \code{"pair"}as a result from function \code{\link{pers}} or \code{\link{pair}} respectively.
+#' @param data optional response data when object of class \code{"pers"} or class \code{"pair"} is not provided.
+#' @param threshold optional in case that object of class \code{"pers"} or class \code{"pair"} is not provided. Threshold values as matrix with row and columnnames !! -- items as rows and thresholds as columns. Thresholds should be ordered from left to right, some items may have less thresholds than the others, in this case the respective row/column is filled with an NA value - see examples.
 #' @param ... not used so far.
+#' 
 #' @details The person Q-index proposed by Tarnai and Rost, (1990) is solely based on the empirical responses and the item parameters. Thus the computation of person parameters using the function \code{\link{pers}} is not required - see examples. But for convenience return objects of both functions are accepted in function \code{Q}.  
 #' @return a vector holding the Q-index for every person.
 #' @references Tarnai, C., & Rost, J. (1990). \emph{Identifying aberrant response patterns in the Rasch model: the Q index}. Münster: ISF.
@@ -12,21 +15,55 @@
 #' data(bfiN) # get some data
 #' ip <- pair(daten = bfiN,m = 6) # item parameters according the partial credit model
 #' Q(ip)
+#' 
+#' ### with data an thresholds as external objects #####
+#' threshold <- matrix(seq(-3,3,length.out = 9),ncol = 3)
+#' dimnames(threshold) <- list(c("I1","I2","I3"),c("1","2","2"))
+#' threshold
+#' resp_vec <- c(3,0,2,1,2,2,2,2,1,3,0,NA,NA,0,2,3,NA,2,NA,2,1,2,NA,1,2,2,NA)
+#' resp_emp <- matrix(resp_vec,ncol = 3,byrow = TRUE)
+#' colnames(resp_emp) <- c("I1","I2","I3")
+#' resp_emp
+#' Qindex <- Q(data = resp_emp,threshold = threshold)
+#' cbind(resp_emp,Qindex)
+#' 
+#' #### unequal number of thresholds ###################
+#' threshold <- matrix(seq(-3,3,length.out = 9),ncol = 3)
+#' dimnames(threshold) <- list(c("I1","I2","I3"),c("1","2","2"))
+#' threshold[2,3] <- NA
+#' 
+#' resp_vec <- c(3,0,2,1,2,2,2,2,1,3,0,NA,NA,0,2,3,NA,2,NA,2,1,2,NA,1,2,2,NA)
+#' resp_emp <- matrix(resp_vec,ncol = 3,byrow = TRUE)
+#' colnames(resp_emp) <- c("I1","I2","I3")
+#' resp_emp
+#' Qindex <- Q(data = resp_emp,threshold = threshold)
+#' cbind(resp_emp,Qindex)
 
-Q <- function(obj, ...){
+
+
+
+Q <- function(obj=NULL, data=NULL, threshold=NULL, ...){
   if(all(class(obj)==c("pair","list"))){
     resp_emp <- obj$resp # empirical responses
     threshold <- obj$threshold
     m <- obj$m
-    sigma <- obj$sigma
-    N <- dim(obj$resp)[1] # number of persons
+    # sigma <- obj$sigma
+    # N <- dim(obj$resp)[1] # number of persons
   }
   if(all(class(obj)==c("pers","list"))){
     resp_emp <- obj$pair$resp # empirical responses
     threshold <- obj$pair$threshold
     m <- obj$pair$m
-    sigma <- obj$pair$sigma
-    N <- dim(obj$pair$resp)[1] # number of persons
+    # sigma <- obj$pair$sigma
+    # N <- dim(obj$pair$resp)[1] # number of persons
+  }
+  if(is.null(obj)){
+    if(any(c(is.null(data),is.null(threshold)))){stop("no data or thresholds provided")}
+    resp_emp <- data # empirical responses
+    if(any(sapply(dimnames(threshold),is.null))){stop("no threshold or item names provided in argument 'thresholds' ")}
+    threshold <- threshold
+    (ncol(threshold)+1)
+    m <- sapply(as.list(as.data.frame(t(threshold))), function(x){length(na.omit(x))+1})
   }
   
   # names of indikator super matrix --------------------------------------------
@@ -83,7 +120,7 @@ Q <- function(obj, ...){
   colnames(resp_emp_tr) <- supernames
   
   # multiply empirical supermatrix by thrv ------------------------------------
-  r_sigma_emp <- ((apply(X = resp_emp_tr,1,FUN = function(x){sum(x*thrv)})))
+  r_sigma_emp <- ((apply(X = resp_emp_tr,1,FUN = function(x){sum(x*thrv,na.rm = TRUE)}))) # JHH(20-10-2017): added na.rm=TRUE
 
   # all in vectors -------------------------------------------------------------
   # evtl. check na.rm=TRUE !!!

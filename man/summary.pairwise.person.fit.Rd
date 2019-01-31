@@ -5,7 +5,7 @@
 \title{S3 Summary for Person-Fit-Statistics}
 \usage{
 \method{summary}{pairwise.person.fit}(object, sort = FALSE,
-  by = "INFIT.ZSTD", decreasing = FALSE, ...)
+  by = "INFIT.ZSTD", decreasing = FALSE, relative = FALSE, ...)
 }
 \arguments{
 \item{object}{object of class\code{"pairwise.person.fit", "data.frame" }}
@@ -16,8 +16,15 @@
 
 \item{decreasing}{see \code{\link{order}}}
 
+\item{relative}{logical with default \code{relative=FALSE} to return the fit statistics as proposed by Wright & Masters, (1982, P. 100) with no further modifications. If \code{relative=TRUE} the sample adjusted fit statistics are returned in a way that their mean (for the present sample) equals 1 using formula: fit_i+ = 1 – mean(fit).}
+
 \item{...}{other parameters passed trough - see \code{\link{order}}}
 }
 \description{
 S3 summary method for object of class\code{c("pairwise.item.fit", "data.frame" )}
+}
+\references{
+Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
+
+Wright, B. D., & Masters, G. N. (1990). Computation of OUTFIT and INFIT Statistics. \emph{Rasch Measurement Transactions, 3}(4), 84–85.
 }

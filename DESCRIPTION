@@ -1,9 +1,9 @@
 Package: pairwise
 Type: Package
 Maintainer: Joerg-Henrik Heine <jhheine@googlemail.com>
-Date: 2017-09-29
+Date: 2019-01-31
 Author: Joerg-Henrik Heine <jhheine@googlemail.com>
-Version: 0.4.3-2
+Version: 0.4.4-5.1
 Encoding: UTF-8
 License: GPL-3
 Imports: graphics, stats, methods
@@ -15,8 +15,8 @@ Description: Performs the explicit calculation
     parameters (WLE) are calculated according to Warm's weighted likelihood
     approach.
 Suggests: psych
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.1
 NeedsCompilation: no
-Packaged: 2017-09-29 15:05:06 UTC; jh
+Packaged: 2019-01-31 16:22:19 UTC; jh
 Repository: CRAN
-Date/Publication: 2017-09-29 15:26:43 UTC
+Date/Publication: 2019-01-31 16:50:03 UTC

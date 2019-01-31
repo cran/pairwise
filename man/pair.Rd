@@ -4,12 +4,15 @@
 \alias{pair}
 \title{Rasch Item Parameter (Main Function)}
 \usage{
-pair(daten, m = NULL, pot = TRUE, zerocor = TRUE, ccf = FALSE, ...)
+pair(daten, m = NULL, w = NULL, pot = TRUE, zerocor = TRUE,
+  ccf = FALSE, ...)
 }
 \arguments{
 \item{daten}{a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
 
 \item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.}
+
+\item{w}{an optional vector of case weights}
 
 \item{pot}{either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.}
 

@@ -6,6 +6,9 @@
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.
 #' @param na_treat value to be assigned to residual cells which have missing data in the original response matrix. default is set to \code{na_treat=NA} to ignore these cells in further calculations. An option is to set these residuals to 0 using \code{na_treat=0}, which implys that they are imputed as 'fitting data', i.e., zero residuals. This can attenuate contrasts (see. http://www.rasch.org/rmt/rmt142m.htm).
 #' @return an object of class \code{c("pairwise_person_fit", "data.frame")} containing person fit indices
+#' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
+#' @references Wright, B. D., & Masters, G. N. (1990). Computation of OUTFIT and INFIT Statistics. \emph{Rasch Measurement Transactions, 3}(4), 84–85.
+
 #' @examples ########
 #' data(sim200x3)
 #' result <- pers(pair(sim200x3))

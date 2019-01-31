@@ -80,11 +80,13 @@ plot(grm_ran,itemNames=TRUE, cex.names = 1.3)
 plot(grm_ran,itemNames=TRUE, cex.names = .8, col.error="green")
 
 ###### example from details section 'Some Notes on Standard Errors' ########
+\dontrun{
 grm_def<-grm(daten=bfiN, split = "random",splitseed=13)
 plot(grm_def)
 ######
 grm_400<-grm(daten=bfiN, split = "random", splitseed=13 ,nsample=400)
-plot(grm_400) 
+plot(grm_400)
+} 
 
 
 }

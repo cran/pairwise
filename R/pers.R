@@ -40,6 +40,8 @@
 pers<-function(itempar, daten=NULL, incidenz=NULL,na_treat=NULL,limit=0.00001,iter=50,Nrel=FALSE,tecout=FALSE){
 fuargs <- list(itempar=itempar, daten=daten, incidenz=incidenz, na_treat=na_treat, limit=limit, iter=iter, Nrel=Nrel, tecout=tecout)
 
+options(stringsAsFactors = FALSE) # added 14-12-2017
+
 #  daten=NULL; incidenz=NULL;na_treat=NULL;limit=0.00001;iter=50;tecout=FALSE
 ##################################################################
 # na_treat=NULL;limit=0.00001;iter=50;tecout=FALSE
@@ -123,8 +125,8 @@ if(   (any(class(itempar)=="pair")) & (length(daten)==0)    ){
 
 
 ######################################################################################
-##### sortierbare zeilennamen für daten; item namen neu nur wenn fehlend -------------
-daten<-dataprep1(daten)
+##### ggf "sortierbare" zeilennamen für daten; item namen neu nur wenn fehlend -------------
+daten<-dataprep1(daten) # 16-08-2018 pesonennamen bleiben erhalten so wie sie sind wenn welche vorhanden waren
 
 ##### some category checks with m and k ---------------------------------------------
 #if (all(apply(daten,2,function(x){min(x,na.rm=TRUE)})== 0) == FALSE){stop("item categories must start with 0") }
@@ -252,12 +254,12 @@ if(tecout==FALSE){
   NA.group <-  unlist(lapply(ee1,function(x){ x[["NA.group"]]} ),T)
   WLL <- unlist(lapply(ee1,function(x){ x[["WLL"]]} ),T) #added 24.11.2015
 
-  res1 <- data.frame(persID=PERS,NA.group,raw,WLE,SE.WLE,ITER,WLL,row.names = PERS)
-  res2 <- res1[order(res1$persID) ,]
+  res1 <- data.frame(persID=PERS,NA.group,raw,WLE,SE.WLE,ITER,WLL,row.names = PERS, stringsAsFactors=FALSE)
+  res2 <- res1[rownames(daten),]#  changed 16-08-2018: rownames(daten)
+  # all_incpat <- all_incpat[order(res1$persID)] # added 14-12-2017; # disabled 16-08-2018
   res3 <- data.frame(book=all_incpat,res2)
-   
   
-  # WLE Reliability rost 2004 p 381 see also http://www.rasch.org/erp7.htm
+  # WLE Reliability rost 2004 p 380 see also http://www.rasch.org/erp7.htm
   reldat1 <- data.frame(WLE=res3$WLE,SE.WLE=res3$SE.WLE)
   N=dim(reldat1)[1]
   if (Nrel==TRUE){
@@ -270,7 +272,11 @@ if(tecout==FALSE){
   
   r.WLE.rel <- var(reldat2$WLE) / (mean((reldat2$SE.WLE)^2) + var(reldat2$WLE))
   
+  
   n.WLE.rel <- dim(reldat2)[1]
+  # r.WLE.rel <- 1 - (sum(reldat2$SE.WLE) / (var(reldat2$WLE)* n.WLE.rel)) # Bühner 2006 p.363
+  
+  
   WLE.rel <- list(r.WLE.rel=r.WLE.rel,n.WLE.rel=n.WLE.rel,N.perf=N-N2)
   # END WLE Reliability  
   res3 <- as.list(res3) # changed 27-3-2015 --> pers is now a list

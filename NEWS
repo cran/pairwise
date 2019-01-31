@@ -1,3 +1,27 @@
+Changes in Version 0.4.4-5.1
+  
+  o changed internal datapreperation tasks to keep the order of person (estimates) for output.
+
+Changes in Version 0.4.4-4
+  
+  o extended the main function 'pair()' to use case weights for item parameter calculation.
+  
+Changes in Version 0.4.4-3
+  
+  o changed internal datapreperation tasks (rownames for persons).
+  
+  o changed: pairwise will globaly change 'options(stringsAsFactors = FALSE)' when applying 'pair()' or 'pers()'
+  
+Changes in Version 0.4.4-2
+  
+  o fixed (changed) summary funtion for objects of class 'pairwise.person.fit'.
+
+  o extended function Q() with two arguments to compute the Q person-fit-index based on response data and threshold parameters.
+
+Changes in Version 0.4.4-1
+
+  o cleaned up in function Q() to compute the Q person-fit-index proposed by Tarnai and Rost (1990).
+
 Changes in Version 0.4.3-1
 
   o added function Q() to compute the Q person-fit-index proposed by Tarnai and Rost (1990).

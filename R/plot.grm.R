@@ -47,7 +47,7 @@ plot.grm<-function(x, xymin=NULL, xymax=NULL, ci=2, main=NULL, col.error="blue",
     if (length(xlab)==0) {xlab <- subsamp_names[1]}
     if (length(ylab)==0) {ylab <- subsamp_names[2]}
     
-    plot(x=xx,y=yy,type="n",bty="n", main=main, xlab=xlab, ylab=ylab, ...)
+    plot(x=xx,y=yy,type="n",bty="n", main=main, xlab=xlab, ylab=ylab, cex.axis=cex.axis, ...)
     # hilfsfunktion elipse
     eli<-function(x.cent,y.cent,xb,yh, ...){
       # plotten einer elipse

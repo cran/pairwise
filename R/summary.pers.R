@@ -28,6 +28,6 @@ summary.pers<-function(object, short=TRUE, sortwle=FALSE, ...){
     #(aggregate(result[,c(1,3:6)],by=list(result$book,result$NA.group,result$raw),FUN=table))
         cat("Person estimates by 'booklet', 'NA.group' and Scoregroup:","\n","\n")
     print(erg[,4:8])
-    cat("\n", "WLE Reliability:",(object$WLE.rel$r.WLE.rel), "; ( N =",object$WLE.rel$n.WLE.rel,")", "\n","(",(dim(object$pers)[1]-object$WLE.rel$n.WLE.rel),"persons without WLE estimate )" , "\n","(",(object$WLE.rel$N.perf),"persons with perfect response vectors excluded for WLE reliability estimation )","\n")  
+    cat("\n", "WLE Reliability:",(object$WLE.rel$r.WLE.rel), "; ( N =",object$WLE.rel$n.WLE.rel,")", "\n","(",(length(object$pers$NA.group)-object$WLE.rel$n.WLE.rel),"persons without WLE estimate )" , "\n","(",(object$WLE.rel$N.perf),"persons with perfect response vectors excluded for WLE reliability estimation )","\n")  
   }  
 }

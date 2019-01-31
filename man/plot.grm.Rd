@@ -4,10 +4,10 @@
 \alias{plot.grm}
 \title{S3 Plotting Graphical Model Check}
 \usage{
-\method{plot}{grm}(x, xymin = NULL, xymax = NULL, ci = 2, main = NULL,
-  col.error = "blue", col.diag = "red", itemNames = TRUE,
-  cex.names = 0.8, type = "b", xlab = NULL, ylab = NULL, pch = 43,
-  las = 3, cex.axis = 0.5, ...)
+\method{plot}{grm}(x, xymin = NULL, xymax = NULL, ci = 2,
+  main = NULL, col.error = "blue", col.diag = "red",
+  itemNames = TRUE, cex.names = 0.8, type = "b", xlab = NULL,
+  ylab = NULL, pch = 43, las = 3, cex.axis = 0.5, ...)
 }
 \arguments{
 \item{x}{object of class\code{"grm"}}

@@ -26,3 +26,8 @@ data(sim200x3)
 result <- pers(pair(sim200x3))
 pairwise.person.fit(pers_obj=result) # item fit statistic
 }
+\references{
+Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
+
+Wright, B. D., & Masters, G. N. (1990). Computation of OUTFIT and INFIT Statistics. \emph{Rasch Measurement Transactions, 3}(4), 84–85.
+}

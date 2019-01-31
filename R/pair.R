@@ -14,6 +14,7 @@
 #'    
 #' @param daten a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
 #' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.
+#' @param w an optional vector of case weights 
 #' @param pot either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.
 #' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373).
 #' @param ccf logical with default \code{ccf=FALSE} to perform normal item parameter calculation, if set to \code{ccf=TRUE} just the conditional item (category) frequencies are returned.
@@ -41,24 +42,26 @@
 #' summary(res)
 #' plot(res)
 
-pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
+pair <- function(daten, m=NULL, w=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
+
+  options(stringsAsFactors = FALSE) # added 14-12-2017
   
   fuargs <- list(daten=daten, m=m, pot=pot, zerocor=zerocor, ccf=ccf, ...=...)
   #### some internal functions ------
-  dataprep1<-function(X){
-  X<-as.matrix(X)
-  if(length(colnames(X))==0){
-    Iname<-nchar(paste(dim(X)[2]))
-    colnames(X)<-paste("I",formatC(1:dim(X)[2], width = Iname, format = "d", flag = "0"),sep="") 
-    cat("no item names found in data" ,"\n", "items are named", colnames(X)[1], "(first item) to",  colnames(X)[dim(X)[2]],"(last item)","\n")
-  }
-  if(length(rownames(X))==0){
-    Pname<-nchar(paste(dim(X)[1]))
-    rownames(X)<-paste("P",formatC(1:dim(X)[1], width = Pname, format = "d", flag = "0"),sep="")  
-    cat("no person names (IDs) found in data" ,"\n", "persons are named", rownames(X)[1], "(first row) to",  rownames(X)[dim(X)[1]],"(last row)","\n")
-  }
-  return(X)
-  }
+  # dataprep1<-function(X){
+  # X<-as.matrix(X)
+  # if(length(colnames(X))==0){
+  #   Iname<-nchar(paste(dim(X)[2]))
+  #   colnames(X)<-paste("I",formatC(1:dim(X)[2], width = Iname, format = "d", flag = "0"),sep="") 
+  #   cat("no item names found in data" ,"\n", "items are named", colnames(X)[1], "(first item) to",  colnames(X)[dim(X)[2]],"(last item)","\n")
+  # }
+  # if(length(rownames(X))==0){
+  #   Pname<-nchar(paste(dim(X)[1]))
+  #   rownames(X)<-paste("P",formatC(1:dim(X)[1], width = Pname, format = "d", flag = "0"),sep="")  
+  #   cat("no person names (IDs) found in data" ,"\n", "persons are named", rownames(X)[1], "(first row) to",  rownames(X)[dim(X)[1]],"(last row)","\n")
+  # }
+  # return(X)
+  # }
   
   mat.mult<-function(A,B,na.rm=TRUE){
   # new version based on remarks by A. Robitzsch
@@ -87,29 +90,32 @@ pair <- function(daten, m=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
   }
   }
     
-  Fmat<-function(X,INFO=FALSE,ipsative=TRUE){
+  Fmat<-function(X,INFO=FALSE,ipsative=TRUE, w=NULL){ # new extended function 20-03-2018: case weighths
     # der normale Fall X ist ein objekt der Klasse "katdat"
-  stopifnot(class(X)=="katdat")
-  mVector<-X$mVector; X<-X$katdat
-  condf <- mat.mult(t(X),(X))
-  spaltenraus <- cumsum(mVector)
-  zeilenraus <- cumsum(mVector)-((mVector)-1)
-  fmat <- condf[-zeilenraus,-spaltenraus]
-  ### setzten der ipsativen item vergleiche auf 0
-  if(ipsative==FALSE){
-    bisnull <- cumsum((mVector)-1)
-    vonnull <- (cumsum((mVector)-1) ) - ((mVector)-2)
-    y<-do.call(c,mapply(function(x,y){rep(x,each=y) },mapply(seq,vonnull,bisnull,SIMPLIFY = FALSE),mVector-1,SIMPLIFY = FALSE))
-    x<-do.call(c,mapply(function(x,y){rep(x,times=y) },mapply(seq,vonnull,bisnull,SIMPLIFY = FALSE),mVector-1,SIMPLIFY = FALSE))
-    for (i in 1:length(y)){fmat[(y[i]),(x[i])]<-0}
-  }
-  ####
-  if(INFO==FALSE){return(fmat)}
-  if(INFO==TRUE){
-    erg<-list(fmat=fmat, mVector=mVector)
-    class(erg)<-"Fmat"
-  return(erg)
-  }
+    stopifnot(class(X)=="katdat")
+    mVector<-X$mVector; X<-X$katdat
+    if(is.null(w)){W <- matrix(1,nrow = nrow(X),ncol = ncol(X))} # added 20-03-2018: case weighths
+    if(!(is.null(w))){W <- matrix(rep(w,times = ncol(X)),nrow = nrow(X),byrow=FALSE)} # added 20-03-2018: case weighths
+    #condf <- mat.mult(t(X),(X)) # old backup
+    condf <- mat.mult(t(X),(X*W))# added 20-03-2018: case weighths
+    spaltenraus <- cumsum(mVector)
+    zeilenraus <- cumsum(mVector)-((mVector)-1)
+    fmat <- condf[-zeilenraus,-spaltenraus]
+    ### setzten der ipsativen item vergleiche auf 0
+    if(ipsative==FALSE){
+      bisnull <- cumsum((mVector)-1)
+      vonnull <- (cumsum((mVector)-1) ) - ((mVector)-2)
+      y<-do.call(c,mapply(function(x,y){rep(x,each=y) },mapply(seq,vonnull,bisnull,SIMPLIFY = FALSE),mVector-1,SIMPLIFY = FALSE))
+      x<-do.call(c,mapply(function(x,y){rep(x,times=y) },mapply(seq,vonnull,bisnull,SIMPLIFY = FALSE),mVector-1,SIMPLIFY = FALSE))
+      for (i in 1:length(y)){fmat[(y[i]),(x[i])]<-0}
+    }
+    ####
+    if(INFO==FALSE){return(fmat)}
+    if(INFO==TRUE){
+      erg<-list(fmat=fmat, mVector=mVector)
+      class(erg)<-"Fmat"
+      return(erg)
+    }
   }
   
 #   cube<-function(M){
@@ -155,7 +161,7 @@ pow <- function (x, k)
   #### start itemparameter calculation ------
   if (ccf==FALSE){
     
-  f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE)
+  f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE,w = w)
   mVector<-f$mVector
   
   # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
@@ -226,7 +232,7 @@ pow <- function (x, k)
 
   if (ccf==TRUE){
   
-  f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE)
+  f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE,w = w)
   mVector<-f$mVector
   # powers of nij ?
   if(class(pot)=="logical"){

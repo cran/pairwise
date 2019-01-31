@@ -4,8 +4,9 @@
 \alias{tff}
 \title{Test information function}
 \usage{
-tff(pair_obj, items = NULL, x = NULL, main = "Test Information Function",
-  plot = TRUE, cat = FALSE, lwd = 2, col = 1, ...)
+tff(pair_obj, items = NULL, x = NULL,
+  main = "Test Information Function", plot = TRUE, cat = FALSE,
+  lwd = 2, col = 1, ...)
 }
 \arguments{
 \item{pair_obj}{an object of class \code{"pair"} as a result from function \code{\link{pair}}.}
