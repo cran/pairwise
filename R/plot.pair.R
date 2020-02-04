@@ -1,4 +1,4 @@
-#' @export plot.pair
+#' @method plot pair
 #' @title S3 Plotting Thurstonian Thresholds
 #' @description S3 plotting Method for object of class\code{"pair"}
 #' @param x object of class\code{"pair"}

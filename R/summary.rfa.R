@@ -1,4 +1,4 @@
-#' @export summary.rfa
+#' @method summary rfa
 #' @title S3 Summary for rasch factor analysis
 #' @description S3 summary method for object of class\code{"pair"}
 #' @param object object of class\code{"pair"}

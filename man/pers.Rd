@@ -4,8 +4,16 @@
 \alias{pers}
 \title{WLE - Rasch Person Parameter}
 \usage{
-pers(itempar, daten = NULL, incidenz = NULL, na_treat = NULL,
-  limit = 1e-05, iter = 50, Nrel = FALSE, tecout = FALSE)
+pers(
+  itempar,
+  daten = NULL,
+  incidenz = NULL,
+  na_treat = NULL,
+  limit = 1e-05,
+  iter = 50,
+  Nrel = FALSE,
+  tecout = FALSE
+)
 }
 \arguments{
 \item{itempar}{The item parameter prior calculated or estimated. A list object of class \code{"pair"} as a result of applying the function \code{\link{pair}()} to the data. Or an 'ordinary' \code{"matrix"} with \code{nrow = k} (number of items) and \code{ncol = m} (maximum number of thresholds), holding  the 'thurstonian' thresholds of the respective item. Some matrix entries may be \code{NA}, depending on the number of categories of the respective item.}

@@ -4,10 +4,20 @@
 \alias{plot.pair}
 \title{S3 Plotting Thurstonian Thresholds}
 \usage{
-\method{plot}{pair}(x, sortdif = FALSE, ra = "auto", main = NULL,
-  col.lines = (1:dim(x$threshold)[2]), type = "b", xlab = "items",
-  ylab = "logits", pch = (1:dim(x$threshold)[2]), las = 3,
-  cex.axis = 0.8, ...)
+\method{plot}{pair}(
+  x,
+  sortdif = FALSE,
+  ra = "auto",
+  main = NULL,
+  col.lines = (1:dim(x$threshold)[2]),
+  type = "b",
+  xlab = "items",
+  ylab = "logits",
+  pch = (1:dim(x$threshold)[2]),
+  las = 3,
+  cex.axis = 0.8,
+  ...
+)
 }
 \arguments{
 \item{x}{object of class\code{"pair"}}

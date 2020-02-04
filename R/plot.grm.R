@@ -1,10 +1,9 @@
-#' @export plot.grm
+#' @method plot grm
 #' @title S3 Plotting Graphical Model Check
-#' @description S3 plotting Method for object of class\code{"grm"}
-#' @param x object of class\code{"grm"}
+#' @description S3 plotting Method for object of class\code{c("grm","list")}
+#' @param x object of class\code{c("grm","list")}
 #' @param xymin optional lower limit for xy-axis
 #' @param xymax optional upper limit for xy-axis
-#' 
 #' @param ci numeric defining confidence intervall for point estimator
 #' @param main see \code{\link{plot}}
 #' @param col.error vector of colors for error bars
@@ -43,7 +42,8 @@ plot.grm<-function(x, xymin=NULL, xymax=NULL, ci=2, main=NULL, col.error="blue",
     if(length(xymax)==0){xymax<-(round((max(c(max(X),max(Y))) + 3*(max(c(max(XS),max(YS)))))*10))/10}
     if(length(xymin)==0){xymin<-(round((min(c(min(X),min(Y))) - 3*(max(c(max(XS),max(YS)))))*10))/10}
     
-    xx<-c(xymin,xymax); yy<-c(xymin,xymax)
+    xx<-c(xymin,xymax)
+    yy<-c(xymin,xymax)
     if (length(xlab)==0) {xlab <- subsamp_names[1]}
     if (length(ylab)==0) {ylab <- subsamp_names[2]}
     
@@ -58,7 +58,7 @@ plot.grm<-function(x, xymin=NULL, xymax=NULL, ci=2, main=NULL, col.error="blue",
     }
     ##############
     ##### plotten der grafik    
-    if (itemNames==TRUE){pch=""}
+    if (itemNames!=TRUE){pch=""}
     if (itemNames==TRUE){text(X,Y,Itemnames,cex=cex.names,...)}
     points(X,Y,pch=pch,...) 
     abline(0,1,col=col.diag,...) 

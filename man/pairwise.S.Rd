@@ -4,8 +4,14 @@
 \alias{pairwise.S}
 \title{The Fischer-Scheiblechner Statistic S on item level (Wald like Test)}
 \usage{
-pairwise.S(daten, m = NULL, split = "random", splitseed = "no",
-  verbose = FALSE, ...)
+pairwise.S(
+  daten,
+  m = NULL,
+  split = "random",
+  splitseed = "no",
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{daten}{a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixed category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
@@ -27,7 +33,7 @@ pairwise.S(daten, m = NULL, split = "random", splitseed = "no",
 \item{...}{additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{pairSE}} are passed through - see description for \code{\link{pairSE}}.}
 }
 \value{
-A (list) object of class \code{"pair.S"} containing the test statistic and item difficulty parameter sigma and their standard errors for the two or more subsamples.
+A (list) object of class \code{"pairS"} containing the test statistic and item difficulty parameter sigma and their standard errors for the two or more subsamples.
 }
 \description{
 This function calculates the S-statistic on item level proposed by Fischer and Scheiblechner (1970) on item level for dicho- or polytomous item response formats by splitting the data into two subsamples. For polytomous Items the test is performed on item category level. Several splitting options are available (see arguments). The S-statistic is also mentioned in van den Wollenberg, (1982) -- an article in Psychometrika, which might be available more easily (see details).

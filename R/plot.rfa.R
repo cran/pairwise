@@ -1,4 +1,4 @@
-#' @export plot.rfa
+#' @method plot rfa
 #' @title S3 Plotting Rasch Residual Factor Analysis
 #' @description S3 plotting Method for object of class\code{"rfa"}
 #' @param x object of class\code{"rfa"}

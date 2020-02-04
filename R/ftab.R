@@ -17,18 +17,18 @@ ftab <- function (X,catgories=NULL,na.omit=FALSE) {
 # func. by joerg-henrik heine jhheine(at)googlemail.com  
   k<-catgories
   
-  if(class(X)=="data.frame"){
-    X<-sapply(X,function(x){if (class(x)=="factor"){x<-as.character(x)} else(x=x)})
+  if(is(object = X,"data.frame")){
+    X<-sapply(X,function(x){if (is(object = x,"factor")){x<-as.character(x)} else(x=x)})
     if(length(k)==0){k<-as.list(sort(unique((c(X)))))}
   }
   
   if(is.vector(X)==TRUE){X <- as.data.frame(X) }
   
-  if(class(X)=="factor"){X <- as.data.frame(X) }
+  if(is(object = X,"factor")){X <- as.data.frame(X) }
 
 
   # k<-as.list(sort(unique(unlist(c(X)))))}
-  if(class(X)=="matrix"){
+  if(is(object = X,"matrix")){
     if(length(k)==0){k<-as.list(sort(unique((c(X)))))}
   }
   # k  

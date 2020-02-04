@@ -12,7 +12,7 @@ pairwise.person.fit(pers_obj, na_treat = NA)
 \item{na_treat}{value to be assigned to residual cells which have missing data in the original response matrix. default is set to \code{na_treat=NA} to ignore these cells in further calculations. An option is to set these residuals to 0 using \code{na_treat=0}, which implys that they are imputed as 'fitting data', i.e., zero residuals. This can attenuate contrasts (see. http://www.rasch.org/rmt/rmt142m.htm).}
 }
 \value{
-an object of class \code{c("pairwise_person_fit", "data.frame")} containing person fit indices
+an object of class \code{c("ppfit", "data.frame")} containing person fit indices
 }
 \description{
 function for calculating person fit indices. The procedures for calculating the fit indices are based on the formulas given in Wright & Masters, (1982, P. 100), with further clarification given in \code{http://www.rasch.org/rmt/rmt34e.htm}.

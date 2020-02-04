@@ -4,13 +4,25 @@
 \alias{plot.pairSE}
 \title{S3 Plotting Thustonian Thresholds with SE}
 \usage{
-\method{plot}{pairSE}(x, ci = 2, sortdif = FALSE, ra = "auto",
-  main = NULL, col.lines = 1:(dim(x$threshold)[2]),
-  col.error = 1:(dim(x$threshold)[2]), type = "b", xlab = "items",
-  ylab = "logits", pch = 20, las = 3, cex.axis = 0.8, ...)
+\method{plot}{pairSE}(
+  x,
+  ci = 2,
+  sortdif = FALSE,
+  ra = "auto",
+  main = NULL,
+  col.lines = 1:(dim(x$threshold)[2]),
+  col.error = 1:(dim(x$threshold)[2]),
+  type = "b",
+  xlab = "items",
+  ylab = "logits",
+  pch = 20,
+  las = 3,
+  cex.axis = 0.8,
+  ...
+)
 }
 \arguments{
-\item{x}{object of class\code{"pairSE"}}
+\item{x}{object of class\code{c("pairSE","list")}}
 
 \item{ci}{numeric defining confidence intervall for point estimator}
 
@@ -39,5 +51,5 @@
 \item{...}{other parameters passed to plot}
 }
 \description{
-S3 plotting method for object of class\code{"pairSE"}
+S3 plotting method for object of class\code{c("pairSE","list")}
 }

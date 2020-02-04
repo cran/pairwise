@@ -1,5 +1,5 @@
 ### R code from vignette source 'DEU_PISA2012_description.Rnw'
-### Encoding: UTF-8
+### Encoding: ISO8859-1
 
 ###################################################
 ### code chunk number 1: DEU_PISA2012_description.Rnw:25-26

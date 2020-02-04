@@ -7,12 +7,12 @@
 \method{summary}{grm}(object, ci = 2, ...)
 }
 \arguments{
-\item{object}{object of class\code{"grm"}}
+\item{object}{object of class\code{c("grm","list")}}
 
 \item{ci}{numeric with default \code{ci=2} to return cinfidence intervalls for point estimator.}
 
 \item{...}{other parameters passed trough}
 }
 \description{
-S3 summary method for object of class\code{"grm"}
+S3 summary method for object of class\code{c("grm","list")}
 }

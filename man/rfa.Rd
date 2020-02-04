@@ -4,8 +4,15 @@
 \alias{rfa}
 \title{Rasch Residual Factor Analysis}
 \usage{
-rfa(pers_obj, na_treat = 0, tr = FALSE, use = "complete.obs",
-  res = "stdr", method = "pearson", cor = TRUE)
+rfa(
+  pers_obj,
+  na_treat = 0,
+  tr = FALSE,
+  use = "complete.obs",
+  res = "stdr",
+  method = "pearson",
+  cor = TRUE
+)
 }
 \arguments{
 \item{pers_obj}{an object of class \code{"pers"} as a result from function \code{\link{pers}}.}

@@ -1,6 +1,6 @@
 #' @title The Fischer-Scheiblechner Statistic S on item level (Wald like Test) 
 #' @export pairwise.S
-#' @exportClass pair_S
+#' @exportClass pairS
 #' @description This function calculates the S-statistic on item level proposed by Fischer and Scheiblechner (1970) on item level for dicho- or polytomous item response formats by splitting the data into two subsamples. For polytomous Items the test is performed on item category level. Several splitting options are available (see arguments). The S-statistic is also mentioned in van den Wollenberg, (1982) -- an article in Psychometrika, which might be available more easily (see details).
 #' 
 #'@details The data is splitted in two subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM (or RM in case of dichotonimies) are calculated for each subsample. This function internaly calls the function \code{\link{pairSE}}. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through.
@@ -27,8 +27,7 @@
 #' @param verbose logical, if \code{verbose = TRUE} (default) a message about subsampling is sent to console when calculating standard errors.
 #' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{pairSE}} are passed through - see description for \code{\link{pairSE}}.
 #' 
-#' @return A (list) object of class \code{"pair.S"} containing the test statistic and item difficulty parameter sigma and their standard errors for the two or more subsamples.
-#' @exportClass pair.S
+#' @return A (list) object of class \code{"pairS"} containing the test statistic and item difficulty parameter sigma and their standard errors for the two or more subsamples.
 #' @references description of function \code{\link{pairSE}}\code{{pairwise}}.
 #' @references Fischer, G. H., & Scheiblechner, H. (1970). Algorithmen und Programme fuer das probabilistische Testmodell von Rasch. \emph{Psychologische Beitrage}, (12), 23–51.
 #' @references van den Wollenberg, A. (1982). Two new test statistics for the rasch model. \emph{Psychometrika, 47}(2), 123–140. https://doi.org/10.1007/BF02296270
@@ -154,7 +153,7 @@ names(waldtest) <- vergl_namen
 
 erg <- list(S=waldtest,call=call)
 
-class(erg) <- c("pair.S","list")
+class(erg) <- c("pairS","list")
 
 return(erg)
 

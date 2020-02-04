@@ -4,8 +4,17 @@
 \alias{pairSE}
 \title{Item Parameter calculation with Standard Errors for polytomous Partial Credit  Model}
 \usage{
-pairSE(daten, m = NULL, nsample = 30, size = 0.5, seed = "no",
-  pot = TRUE, zerocor = TRUE, verbose = TRUE, ...)
+pairSE(
+  daten,
+  m = NULL,
+  nsample = 30,
+  size = 0.5,
+  seed = "no",
+  pot = TRUE,
+  zerocor = TRUE,
+  verbose = TRUE,
+  ...
+)
 }
 \arguments{
 \item{daten}{a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
@@ -29,7 +38,7 @@ WARNING! specifying high values for \code{nsample} ( > 100 ) may result in long 
 \item{...}{additional parameters passed through.}
 }
 \value{
-A (list) object of class "pairSE" containing the item category thresholds, difficulties sigma and their standard errors.
+A (list) object of class \code{c("pairSE","list")} containing the item category thresholds, difficulties sigma and their standard errors.
 }
 \description{
 Calculation of the item parameters for dichotomous (difficulty) or polytomous items (thurstonian thresholds) and their standard errors (SE) respectively.

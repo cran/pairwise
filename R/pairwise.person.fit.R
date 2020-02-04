@@ -1,11 +1,11 @@
 #' @title Person Fit Indices
 #' @export pairwise.person.fit
-#' @exportClass pairwise_person_fit
+#' @exportClass ppfit
 #' @description function for calculating person fit indices. The procedures for calculating the fit indices are based on the formulas given in Wright & Masters, (1982, P. 100), with further clarification given in \code{http://www.rasch.org/rmt/rmt34e.htm}.
 #' @details contrary to many IRT software using ML based item parameter estimation, \code{pairwise} will not exclude persons, showing perfect response vectors (e.g. c(0,0,0) for dataset with three variables), prior to scaling. Therefor the fit statistics computed with \code{pairwise} may deviate somewhat from the fit statistics produced by IRT software using ML based item parameter estimation (e.g. R-package \code{eRm}), depending on the amount of persons with perfect response vectors in the data.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.
 #' @param na_treat value to be assigned to residual cells which have missing data in the original response matrix. default is set to \code{na_treat=NA} to ignore these cells in further calculations. An option is to set these residuals to 0 using \code{na_treat=0}, which implys that they are imputed as 'fitting data', i.e., zero residuals. This can attenuate contrasts (see. http://www.rasch.org/rmt/rmt142m.htm).
-#' @return an object of class \code{c("pairwise_person_fit", "data.frame")} containing person fit indices
+#' @return an object of class \code{c("ppfit", "data.frame")} containing person fit indices
 #' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 #' @references Wright, B. D., & Masters, G. N. (1990). Computation of OUTFIT and INFIT Statistics. \emph{Rasch Measurement Transactions, 3}(4), 84–85.
 
@@ -65,6 +65,6 @@ P_VTikorr <- ( (P_Vikorr^(1/3)-1) * (3/P_Vqi) ) + (P_Vqi/3)
 #-----------------------------------------------------------------
 erg <- as.data.frame(list(Chi=round(P_Chi,4), df=P_df, p=round(P_pChi,4), OUTFIT.MSQ=round(P_Ui,4) , OUTFIT.ZSTD=round(P_UTi,4) ,INFIT.MSQ=round(P_Vi,4), INFIT.ZSTD=round(P_VTi,4), OUTFIT.MSQ.REL=round(P_Uikorr,4), OUTFIT.ZSTD.REL=round(P_UTikorr,4), INFIT.MSQ.REL=round(P_Vikorr,4), INFIT.ZSTD.REL=round(P_VTikorr,4)    ))
 
-class(erg) <- c("pairwise.person.fit","data.frame")
+class(erg) <- c("ppfit","data.frame")
 return( erg )
 }

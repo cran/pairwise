@@ -44,7 +44,7 @@ pvx.super <- function(theta_v, thres=NULL, dat=NULL){
     respL <- lapply(1:ncol(resp), function(i) {(resp[,i])})
     names(respL) <- colnames(resp)
     #erg <- mapply(function(x,y){t(pvx.matrix(theta_v,x ,y+1))}, x=thresL, y=respL)
-    erg <- mapply(function(x,y){t(pvx.matrix(theta_v = theta_v,thres = x ,xm_v = (y+1) ))}, x=thresL, y=respL)
+    erg <- mapply(function(x,y){t(pvx.matrix(theta_v = theta_v,thres = x ,xm_v = (y) ))}, x=thresL, y=respL) ## corrected 25-04-2019: this was wrong: xm_v = (y+1)
   }
 
   return(erg)

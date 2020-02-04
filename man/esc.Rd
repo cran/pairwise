@@ -4,8 +4,7 @@
 \alias{esc}
 \title{Expected Score Curves Plots}
 \usage{
-esc(pers_obj, itemnumber = 1, integ = 6, ra = 4, nodes = 100,
-  lwd = 2, ...)
+esc(pers_obj, itemnumber = 1, integ = 6, ra = 4, nodes = 100, lwd = 2, ...)
 }
 \arguments{
 \item{pers_obj}{an object of class \code{"pers"} as a result from function \code{\link{pers}}.}

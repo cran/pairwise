@@ -4,8 +4,7 @@
 \alias{gif}
 \title{Graphical Item Fit Plots}
 \usage{
-gif(pers_obj, itemnumber = 1, ra = 4, integ = "raw", kat = "all",
-  ...)
+gif(pers_obj, itemnumber = 1, ra = 4, integ = "raw", kat = "all", ...)
 }
 \arguments{
 \item{pers_obj}{an object of class \code{"pers"} as a result from function \code{\link{pers}}.}

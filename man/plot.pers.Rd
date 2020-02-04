@@ -4,10 +4,21 @@
 \alias{plot.pers}
 \title{S3 Plotting Person - Item Map}
 \usage{
-\method{plot}{pers}(x, ra = NULL, sortdif = FALSE, main = NULL,
-  ylab = "Logits", itemNames = TRUE, fillCol = "grey60",
-  lineCol = "grey40", cex = 0.7, pos = 4, breaks = "Sturges",
-  pch = 1, ...)
+\method{plot}{pers}(
+  x,
+  ra = NULL,
+  sortdif = FALSE,
+  main = NULL,
+  ylab = "Logits",
+  itemNames = TRUE,
+  fillCol = "grey60",
+  lineCol = "grey40",
+  cex = 0.7,
+  pos = 4,
+  breaks = "Sturges",
+  pch = 1,
+  ...
+)
 }
 \arguments{
 \item{x}{object of class\code{"pers"}}

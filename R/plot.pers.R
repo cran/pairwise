@@ -1,4 +1,4 @@
-#' @export plot.pers
+#' @method plot pers
 #' @title S3 Plotting Person - Item Map
 #' @description S3 plotting method for object of class\code{"pers"}
 #' @param x object of class\code{"pers"}

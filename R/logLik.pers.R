@@ -1,4 +1,4 @@
-#' @export logLik.pers
+#' @method logLik pers
 #' @title S3 logLik for Object of class "pers"
 #' @description S3 logLik method to extract the log-likelihood for object of class\code{"pers"} 
 #' @param object object of class\code{"pers"}

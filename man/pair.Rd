@@ -4,8 +4,7 @@
 \alias{pair}
 \title{Rasch Item Parameter (Main Function)}
 \usage{
-pair(daten, m = NULL, w = NULL, pot = TRUE, zerocor = TRUE,
-  ccf = FALSE, ...)
+pair(daten, m = NULL, w = NULL, pot = TRUE, zerocor = TRUE, ccf = FALSE, ...)
 }
 \arguments{
 \item{daten}{a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}

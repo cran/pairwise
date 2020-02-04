@@ -4,8 +4,13 @@
 \alias{q3}
 \title{Q3 Fit Statistic}
 \usage{
-q3(pers_obj, na_treat = 0, use = "complete.obs", res = "stdr",
-  method = "pearson")
+q3(
+  pers_obj,
+  na_treat = 0,
+  use = "complete.obs",
+  res = "stdr",
+  method = "pearson"
+)
 }
 \arguments{
 \item{pers_obj}{an object of class \code{"pers"} as a result from function \code{\link{pers}}.}

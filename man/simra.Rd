@@ -4,8 +4,14 @@
 \alias{simra}
 \title{Simulate Response Pattern under Dichotomous and Polytomous Rasch Model}
 \usage{
-simra(itempar = matrix(seq(-2, 2, length = 5)), theta = 100,
-  pers_obj = NULL, replicate = 1, seed = seq(1, replicate, 1), ...)
+simra(
+  itempar = matrix(seq(-2, 2, length = 5)),
+  theta = 100,
+  pers_obj = NULL,
+  replicate = 1,
+  seed = seq(1, replicate, 1),
+  ...
+)
 }
 \arguments{
 \item{itempar}{a "matrix" with \code{nrow = k} (number of items) and ncol = m (maximum number of thresholds), holding the 'thurstonian' thresholds of the respective item. Some of the rightmost matrix entries may be NA, depending on the number of categories of the respective item.}

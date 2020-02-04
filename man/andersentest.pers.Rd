@@ -4,8 +4,13 @@
 \alias{andersentest.pers}
 \title{Andersen's Likelihood Ratio Test for Object of class "pers"}
 \usage{
-andersentest.pers(pers_obj, split = "median", splitseed = "no",
-  pot = NULL, zerocor = NULL)
+andersentest.pers(
+  pers_obj,
+  split = "median",
+  splitseed = "no",
+  pot = NULL,
+  zerocor = NULL
+)
 }
 \arguments{
 \item{pers_obj}{an object of class\code{"pers"} - see function \code{\link{pers}}.}

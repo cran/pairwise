@@ -4,8 +4,16 @@
 \alias{iff}
 \title{Item information function}
 \usage{
-iff(pair_obj, itemnumber = 1, x = NULL, plot = TRUE, cat = FALSE,
-  lwd = 2, col = 1, ...)
+iff(
+  pair_obj,
+  itemnumber = 1,
+  x = NULL,
+  plot = TRUE,
+  cat = FALSE,
+  lwd = 2,
+  col = 1,
+  ...
+)
 }
 \arguments{
 \item{pair_obj}{an object of class \code{"pair"} as a result from function \code{\link{pair}}.}

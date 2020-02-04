@@ -1,8 +1,9 @@
 #' @title Graphical Model Check
 #' @export grm
+#' @exportClass grm
 #' @description This function makes the basic calculations for the graphical model check for dicho- or polytomous item response formats. It is more or less a wraper function, internaly calling the function \code{\link{pairSE}}. Several splitting options are available (see arguments).    
 #' 
-#'@details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM  are calculated for each subsample. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through. 
+#' @details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM  are calculated for each subsample. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through. 
 #'
 #'WARNING: When using data based on booklet designs with systematically missing values (by design) you have to ensure that in each of the booklet the maximum raw value to reach is equal while using the raw value as splitting criterion.
 #' 
@@ -24,8 +25,7 @@
 #' @param verbose logical, if \code{verbose = TRUE} (default) a message about subsampling is sent to console when calculating standard errors.
 #' @param ... additional arguments \code{nsample}, \code{size}, \code{seed}, \code{pot} for caling \code{\link{pairSE}} are passed through - see description for \code{\link{pairSE}}.
 #' 
-#' @return A (list) object of class \code{"grm"} containing the item difficulty parameter sigma and their standard errors for two or more subsamples.
-#' @exportClass grm
+#' @return A (list) object of class \code{c("grm","list")} containing the item difficulty parameter sigma and their standard errors for two or more subsamples.
 #' @references description of function \code{\link{pairSE}}\code{{pairwise}}.
 #' 
 #' @examples data(bfiN) # loading example data set
@@ -35,11 +35,11 @@
 #' # calculating itemparameters and SE for two random allocated subsamples
 #' grm_gen <- grm(daten=bfiN, split = bfi_cov$gender)
 #' summary(grm_gen)
-#' plot(grm_gen)
+#' #### plot(grm_gen)
 #' 
 #' grm_med <- grm(daten=bfiN, split = "median")
 #' summary(grm_med)
-#' plot(grm_med)
+#' #### plot(grm_med)
 #' 
 #' grm_ran<-grm(daten=bfiN, split = "random") 
 #' 
@@ -48,19 +48,19 @@
 #' # some examples for plotting options
 #' # plotting item difficulties for two subsamples against each other 
 #' # with elipses for a CI = 95% .
-#' plot(grm_ran) 
+#' #### plot(grm_ran) 
 #' 
 #' # using triangles as plotting pattern
-#' plot(grm_ran,pch=2) 
+#' #### plot(grm_ran,pch=2) 
 #' 
 #' #plotting without CI ellipses
-#' plot(grm_ran,ci=0,pch=2) 
+#' #### plot(grm_ran,ci=0,pch=2) 
 #' 
 #' # plotting with item names
-#' plot(grm_ran,itemNames=TRUE) 
+#' #### plot(grm_ran,itemNames=TRUE) 
 #' 
 #' # Changing the size of the item names
-#' plot(grm_ran,itemNames=TRUE, cex.names = 1.3)
+#' #### plot(grm_ran,itemNames=TRUE, cex.names = 1.3)
 #' 
 #' # Changing the color of the CI ellipses
 #' plot(grm_ran,itemNames=TRUE, cex.names = .8, col.error="green")

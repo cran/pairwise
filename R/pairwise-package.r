@@ -2,27 +2,27 @@
 #' @name pairwise-package
 #' @aliases pairwise
 #' @docType package
-#' @S3method logLik pers
-#' @S3method plot grm 
-#' @S3method plot pair
-#' @S3method plot pairSE
-#' @S3method plot pers
-#' @S3method plot rfa
-#' @S3method summary grm
-#' @S3method summary pair
-#' @S3method summary pairSE
-#' @S3method summary pairwise.item.fit
-#' @S3method summary pairwise.person.fit
-#' @S3method summary pers
-#' @S3method summary rfa
-#' @S3method summary pair.S
+#' @method logLik pers
+#' @method plot grm 
+#' @method plot pair
+#' @method plot pairSE
+#' @method plot pers
+#' @method plot rfa
+#' @method summary grm
+#' @method summary pair
+#' @method summary pairSE
+#' @method summary pifit
+#' @method summary ppfit
+#' @method summary pers
+#' @method summary rfa
+#' @method summary pairS
 #' @importFrom utils combn
 #' @importFrom graphics abline axis hist layout lines matlines matplot mtext par plot points rect segments symbols text title
 #' @importFrom methods is
 #' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm pnorm cor cov
 #' @description Performs the explicit calculation -- not estimation! -- of the Rasch item parameters for dichotomous and polytomous response formats using a pairwise comparison approach (Choppin, 1968, 1985). On the basis of the item parameters, person parameters (WLE) are calculated according to Warm's weighted likelihood approach (Warm, 1989). Item- and person fit statistics and several functions for plotting are available.
 #'
-#' @details 
+#' @details
 #' In case of dichotomous answer formats the item parameter calculation for the Rasch Model (Rasch, 1960), is based on the construction of a pairwise comparison matrix M\emph{nij} with entries f\emph{ij} representing the number of respondents who got item \emph{i} right and item \emph{j} wrong according to Choppin's (1968, 1985) conditional pairwise algorithm. 
 #' 
 #' For the calculation of the item thresholds and difficulty in case of polytomous answer formats, according to the Partial Credit Model (Masters, 1982), a generalization of the pairwise comparison algorithm is used. The construction of the pairwise comparison matrix is therefore extended to the comparison of answer frequencies for each category of each item. In this case, the pairwise comparison matrix M\emph{nicjc} with entries f\emph{icjc} represents the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional  pairwise algorithm to polytomous item response formats. 

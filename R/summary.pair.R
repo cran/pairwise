@@ -1,4 +1,4 @@
-#' @export summary.pair
+#' @method summary pair
 #' @title S3 Summary for item parameter
 #' @description S3 summary method for object of class\code{"pair"}
 #' @param object object of class\code{"pair"}

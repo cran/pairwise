@@ -7,12 +7,12 @@
 \method{summary}{pairSE}(object, sortdif = FALSE, ...)
 }
 \arguments{
-\item{object}{object of class\code{"pairSE"}}
+\item{object}{object of class\code{c("pairSE","list")}}
 
 \item{sortdif}{logical with default \code{sortdif=FALSE} wether to order items by difficulty.}
 
 \item{...}{other parameters passed trough}
 }
 \description{
-S3 summary method for object of class\code{"pairSE"}
+S3 summary method for object of class\code{c("pairSE","list")}
 }

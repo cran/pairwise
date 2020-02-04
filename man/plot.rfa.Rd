@@ -4,9 +4,20 @@
 \alias{plot.rfa}
 \title{S3 Plotting Rasch Residual Factor Analysis}
 \usage{
-\method{plot}{rfa}(x, com = 1, ra = "auto", main = NULL,
-  labels = NULL, xlab = "logits", ylab = "loadings", srt = 0,
-  cex.axis = 0.8, cex.text = 0.8, col.text = NULL, ...)
+\method{plot}{rfa}(
+  x,
+  com = 1,
+  ra = "auto",
+  main = NULL,
+  labels = NULL,
+  xlab = "logits",
+  ylab = "loadings",
+  srt = 0,
+  cex.axis = 0.8,
+  cex.text = 0.8,
+  col.text = NULL,
+  ...
+)
 }
 \arguments{
 \item{x}{object of class\code{"rfa"}}
