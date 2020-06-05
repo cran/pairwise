@@ -41,15 +41,15 @@ q3 <- function(pers_obj, na_treat=0, use="complete.obs", res="stdr", method="pea
   Z_mat <- .5*(log((1+r_mat)/(1-r_mat))) ## fisher Z transform of r
   Z_mean <- mean(Z_mat[upper.tri(Z_mat,diag = FALSE)])
   Q3_mean <- (exp(Z_mean*2)-1)/(exp(Z_mean*2)+1) ## backtransform of mean Z to (mean) r
-  Q3_max <- max(Z_mat[upper.tri(Z_mat,diag = FALSE)]) # max of positive correlations 
-  Q3_min <- min(Z_mat[upper.tri(Z_mat,diag = FALSE)]) # max!! of ninimum correlations
-  Q3_abs_max <- (Z_mat[upper.tri(Z_mat,diag = FALSE)])[max(abs(Z_mat[upper.tri(Z_mat,diag = FALSE)]))==abs(Z_mat[upper.tri(Z_mat,diag = FALSE)])]# max of absolut cor. values - that is, what is the strongest association (either positive or negative)  
-  Q3_abs_min <- (Z_mat[upper.tri(Z_mat,diag = FALSE)])[min(abs(Z_mat[upper.tri(Z_mat,diag = FALSE)]))==abs(Z_mat[upper.tri(Z_mat,diag = FALSE)])] # min of absolut cor. values - that is, what is the lowest association (either positive or negative)
+  Q3_max <- max(r_mat[upper.tri(r_mat,diag = FALSE)]) # max of positive correlations; JHH edit was: max(Z_mat[upper.tri(Z_mat,diag = FALSE)])
+  Q3_min <- min(r_mat[upper.tri(r_mat,diag = FALSE)]) # max!! of ninimum correlations; JHH edit was: min(Z_mat[upper.tri(Z_mat,diag = FALSE)])
+  Q3_abs_max <- (r_mat[upper.tri(r_mat,diag = FALSE)])[max(abs(r_mat[upper.tri(r_mat,diag = FALSE)]))==abs(r_mat[upper.tri(r_mat,diag = FALSE)])]# max of absolut cor. values - that is, what is the strongest association (either positive or negative); JHH edit was:  (Z_mat[upper.tri(Z_mat,diag = FALSE)])[max(abs(Z_mat[upper.tri(Z_mat,diag = FALSE)]))==abs(Z_mat[upper.tri(Z_mat,diag = FALSE)])]
+  Q3_abs_min <- (r_mat[upper.tri(r_mat,diag = FALSE)])[min(abs(r_mat[upper.tri(r_mat,diag = FALSE)]))==abs(r_mat[upper.tri(r_mat,diag = FALSE)])] # min of absolut cor. values - that is, what is the lowest association (either positive or negative); JHH edit was: (Z_mat[upper.tri(Z_mat,diag = FALSE)])[min(abs(Z_mat[upper.tri(Z_mat,diag = FALSE)]))==abs(Z_mat[upper.tri(Z_mat,diag = FALSE)])]
   `Q3*` <- Q3_max - Q3_mean # this is obviously wrong, becaus it ignores negative correlations, but exactly the thing proposed in the literatur
   rmat <- r_mat; diag(rmat) <- NA # change digaonal to NA for output
   n_cor <- crossprod(1-is.na(resi))
   ############ return section 
   erg <- list(pers_obj=pers_obj, residuals=list(resid=resi,type=res), resid_cor=list(cor=rmat,n_cor=n_cor,type=method,na_treat=na_treat,use=use), statistic=list(Q3=c(mean=Q3_mean, max=Q3_max, min=Q3_min, max_abs=Q3_abs_max, min_abs=Q3_abs_min,`Q3*`=`Q3*`) ) )
-  class(erg) <- c("Q3","list")
+  class(erg) <- c("q3","list")
   return(erg)
 }

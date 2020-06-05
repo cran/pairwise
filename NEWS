@@ -1,3 +1,13 @@
+Changes in Version 0.4.5-1
+  
+  o fixed the 'S4 exports' issue
+  
+Changes in Version 0.4.5-0
+  
+  o added a summary method for objects of class 'q3' resulting from function q3() for Yens (1984) Q3 fit statistic
+  
+  o fixed a bug in the calculation of the max and min values in the Q3 statistic (thanks to Moritz Heene! for the hint)
+
 Changes in Version 0.4.4-6
   
   o fixed the '`class(.) == *`'  issue
