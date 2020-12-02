@@ -1,47 +1,3 @@
-#' @title Rasch Item Parameter (Main Function) 
-#' @export pair
-#' @description This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982), using a generalization of the pairwise comparison algorithm (Choppin, 1968, 1985; Wright & Masters, 1982). The number of (response) categories may vary accross items. 
-#' Missing values up to an high amount in data are allowed, as long as items are proper linked together.
-#' 
-#'@details Parameter calculation is based on the construction of a paired comparison matrix M\emph{nicjc} with entries f\emph{icjc} representing the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional pairwise algorithm to polytomous item response formats. This algorithm is simply realized by matrix multiplication.
-#'
-#' To avoid numerical problems with off diagonal zero's when constructing the pairwise comparison matrix M\emph{nij}, powers of the M\emph{nicjc} matrix, can be used (Choppin, 1968, 1985). Using powers \emph{k} of M\emph{nicjc} - argument \code{pot=TRUE} (default), replaces the results of the direct comparisons between \emph{i} and \emph{j} with the sum of the indirect comparisons of \emph{i} and \emph{j} through an intermediate \emph{k}.
-#' 
-#'In general, it is recommended to use the argument with default value \code{pot=TRUE}.
-#'
-#'For a graphic representation of the item 'estimates' the plotting S3 method \code{\link{plot.pair}} is available. For plotting the item category probabilities the function \code{\link{catprob}} can be used.  
-#'
-#'    
-#' @param daten a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
-#' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.
-#' @param w an optional vector of case weights 
-#' @param pot either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.
-#' @param zerocor logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373).
-#' @param ccf logical with default \code{ccf=FALSE} to perform normal item parameter calculation, if set to \code{ccf=TRUE} just the conditional item (category) frequencies are returned.
-#' @param ... additional parameters passed through.
-#' @return A (list) object of class \code{"pair"} containing the item category thresholds and difficulties sigma, also called item location.
-#' @exportClass pair
-#' @references Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
-#' @references Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
-#' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
-#' @references Masters, G. (1982). A Rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
-#' @references Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainment tests.} Copenhagen: Danmarks pædagogiske Institut.
-#' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
-#' 
-#' @examples data(bfiN) # loading example data set
-#' # calculating itemparameters for 5 neuroticism items with 6 answer categories (0-5).
-#' neuro_itempar<-pair(daten = bfiN, m = 6) 
-#' summary(neuro_itempar) 
-#' summary(neuro_itempar, sortdif=TRUE) # ordered by difficulty 
-#' # plotting threshold profiles for 5 neuroticism items.
-#' plot(neuro_itempar) 
-#' plot(neuro_itempar, sortdif=TRUE) # plotting ordered by difficulty 
-#' ################ with unequal number of categories 
-#' data(sim200x3)
-#' res<-pair(sim200x3)
-#' summary(res)
-#' plot(res)
-
 pair <- function(daten, m=NULL, w=NULL, pot=TRUE, zerocor=TRUE, ccf=FALSE, ...){
 
   options(stringsAsFactors = FALSE) # added 14-12-2017
@@ -150,7 +106,19 @@ pow <- function (x, k)
   #### END internal functions ------
   
   #### start data preparation ------
+if( any(class(daten)=="list") ){
+  Ldaten <- daten # back up user data
+  rt <- length(daten)
+  d <- dataprep1(daten) # dataprep1 checks if daten is a "list"
+  Lr <- lapply(1:rt, function(x){c(d[((((nrow(d))/rt)*(x-1))+1):(((nrow(d))/rt)*x),])})  
+  Mrpc <- matrix(mapply(FUN = function(x,y){ sum(Lr[[x]]>Lr[[y]]) },x=rep(1:rt,each=rt),y=rep(1:rt,times=rt),SIMPLIFY = T),ncol = rt)
+  }
+
+if( any(class(daten)!="list") ){
   d<-dataprep1(daten)
+  rt <- 1
+  Mrpc <- matrix(1,1,1)
+}
   
   ### some category checks for m ----
   if(length(m)==0){if (all(apply(d,2,function(x){min(x,na.rm=TRUE)})== 0) == FALSE){stop("item categories must start with 0") }}
@@ -179,25 +147,27 @@ pow <- function (x, k)
   # powers of nij ?
   if(class(pot)=="logical"){
   if(pot==FALSE){nij <- f$fmat}
-  if(pot==TRUE){nij <- cube(f$fmat) }
+  if(pot==TRUE){nij <- cube(f$fmat); Mrpc <- cube(Mrpc) }
   }
   if(class(pot)=="numeric"){
     if(pot<2){stop("pot must be >= than 2")}
     else{
-      nij <- pow(f$fmat,pot)
+      nij <- pow(f$fmat,pot); Mrpc <- pow(Mrpc,pot)
     }
   }
    
   # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
-  if(zerocor==TRUE){nij[nij==0]<-1}
+  if(zerocor==TRUE){nij[nij==0]<-1; Mrpc[Mrpc==0]<-1}
   
   # calculation thresholds / dificulties
   logD <- log(Dmat(nij)) # new 04-29-2016
+  logDr <- log(Dmat(Mrpc)) # new 22-06-2020 Rater severity / time drift 
   logD_ <- logD # new 04-29-2016
   #logD_[logD_==0]<-colMeans(logD_, na.rm = TRUE) # new 04-29-2016
   # logD_[logD_==0]<-NA # new 04-29-2016
   # logD_[is.na(logD_)]<-rowMeans(logD_, na.rm = TRUE) # new 04-29-2016
   tau<-rowMeans(logD_, na.rm = TRUE)
+  taur <- rowMeans(logDr)
   # formatieren der ausgabe
   vo <- (cumsum((mVector)-1) ) - ((mVector)-2)
   bi <- cumsum((mVector)-1)
@@ -222,7 +192,7 @@ pow <- function (x, k)
     # rownames(threshold) <- colnames(d)
   }
 
-  erg<-list(threshold=threshold,sigma=sigma,sb=sb,resp=d, fuargs=fuargs, m=m)
+  erg<-list(threshold=threshold,sigma=sigma,sb=sb,resp=d, fuargs=fuargs, m=m, taur=taur)
   class(erg) <- c("pair","list")
   
   #invisible(erg)
@@ -237,18 +207,16 @@ pow <- function (x, k)
   # powers of nij ?
   if(class(pot)=="logical"){
     if(pot==FALSE){nij <- f$fmat}
-    if(pot==TRUE){nij <- cube(f$fmat) }
+    if(pot==TRUE){nij <- cube(f$fmat); Mrpc <- cube(Mrpc) }
   }
   if(class(pot)=="numeric"){
     if(pot<2){stop("pot must be >= than 2")}
-    else{
-      nij <- cube(f$fmat, POTT=pot)
+    else {nij <- cube(f$fmat, POTT=pot); Mrpc <- pow(Mrpc,pot)}
     }
-  }
   
   # new zero correction as an option --> conf. R. Alexandrowicz(2011) p.373 
-  if(zerocor==TRUE){nij[nij==0]<-1}
-  
+  if(zerocor==TRUE){nij[nij==0]<-1; Mrpc[Mrpc==0]<-1}
+  print(Mrpc)
   return(nij)
   }
 

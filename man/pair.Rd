@@ -7,9 +7,9 @@
 pair(daten, m = NULL, w = NULL, pot = TRUE, zerocor = TRUE, ccf = FALSE, ...)
 }
 \arguments{
-\item{daten}{a \code{data.frame} or \code{matrix} with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
+\item{daten}{a single \code{data.frame} or \code{matrix} or a \code{list} with every list entry holding a \code{data.frame} or \code{matrix}. Row and column names may represent the names of items (columns) and persons (rows). Missing values (\code{NA}) are allowed. Item responses can be polytomous or dichotomous (or a mixture of a varying number of categories across all items). Responses of \code{n} respondents (rows) on \code{k} items (colums) must be coded (scored) starting with 0 for lowest category to \emph{m}-1 for highest category. If a list is assigned to this argument each \code{data.frame} or \code{matrix} as respective list entry must have the same dimensionality. See details and examples.}
 
-\item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.}
+\item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in the data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.}
 
 \item{w}{an optional vector of case weights}
 
@@ -32,8 +32,9 @@ Missing values up to an high amount in data are allowed, as long as items are pr
 Parameter calculation is based on the construction of a paired comparison matrix M\emph{nicjc} with entries f\emph{icjc} representing the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional pairwise algorithm to polytomous item response formats. This algorithm is simply realized by matrix multiplication.
 
 To avoid numerical problems with off diagonal zero's when constructing the pairwise comparison matrix M\emph{nij}, powers of the M\emph{nicjc} matrix, can be used (Choppin, 1968, 1985). Using powers \emph{k} of M\emph{nicjc} - argument \code{pot=TRUE} (default), replaces the results of the direct comparisons between \emph{i} and \emph{j} with the sum of the indirect comparisons of \emph{i} and \emph{j} through an intermediate \emph{k}.
-
 In general, it is recommended to use the argument with default value \code{pot=TRUE}.
+
+If a list object is assigned to the argument \code{data}, the list entries (matrix or data.frame) must all have the same dimensionality. The individual list entries represent either \emph{r} measurement times or raters.  If such a list object is used, first the item parameters are calculated across all \emph{r} measurement points or raters and additionally a threshold parameter is given for each of the \emph{r} measurement points or raters (e.g. rater severity or overal item shift).
 
 For a graphic representation of the item 'estimates' the plotting S3 method \code{\link{plot.pair}} is available. For plotting the item category probabilities the function \code{\link{catprob}} can be used.
 }

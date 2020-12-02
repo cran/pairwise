@@ -1,9 +1,9 @@
 Package: pairwise
 Type: Package
 Maintainer: Joerg-Henrik Heine <jhheine@googlemail.com>
-Date: 2020-06-05
+Date: 2020-12-2
 Author: Joerg-Henrik Heine <jhheine@googlemail.com>
-Version: 0.4.5-1
+Version: 0.5.0-1
 Encoding: UTF-8
 License: GPL-3
 Imports: graphics, stats, methods
@@ -16,6 +16,6 @@ Description: Performs the explicit calculation
     approach.
 Suggests: psych
 NeedsCompilation: no
-Packaged: 2020-06-05 12:12:56 UTC; jh
+Packaged: 2020-12-02 12:46:50 UTC; jh
 Repository: CRAN
-Date/Publication: 2020-06-05 13:10:03 UTC
+Date/Publication: 2020-12-02 13:20:02 UTC

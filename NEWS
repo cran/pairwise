@@ -1,3 +1,11 @@
+Changes in Version 0.5.0-1
+  
+  o added S3 method 'residuals' for objects of class 'pers' resulting from function pers() 
+
+Changes in Version 0.5.0-0
+  
+  o added estimation of thresholds for Rater severity / repeated measurement in function pair()
+  
 Changes in Version 0.4.5-1
   
   o fixed the 'S4 exports' issue

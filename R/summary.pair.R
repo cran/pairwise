@@ -20,4 +20,6 @@ summary.pair<-function(object, sortdif=FALSE, ...){
     cat("(ordered by location) \n")
   }
   print(round(data.frame(object[2:1]),5))
+  cat("Thurstonian thresholds for rater severity / times of measurement: \n") 
+  print(object$taur)
 }
