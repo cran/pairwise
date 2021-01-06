@@ -1,3 +1,7 @@
+Changes in Version 0.5.0-2
+  
+  o fixed error message during re-building of vignette outputs 
+
 Changes in Version 0.5.0-1
   
   o added S3 method 'residuals' for objects of class 'pers' resulting from function pers() 

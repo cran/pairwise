@@ -1,6 +1,6 @@
-2b80ce6520d3f3d9e704806a3122e84f *DESCRIPTION
+b9a3a8a2b7ddc4d5ad78f60b695fd931 *DESCRIPTION
 437e4328b056b240d60db66c4cea3370 *NAMESPACE
-7ef845199e655a710ca033d0032e30f5 *NEWS
+bcf42af198522992d0b92f5453977dc2 *NEWS
 5900a9a0b12f00efe640b48d5b9fc0f2 *R/Q.R
 30822985048d88713206632e496b2e63 *R/andersentest.pers.R
 180fb16de0bff60e1f815f0e7114a58f *R/catprob.R
@@ -53,7 +53,6 @@ ee1d33a5e20fcbad792126fcafb304f3 *R/summary.pairSE.R
 ce6d60da57e418a1809b4f249029f903 *R/summary.q3.R
 89ecbe0fbc18fef17386755fd1db37c4 *R/summary.rfa.R
 37b557a0dd5cae0f69ce462ab3c652a8 *R/tff.R
-ece15a8f2381894a1834a990d1a7a816 *build/vignette.rds
 e57bdb7a6b88f69aec0da23d209ab460 *data/DEU_PISA2012.RData
 bc5aa2a1c320a185b49c4afd272daa99 *data/Neoffi5.RData
 2972375de9e9aa109e91353f0762ef4b *data/bfiN.RData
@@ -64,9 +63,8 @@ bc5aa2a1c320a185b49c4afd272daa99 *data/Neoffi5.RData
 6d7077964455887a6a8cdd7816d9918c *data/kft5.RData
 bfe82428e23d261599ce26ee15ea7cd0 *data/sim200x3.RData
 666d1afb2c1e926d478f6376d0446cab *inst/CITATION
-018722a51dfe8c4f64bbfc210dea185a *inst/doc/DEU_PISA2012_description.R
-91b52b73e365743ac29927fb767df7bb *inst/doc/DEU_PISA2012_description.Rnw
-2640518ecdbf807db565ede679d22ec4 *inst/doc/DEU_PISA2012_description.pdf
+48c286278349f5f7566d1634933763c9 *inst/doc/vignettes/DEU_PISA2012_description.Rnw
+367caeb63f0a9bfeb886e4c816f1f1ca *inst/doc/vignettes/DEU_PISA2012_description.pdf
 feea8c4763476eb2552effefbb20bfa0 *man/DEU_PISA2012.Rd
 18f267b04f0d64f1319cb0ab5daa7130 *man/Neoffi5.Rd
 bd3994a941add96703f5955a0727222a *man/Q.Rd
@@ -114,4 +112,3 @@ be90e36ed77b774d8b5aa9107305c5a3 *man/summary.pers.Rd
 c2f15ab206d84877e19b471de955fb9f *man/summary.ppfit.Rd
 cac90a91179662e6d73d61013b88a0d4 *man/summary.rfa.Rd
 3d6d22c2ef74dd2b38e5583854e59eac *man/tff.Rd
-91b52b73e365743ac29927fb767df7bb *vignettes/DEU_PISA2012_description.Rnw
