@@ -1,6 +1,5 @@
 #' @title The Fischer-Scheiblechner Statistic S on item level (Wald like Test) 
 #' @export pairwise.S
-#' @exportClass pairS
 #' @description This function calculates the S-statistic on item level proposed by Fischer and Scheiblechner (1970) on item level for dicho- or polytomous item response formats by splitting the data into two subsamples. For polytomous Items the test is performed on item category level. Several splitting options are available (see arguments). The S-statistic is also mentioned in van den Wollenberg, (1982) -- an article in Psychometrika, which might be available more easily (see details).
 #' 
 #'@details The data is splitted in two subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM (or RM in case of dichotonimies) are calculated for each subsample. This function internaly calls the function \code{\link{pairSE}}. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through.
@@ -82,13 +81,13 @@ if(!(length(teil) > 1)) {
     #OK
   }
   if(teil=="random"){
-    if (class(splitseed)=="numeric"){set.seed(splitseed)}
+    if(is.numeric(splitseed)){set.seed(splitseed)}
     teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),2))
     #OK
     }
   if((substr(teil, 1, 6)=="random") && (nchar(teil)>6)){
     nteil<-as.numeric(unlist(strsplit(teil,".",TRUE))[2]) 
-    if (class(splitseed)=="numeric"){set.seed(splitseed)}
+    if(is.numeric(splitseed)){set.seed(splitseed)}
     teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),nteil))
     #OK
   }     
@@ -107,7 +106,7 @@ if(!(length(teil) > 1)) {
   
 }
   
-  if((class(teil)=="integer") | (class(teil)=="numeric") | (class(teil)=="factor")){
+  if((is.integer(teil)) | (is.numeric(teil)) | (is.factor(teil))){
     #teiler<-daten[,teil]
     if( (dim(daten)[1])!=length(teil) ){stop("length of argument 'split' dose not match with 'data'")}
     teiler<-teil

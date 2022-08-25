@@ -13,7 +13,6 @@
 #' @return An object of class \code{c("rfa","list")}.
 #' @references Wright, B. D. (1996). Comparing Rasch measurement and factor analysis. \emph{Structural Equation Modeling: A Multidisciplinary Journal, 3}(1), 3–24.
 #' @references Linacre, J. M. (1998). Detecting multidimensionality: which residual data-type works best? \emph{Journal of outcome measurement, 2}, 266–283.
-#' @exportClass rfa
 #' @examples ######################
 #' ########
 #' data(bfiN) # loading reponse data
@@ -29,7 +28,7 @@ rfa <- function(pers_obj, na_treat=0, tr=FALSE ,use="complete.obs", res="stdr", 
   # needs func. expscore in i.expscore.R
   # see book by trevor bond & christine fox p. 253
   obj <- expscore(pers_obj, na_treat=na_treat) # calls internal function for residuals
-  if (tr==TRUE) {obj <- lapply(obj,t)} # transpose all resid. matrices if tr == TRUE
+  if(tr==TRUE) {obj <- lapply(obj,t)} # transpose all resid. matrices if tr == TRUE
   Eni <- obj$Eni # expected scores 
   Yni <- obj$Yni # "sr" - score residual  
   Zni <- obj$Zni # "stdr" - standardised residual 
@@ -37,7 +36,7 @@ rfa <- function(pers_obj, na_treat=0, tr=FALSE ,use="complete.obs", res="stdr", 
   Z2ni <- obj$Z2ni # "stdrsq" - standardised residual squared 
   # check of arguments 
   if( !(any(res==c("sr","stdr","srsq","stdrsq"))) ){stop("wrong type of residuals selected","\n", "check argument 'res'","\n")}
-  if( class(cor)!="logical" ){stop("argument 'cor' must be of class \"logical\"","\n")}
+  if(!is.logical(cor)){stop("argument 'cor' must be of class \"logical\"","\n")}
   #assign the selected residual type
   if(res=="sr"){resi <- Yni}
   if(res=="stdr"){resi <- Zni}

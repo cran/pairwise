@@ -1,5 +1,7 @@
-#' @method plot pairSE
 #' @title S3 Plotting Thustonian Thresholds with SE
+#' @exportS3Method plot pairSE
+#' @keywords methods
+#' @method plot pairSE
 #' @description S3 plotting method for object of class\code{c("pairSE","list")}
 #' @param x object of class\code{c("pairSE","list")}
 #' @param sortdif logical wether to order items by difficulty
@@ -63,7 +65,7 @@ plot.pairSE<-function(x, ci=2, sortdif=FALSE, ra="auto", main=NULL, col.lines=1:
     y2<-ceiling(max(logit,na.rm=TRUE))
   }
   ## feste vorgegebene y achsen skalierung
-  if(class(bereich)=="numeric"){
+  if(is.numeric(bereich)){
     y1<- -bereich
     y2<- bereich
   }

@@ -1,5 +1,7 @@
-#' @method plot rfa
 #' @title S3 Plotting Rasch Residual Factor Analysis
+#' @exportS3Method plot rfa
+#' @keywords methods
+#' @method plot rfa
 #' @description S3 plotting Method for object of class\code{"rfa"}
 #' @param x object of class\code{"rfa"}
 #' @param com an integer giving the number of the principal component used for plotting
@@ -33,7 +35,7 @@ plot.rfa<-function(x, com=1, ra="auto", main=NULL , labels=NULL, xlab="logits", 
     xx2<-ceiling(max(xx))
   }
   ## feste vorgegebene x achsen skalierung
-  if(class(bereich)=="numeric"){
+  if(is.numeric(bereich)){
     xx1<- -bereich
     xx2<- bereich
   }

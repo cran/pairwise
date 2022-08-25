@@ -1,5 +1,7 @@
-#' @method summary q3
 #' @title S3 Summary for Q3 Fit Statistic
+#' @exportS3Method summary q3
+#' @keywords methods
+#' @method summary q3
 #' @description S3 summary method for object of class\code{"q3"}
 #' @param object object of class\code{"q3"}
 #' @param maxrc numerical with default \code{maxrc=3} to specify the output of the maximum number of highest residual correlations in terms of absolute value.

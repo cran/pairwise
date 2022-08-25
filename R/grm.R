@@ -1,6 +1,5 @@
 #' @title Graphical Model Check
 #' @export grm
-#' @exportClass grm
 #' @description This function makes the basic calculations for the graphical model check for dicho- or polytomous item response formats. It is more or less a wraper function, internaly calling the function \code{\link{pairSE}}. Several splitting options are available (see arguments).    
 #' 
 #' @details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM  are calculated for each subsample. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through. 
@@ -11,6 +10,7 @@
 #'
 #' @param daten a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixed category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
 #' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{m = NULL}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.
+#' @param w an optional vector of case weights.
 #' 
 #' @param split Specifies the splitting criterion. Basically there are three different options available - each with several modes - which are controlled by passing the corresponding character expression to the argument. 
 #' 
@@ -77,7 +77,7 @@
 #' 
 ############## funktions beginn ########################################################
 
-grm<-function(daten, m=NULL, split="random", splitseed="no", verbose=FALSE, ...){ 
+grm<-function(daten, m=NULL, w=NULL, split="random", splitseed="no", verbose=FALSE, ...){ 
 #### abfragen der teilungskriterien und teiler vorbereiten
   teil <- split  # übergabe an internes argument
 if(!(length(teil) > 1)) {  
@@ -86,13 +86,13 @@ if(!(length(teil) > 1)) {
     #OK
   }
   if(teil=="random"){
-    if (class(splitseed)=="numeric"){set.seed(splitseed)}
+    if(is.numeric(splitseed)){set.seed(splitseed)}
     teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),2))
     #OK
     }
   if((substr(teil, 1, 6)=="random") && (nchar(teil)>6)){ # enhancement on 26-2-2017
     nteil<-as.numeric(unlist(strsplit(teil,".",TRUE))[2]) 
-    if (class(splitseed)=="numeric"){set.seed(splitseed)}
+    if(is.numeric(splitseed)){set.seed(splitseed)}
     teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),nteil))
     #OK
   }     
@@ -111,7 +111,7 @@ if(!(length(teil) > 1)) {
   
 }
   
-  if((class(teil)=="integer") | (class(teil)=="numeric") | (class(teil)=="factor")){
+  if((is.integer(teil)) | (is.numeric(teil)) | (is.factor(teil))){
     #teiler<-daten[,teil]
     if( (dim(daten)[1])!=length(teil) ){stop("length of argument 'split' dose not match with 'data'")}
     teiler<-teil
@@ -130,7 +130,7 @@ datalist<-vector("list",length=length(subsamp)) #vorber. leere datalist
  }
 names(datalist) <- paste(subsamp,"sample")
      
-     erg <- lapply(datalist, pairSE, m=m, verbose=verbose, ...) 
+     erg <- lapply(X = datalist, FUN = pairSE, m=m, w=w, verbose=verbose, ...) 
      class(erg) <- c("grm","list")
 
   return(erg)

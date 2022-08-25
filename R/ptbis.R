@@ -7,7 +7,6 @@
 #' @param daten if argument y is not an object of class \code{"pers"}, a \code{"data.frame"}, potentially with missing values, comprising dicho- or polytomous items (columns). 
 
 #' @return An object of class \code{c("data.frame", "ptbis")} containing item statistics.
-#' @exportClass ptbis
 #' @examples ######################
 #' ########
 #' data(sim200x3) # loading reponse data
@@ -24,11 +23,11 @@ ptbis <- function(y, daten=NULL){# daten = data.frame mit polytomen variablen; y
     abil <- y$pers$WLE
   }
   if(is.vector(y)==TRUE){
-    if(class(daten)!="data.frame"){stop("daten must be a data.frame")}
+    if(!is.data.frame(daten)){stop("daten must be a data.frame")}
     daten <- daten
     abil <- y
   }
-  if(class(daten)!="data.frame"){stop("daten must be a data.frame")}
+  if(!is.data.frame(daten)){stop("daten must be a data.frame")}
   stopifnot(dim(daten)[1]==length(abil))
   datenl <- as.list(daten)
   erglist <- lapply(datenl, polyptb, abil)

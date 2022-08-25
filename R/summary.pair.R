@@ -1,10 +1,12 @@
+#' @title S3 Summary for Item Parameter
+#' @exportS3Method summary pair
+#' @keywords methods
 #' @method summary pair
-#' @title S3 Summary for item parameter
 #' @description S3 summary method for object of class\code{"pair"}
 #' @param object object of class\code{"pair"}
-#' @param sortdif logical with default \code{sortdif=FALSE} wether to order items by difficulty.
+#' @param sortdif logical with default \code{sortdif=FALSE} whether to order items by difficulty.
 #' @param ... other parameters passed trough
-########################### hier die summary method fuer pair #############################
+########################### here the summary method for pair #############################
 summary.pair<-function(object, sortdif=FALSE, ...){
   cat("Thurstonian thresholds and item location (sigma): \n") 
   if(sortdif==TRUE){

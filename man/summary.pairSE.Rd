@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.pairSE.R
 \name{summary.pairSE}
 \alias{summary.pairSE}
-\title{S3 Summary for item parameter with standard errors}
+\title{S3 Summary for Item Parameter with Standard Errors}
 \usage{
 \method{summary}{pairSE}(object, sortdif = FALSE, ...)
 }
@@ -16,3 +16,4 @@
 \description{
 S3 summary method for object of class\code{c("pairSE","list")}
 }
+\keyword{methods}

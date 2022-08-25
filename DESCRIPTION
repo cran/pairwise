@@ -1,13 +1,13 @@
 Package: pairwise
 Type: Package
 Maintainer: Joerg-Henrik Heine <jhheine@googlemail.com>
-Date: 2021-01-06
+Date: 2022-08-25
 Author: Joerg-Henrik Heine <jhheine@googlemail.com>
-Version: 0.5.0-2
+Version: 0.6.0-0
 Encoding: UTF-8
 License: GPL-3
 Imports: graphics, stats, methods
-Depends: R (>= 2.10.1)
+Depends: R (>= 3.5.0)
 Title: Rasch Model Parameters by Pairwise Algorithm
 Description: Performs the explicit calculation
     -- not estimation! -- of the Rasch item parameters for dichotomous and
@@ -15,7 +15,8 @@ Description: Performs the explicit calculation
     parameters (WLE) are calculated according to Warm's weighted likelihood
     approach.
 Suggests: psych
+RoxygenNote: 7.2.1
 NeedsCompilation: no
-Packaged: 2021-01-06 16:20:17 UTC; jh
+Packaged: 2022-08-25 18:58:19 UTC; jh
 Repository: CRAN
-Date/Publication: 2021-01-06 17:00:03 UTC
+Date/Publication: 2022-08-25 19:30:02 UTC

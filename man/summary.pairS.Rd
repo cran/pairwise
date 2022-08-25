@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.pairS.R
 \name{summary.pairS}
 \alias{summary.pairS}
-\title{S3 Summary for S-statistic Test (Wald Test)}
+\title{S3 Summary for S-Statistic Test (Wald Test)}
 \usage{
 \method{summary}{pairS}(object, thres = TRUE, ...)
 }
@@ -16,3 +16,4 @@
 \description{
 S3 summary method for object of class\code{"pairS"}
 }
+\keyword{methods}

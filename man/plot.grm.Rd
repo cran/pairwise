@@ -57,5 +57,6 @@
 \item{...}{other parameters passed to plot}
 }
 \description{
-S3 plotting Method for object of class\code{c("grm","list")}
+S3 plotting method for object of class\code{c("grm","list")}
 }
+\keyword{methods}

@@ -11,7 +11,6 @@
 #' @param object an object of class \code{"pair"} as resulting from item parameter calculation using the function \code{\link{pair}}.
 #' @param sigma a logical whether to return item difficulties (sigma) or not
 #' @return If \code{sigma=TRUE} an object of class \code{c("data.frame", "deltapar")} containing delta parameters for items and their difficultie (first column). Otherwise a matrix containing only the delta parameters.
-#' @exportClass deltapar
 #' @examples ######################
 #' data(sim200x3) # loading reponse data
 #' ip <- pair(sim200x3,m = c(2,3,3)) # compute item parameters

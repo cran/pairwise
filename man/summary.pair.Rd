@@ -2,17 +2,18 @@
 % Please edit documentation in R/summary.pair.R
 \name{summary.pair}
 \alias{summary.pair}
-\title{S3 Summary for item parameter}
+\title{S3 Summary for Item Parameter}
 \usage{
 \method{summary}{pair}(object, sortdif = FALSE, ...)
 }
 \arguments{
 \item{object}{object of class\code{"pair"}}
 
-\item{sortdif}{logical with default \code{sortdif=FALSE} wether to order items by difficulty.}
+\item{sortdif}{logical with default \code{sortdif=FALSE} whether to order items by difficulty.}
 
 \item{...}{other parameters passed trough}
 }
 \description{
 S3 summary method for object of class\code{"pair"}
 }
+\keyword{methods}

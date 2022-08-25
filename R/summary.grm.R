@@ -1,5 +1,7 @@
-#' @method summary grm
 #' @title S3 Summary for graphical Model Check
+#' @exportS3Method summary grm
+#' @keywords methods
+#' @method summary grm
 #' @description S3 summary method for object of class\code{c("grm","list")}
 #' @param object object of class\code{c("grm","list")}
 #' @param ci numeric with default \code{ci=2} to return cinfidence intervalls for point estimator.

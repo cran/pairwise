@@ -1,6 +1,8 @@
-#' @method plot grm
 #' @title S3 Plotting Graphical Model Check
-#' @description S3 plotting Method for object of class\code{c("grm","list")}
+#' @exportS3Method plot grm
+#' @keywords methods
+#' @method plot grm
+#' @description S3 plotting method for object of class\code{c("grm","list")}
 #' @param x object of class\code{c("grm","list")}
 #' @param xymin optional lower limit for xy-axis
 #' @param xymax optional upper limit for xy-axis

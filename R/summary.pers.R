@@ -1,12 +1,14 @@
-#' @method summary pers
 #' @title S3 Summary for Thetas
+#' @exportS3Method summary pers
+#' @keywords methods
+#' @method summary pers
 #' @description S3 summary method for object of class\code{"pers"}
 #' @param object object of class\code{"pers"}
 #' @param short logical with default \code{short=TRUE} - if set to \code{short=FALSE} a "data.frame" with WLE estimates (and their respective standard errors) for every row (person) in the original dataset will be returned.
 #' @param sortwle logical wether to order persons by ability - ignored when \code{short=TRUE}
 #' @param ... other parameters passed trough
 
-########################### hier die summary method fuer pers #############################
+########################### here the summary method for pers #############################
 summary.pers<-function(object, short=TRUE, sortwle=FALSE, ...){
   personen <- object$pers
   items <- object$pair

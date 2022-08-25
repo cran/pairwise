@@ -1,5 +1,7 @@
-#' @method logLik pers
 #' @title S3 logLik for Object of class "pers"
+#' @exportS3Method logLik pers
+#' @keywords methods
+#' @method logLik pers
 #' @description S3 logLik method to extract the log-likelihood for object of class\code{"pers"} 
 #' @param object object of class\code{"pers"}
 #' @param sat a "logical" with default set to \code{sat=FALSE} to return the Log-Likelihood of the data for the unrestricted modell based on parameters estimated with function \code{\link{pers}}. If set to \code{sat=TRUE} the Log-Likelihood of the saturated model is returned instead.

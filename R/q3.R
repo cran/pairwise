@@ -10,7 +10,6 @@
 #' @param method a character string as used in function \code{\link{cor}}, indicating which correlation coefficient  is to be computed. One of "pearson" (default), "kendall", or "spearman", can be abbreviated. The default is set to \code{method="pearson"}.
 #' @return An object of class \code{c("Q3","list")}.
 #' @references Yen, W. M. (1984). Effects of Local Item Dependence on the Fit and Equating Performance of the Three-Parameter Logistic Model. \emph{Applied Psychological Measurement, 8}(2), 125–145. https://doi.org/10.1177/014662168400800201
-#' @exportClass Q3
 #' @examples ######################
 #' ########
 #' data(bfiN) # loading reponse data

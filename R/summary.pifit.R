@@ -1,5 +1,7 @@
-#' @method summary pifit
 #' @title S3 Summary for Item-Fit-Statistics
+#' @exportS3Method summary pifit
+#' @keywords methods
+#' @method summary pifit
 #' @description S3 summary method for object of class\code{c("pifit", "data.frame" )}
 #' @param object object of class\code{"pifit", "data.frame" }
 #' @param sort logical with default \code{sort=FALSE} - if set to \code{sort=TRUE} items are ordered by absolute FIT. 

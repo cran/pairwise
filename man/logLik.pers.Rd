@@ -18,3 +18,4 @@
 \description{
 S3 logLik method to extract the log-likelihood for object of class\code{"pers"}
 }
+\keyword{methods}

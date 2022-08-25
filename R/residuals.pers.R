@@ -1,5 +1,7 @@
-#' @method residuals pers
 #' @title S3 residuals for Object of class "pers"
+#' @exportS3Method residuals pers
+#' @keywords methods
+#' @method residuals pers
 #' @description S3 residuals method to extract the (Rasch) residuals for object of class\code{"pers"} 
 #' @param object object of class\code{"pers"}
 #' @param res a character string defining which type of (rasch–) residual to return. This must be (exactly) one of the strings "exp" for expected scores "sr" for score residuals (default), "stdr" for standardised residuals, "srsq" for score residuals squared, or "stdrsq" for standardised residuals squared. The default is set to res="sr".

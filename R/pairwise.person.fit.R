@@ -1,6 +1,5 @@
 #' @title Person Fit Indices
 #' @export pairwise.person.fit
-#' @exportClass ppfit
 #' @description function for calculating person fit indices. The procedures for calculating the fit indices are based on the formulas given in Wright & Masters, (1982, P. 100), with further clarification given in \code{http://www.rasch.org/rmt/rmt34e.htm}.
 #' @details contrary to many IRT software using ML based item parameter estimation, \code{pairwise} will not exclude persons, showing perfect response vectors (e.g. c(0,0,0) for dataset with three variables), prior to scaling. Therefor the fit statistics computed with \code{pairwise} may deviate somewhat from the fit statistics produced by IRT software using ML based item parameter estimation (e.g. R-package \code{eRm}), depending on the amount of persons with perfect response vectors in the data.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.

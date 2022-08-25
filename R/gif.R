@@ -36,7 +36,7 @@ gif <- function(pers_obj, itemnumber=1, ra=4, integ="raw", kat="all",...  ){
   raw_sort <- d2[,3]
   npers <- length(WLEsort)
   #interv <- round(seq(1:npers) / (npers/integ) + 0.49999)
-  if(class(integ)=="numeric"){interv <- as.numeric(cut(WLEsort,integ))}
+  if(is.numeric(integ)){interv <- as.numeric(cut(WLEsort,integ))}
   if(integ=="raw"){interv <- raw_sort+1}
  
   # start calculating empirical cat probs ------------  
@@ -73,8 +73,8 @@ text(lage,hohe,labels=names(lage),pos=1,cex=.7)
 
 ##### plotting empirical category probabilities-------------------------
 # matlines(x=xkord,y=t(ecp),col="black")
-if(class(kat)=="character"){if(kat=="all"){von=1; bis=(mi+1); ckat=von:bis}}
-if(class(kat)=="numeric" | class(kat)=="integer"){
+if(is.character(kat)){if(kat=="all"){von=1; bis=(mi+1); ckat=von:bis}}
+if(is.numeric(kat) | is.integer(kat)){
  if(min(kat)<1){stop("there is no category number smaler than 1")} 
  if(max(kat)>(mi+1)){stop("there are only ", mi+1," categories but you requested category number:", max(kat))}
  von <- 1 

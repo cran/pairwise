@@ -1,6 +1,8 @@
-#' @method plot pair
 #' @title S3 Plotting Thurstonian Thresholds
-#' @description S3 plotting Method for object of class\code{"pair"}
+#' @exportS3Method plot pair
+#' @keywords methods
+#' @method plot pair
+#' @description S3 plotting method for object of class\code{"pair"}
 #' @param x object of class\code{"pair"}
 #' @param sortdif logical wether to order items by difficulty
 #' @param ra either the character \code{"auto"} (default) or an numeric, defining the (logit) range for y-axis
@@ -15,7 +17,7 @@
 
 #' @param ... other parameters passed to plot
 
-########################### hier die plot method für pair #############################
+########################### here the plot method for pair #############################
 plot.pair<-function(x, sortdif=FALSE, ra="auto", main=NULL , col.lines=(1:dim(x$threshold)[2]), type="b", xlab="items", ylab="logits", pch=(1:dim(x$threshold)[2]) , las=3, cex.axis = 0.8, ...){
   if(length(main)==0){main<-deparse(substitute(x))}
   
@@ -56,7 +58,7 @@ plot.pair<-function(x, sortdif=FALSE, ra="auto", main=NULL , col.lines=(1:dim(x$
     y2<-ceiling(max(logit,na.rm=TRUE))
   }
   ## feste vorgegebene y achsen skalierung
-  if(class(bereich)=="numeric"){
+  if(is.numeric(bereich)){
     y1<- -bereich
     y2<- bereich
   }

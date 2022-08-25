@@ -1,3 +1,9 @@
+Changes in Version 0.6.0-0
+  
+  o added the data.frame with the Knox Cube Test Data from Wright & Stone (1979)
+  
+  o added the option of MINCHI estimation for item parameters 
+  
 Changes in Version 0.5.0-2
   
   o fixed error message during re-building of vignette outputs 

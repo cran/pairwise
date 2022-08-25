@@ -1,5 +1,7 @@
+#' @title S3 Summary for S-Statistic Test (Wald Test)
+#' @exportS3Method summary pairS
+#' @keywords methods
 #' @method summary pairS
-#' @title S3 Summary for S-statistic Test (Wald Test)
 #' @description S3 summary method for object of class\code{"pairS"}
 #' @param object object of class\code{"pairS"}
 #' @param thres logical whether to output results based on the thresholds

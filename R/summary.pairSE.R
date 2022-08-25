@@ -1,5 +1,7 @@
-#' @method summary pairSE
-#' @title S3 Summary for item parameter with standard errors
+#' @title S3 Summary for Item Parameter with Standard Errors
+#' @exportS3Method summary pairSE
+#' @keywords methods
+#' @method summary pairSE 
 #' @description S3 summary method for object of class\code{c("pairSE","list")}
 #' @param object object of class\code{c("pairSE","list")}
 #' @param sortdif logical with default \code{sortdif=FALSE} wether to order items by difficulty.

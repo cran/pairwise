@@ -22,7 +22,6 @@
 #' pot=pers_obj$pair$fuargs$pot, zerocor=pers_obj$pair$fuargs$zerocor
 #' 
 #' @return A (list) object of class \code{"andersentest.pers"} ...
-#' @exportClass andersentest.pers
 #'            
 #'@references Andersen, E. B. (1973). A goodness of fit test for the rasch model. \emph{Psychometrika, 38}(1), 123–140. 
 #'@references Rost, J. (2004). \emph{Lehrbuch Testtheorie - Testkonstruktion} (2 nd Ed.) Huber: Bern.
@@ -57,13 +56,13 @@ andersentest.pers<-function(pers_obj, split="median", splitseed="no", pot=NULL, 
         #OK
       }
       if(teil=="random"){
-        if (class(splitseed)=="numeric"){set.seed(splitseed)}
+        if(is.numeric(splitseed)){set.seed(splitseed)}
         teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),2))
         #OK
       }
       if(nchar(teil)>6){
         nteil<-as.numeric(unlist(strsplit(teil,".",TRUE))[2]) 
-        if (class(splitseed)=="numeric"){set.seed(splitseed)}
+        if(is.numeric(splitseed)){set.seed(splitseed)}
         teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),nteil))
         #OK
       }     
@@ -100,7 +99,7 @@ andersentest.pers<-function(pers_obj, split="median", splitseed="no", pot=NULL, 
       
     }
     
-    if((class(teil)=="integer") | (class(teil)=="numeric") | (class(teil)=="factor")){
+    if((is.integer(teil)) | (is.numeric(teil)) | (is.factor(teil))){
       #teiler<-daten[,teil]
       if( (dim(daten)[1])!=length(teil) ){stop("length of argument 'split' dose not match with 'data'")}
       teiler<-teil

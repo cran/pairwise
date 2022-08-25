@@ -45,5 +45,6 @@
 \item{...}{other parameters passed to plot}
 }
 \description{
-S3 plotting Method for object of class\code{"pair"}
+S3 plotting method for object of class\code{"pair"}
 }
+\keyword{methods}

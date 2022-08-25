@@ -1,5 +1,7 @@
+#' @title S3 Summary for Rasch Factor Analysis
+#' @exportS3Method summary rfa
+#' @keywords methods
 #' @method summary rfa
-#' @title S3 Summary for rasch factor analysis
 #' @description S3 summary method for object of class\code{"pair"}
 #' @param object object of class\code{"pair"}
 #' @param sortdif logical with default \code{sortdif=FALSE} wether to order items / persons by difficulty / ability.

@@ -42,7 +42,7 @@ pm <- pvx.matrix(theta_v=theta_theo ,thres=threshold,xm_v=NULL)
 expscore <- colSums(kat*pm)
 
 # 1: calculating empirical integrated score and start 'ploting' ----------
-if(class(integ)=="numeric"){
+if(is.numeric(integ)){
 group_index <- round(seq(1:npers) / (npers/integ) + 0.5)
 d2 <- d1[order(d1[,1]),]
 d3 <- aggregate(d2, list(group_index), mean)[,2:3]

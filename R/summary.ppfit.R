@@ -1,5 +1,7 @@
-#' @method summary ppfit
 #' @title S3 Summary for Person-Fit-Statistics
+#' @exportS3Method summary ppfit
+#' @keywords methods
+#' @method summary ppfit
 #' @description S3 summary method for object of class\code{c("ppfit", "data.frame" )}
 #' @param object object of class\code{"ppfit", "data.frame" }
 #' @param sort logical with default \code{sort=FALSE} - if set to \code{sort=TRUE} persons are ordered by absolute FIT. 
@@ -10,7 +12,7 @@
 #' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 #' @references Wright, B. D., & Masters, G. N. (1990). Computation of OUTFIT and INFIT Statistics. \emph{Rasch Measurement Transactions, 3}(4), 84–85.
 
-########################### hier die summary method fuer pairwise.person.fit #############################
+########################### here the summary method for pairwise.person.fit #############################
 summary.ppfit<-function(object, sort=FALSE, by="INFIT.ZSTD", decreasing=FALSE, relative=FALSE, ...){
   
   if(relative==TRUE){

@@ -2,22 +2,54 @@
 % Please edit documentation in R/pair.R
 \name{pair}
 \alias{pair}
-\title{Rasch Item Parameter (Main Function)}
+\title{Item Parameter Calculation}
 \usage{
-pair(daten, m = NULL, w = NULL, pot = TRUE, zerocor = TRUE, ccf = FALSE, ...)
+pair(
+  daten,
+  m = NULL,
+  w = NULL,
+  pot = TRUE,
+  zerocor = TRUE,
+  ccf = FALSE,
+  likelihood = NULL,
+  pot2 = 2,
+  delta = TRUE,
+  conv = 1e-04,
+  maxiter = 3000,
+  progress = TRUE,
+  init = NULL,
+  zerosum = TRUE,
+  ...
+)
 }
 \arguments{
 \item{daten}{a single \code{data.frame} or \code{matrix} or a \code{list} with every list entry holding a \code{data.frame} or \code{matrix}. Row and column names may represent the names of items (columns) and persons (rows). Missing values (\code{NA}) are allowed. Item responses can be polytomous or dichotomous (or a mixture of a varying number of categories across all items). Responses of \code{n} respondents (rows) on \code{k} items (colums) must be coded (scored) starting with 0 for lowest category to \emph{m}-1 for highest category. If a list is assigned to this argument each \code{data.frame} or \code{matrix} as respective list entry must have the same dimensionality. See details and examples.}
 
 \item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in the data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.}
 
-\item{w}{an optional vector of case weights}
+\item{w}{an optional vector of case weights.}
 
 \item{pot}{either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.}
 
-\item{zerocor}{logical, if TRUE (default) unobserved combinations (1-0, 0-1) in data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373).}
+\item{zerocor}{either a logical or an numeric value between >0 and <=1. If (in case of a logical) zerocor is set to TRUE (default) unobserved combinations (1-0, 0-1) in the data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373). As an alternative option a numeric value between >0 and <=1 can be assigned to unobserved combinations (1-0, 0-1) in the data for each pair of items (conf. to personal communication with A. Robitzsch; 29-03-2021).}
 
 \item{ccf}{logical with default \code{ccf=FALSE} to perform normal item parameter calculation, if set to \code{ccf=TRUE} just the conditional item (category) frequencies are returned.}
+
+\item{likelihood}{either NULL (default) or a a character expression defining a likelihood estimation approach based on the pairwise comparison matrix. Currently only the so called MINCHI approach as described in Fischer (2006) is implemented , which can be selected by setting \code{likelihood="minchi"}.}
+
+\item{pot2}{ignored when \code{likelihood=NULL} (default).}
+
+\item{delta}{ignored when \code{likelihood=NULL} (default).}
+
+\item{conv}{ignored when \code{likelihood=NULL} (default).}
+
+\item{maxiter}{ignored when \code{likelihood=NULL} (default).}
+
+\item{progress}{ignored when \code{likelihood=NULL} (default).}
+
+\item{init}{ignored when \code{likelihood=NULL} (default).}
+
+\item{zerosum}{ignored when \code{likelihood=NULL} (default).}
 
 \item{...}{additional parameters passed through.}
 }
@@ -25,7 +57,10 @@ pair(daten, m = NULL, w = NULL, pot = TRUE, zerocor = TRUE, ccf = FALSE, ...)
 A (list) object of class \code{"pair"} containing the item category thresholds and difficulties sigma, also called item location.
 }
 \description{
-This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982), using a generalization of the pairwise comparison algorithm (Choppin, 1968, 1985; Wright & Masters, 1982). The number of (response) categories may vary accross items. 
+This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982).
+
+The function implements a generalization (see Heine & Tarnai, 2015) of the pairwise comparison approach, that is based on the principle for item calibration introduced by Choppin (1968, 1985) -- see also (Wright & Masters, 1982). The number of (response) categories may vary across items.
+
 Missing values up to an high amount in data are allowed, as long as items are proper linked together.
 }
 \details{
@@ -34,7 +69,7 @@ Parameter calculation is based on the construction of a paired comparison matrix
 To avoid numerical problems with off diagonal zero's when constructing the pairwise comparison matrix M\emph{nij}, powers of the M\emph{nicjc} matrix, can be used (Choppin, 1968, 1985). Using powers \emph{k} of M\emph{nicjc} - argument \code{pot=TRUE} (default), replaces the results of the direct comparisons between \emph{i} and \emph{j} with the sum of the indirect comparisons of \emph{i} and \emph{j} through an intermediate \emph{k}.
 In general, it is recommended to use the argument with default value \code{pot=TRUE}.
 
-If a list object is assigned to the argument \code{data}, the list entries (matrix or data.frame) must all have the same dimensionality. The individual list entries represent either \emph{r} measurement times or raters.  If such a list object is used, first the item parameters are calculated across all \emph{r} measurement points or raters and additionally a threshold parameter is given for each of the \emph{r} measurement points or raters (e.g. rater severity or overal item shift).
+If a list object is assigned to the argument \code{data}, the list entries (matrix or data.frame) must all have the same dimensionality. The individual list entries represent either \emph{r} measurement times or raters. If such a list object is used, first the item parameters are calculated across all \emph{r} measurement points or raters and additionally a threshold parameter is given for each of the \emph{r} measurement points or raters (e.g. rater severity or overal item shift).
 
 For a graphic representation of the item 'estimates' the plotting S3 method \code{\link{plot.pair}} is available. For plotting the item category probabilities the function \code{\link{catprob}} can be used.
 }
@@ -54,15 +89,19 @@ summary(res)
 plot(res)
 }
 \references{
-Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
-
-Choppin, B. (1968). Item Bank using Samplefree Calibration. \emph{Nature, 219}(5156), 870-872.
+Choppin, B. (1968). Item Bank using Sample-free Calibration. \emph{Nature, 219}(5156), 870-872.
 
 Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
+
+Heine, J. H. & Tarnai, Ch. (2015). Pairwise Rasch model item parameter recovery under sparse data conditions. \emph{Psychological Test and Assessment Modeling, 57}(1), 3–36.
+
+Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
 
 Masters, G. (1982). A Rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
 
 Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainment tests.} Copenhagen: Danmarks pædagogiske Institut.
 
 Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
+
+Fischer, Gerhard H. 2006. "Rasch Models". Pp. 515–85 in Handbook of statistics (26): Psychometrics. Vol. 26, edited by C. R. Rao and S. Sinharay. Amsterdam: Elsevier.
 }

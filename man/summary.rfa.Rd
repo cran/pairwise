@@ -2,7 +2,7 @@
 % Please edit documentation in R/summary.rfa.R
 \name{summary.rfa}
 \alias{summary.rfa}
-\title{S3 Summary for rasch factor analysis}
+\title{S3 Summary for Rasch Factor Analysis}
 \usage{
 \method{summary}{rfa}(object, sortdif = FALSE, ...)
 }
@@ -16,3 +16,4 @@
 \description{
 S3 summary method for object of class\code{"pair"}
 }
+\keyword{methods}

@@ -50,3 +50,4 @@
 \description{
 S3 plotting method for object of class\code{"pers"}
 }
+\keyword{methods}

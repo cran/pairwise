@@ -1,5 +1,7 @@
-#' @method plot pers
 #' @title S3 Plotting Person - Item Map
+#' @exportS3Method plot pers
+#' @keywords methods
+#' @method plot pers
 #' @description S3 plotting method for object of class\code{"pers"}
 #' @param x object of class\code{"pers"}
 #' @param ra an integer, defining the (logit) range for y-axis
@@ -66,8 +68,8 @@ par(mar=c(3,1,0,3))
 # plot(x=1:(length(sigma)+1),y=seq(min(hist_obj$breaks),max(hist_obj$breaks),length.out=(length(sigma)+1)),type="n",bty="n",ylab="" ,yaxt="n",xaxt="n" ,xlab="items")
 plot(x=1:(length(sigma)+1),y=seq(-ra,ra,length.out=(length(sigma)+1)),type="n",bty="n",ylab="" ,yaxt="n",xaxt="n" ,xlab="items")
 
-if(class(itemNames)=="logical"){if (itemNames==TRUE){text(x=1:length(sigma),y=sigma, labels=names(sigma),cex=cex,pos=pos, ...)}}
-if(class(itemNames)=="character"){
+if(is.logical(itemNames)){if (itemNames==TRUE){text(x=1:length(sigma),y=sigma, labels=names(sigma),cex=cex,pos=pos, ...)}}
+if(is.character(itemNames)){
   stopifnot(length(sigma)==length(itemNames))
   text(x=1:length(sigma),y=sigma, labels=itemNames,cex=cex,pos=pos, ...)
 }

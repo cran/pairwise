@@ -11,7 +11,6 @@
 #' @param Nrel logical with default set to \code{Nrel=FALSE} to include persons with perfect response vectors for calculating WLE reliability. If set to \code{Nrel=TRUE} persons with perfect response vectors are excluded for calculating WLE reliability.
 #' @param tecout logical default set to \code{FALSE}. If set to \code{TRUE} the result will be a (very) long list with estimation details for every case in \code{daten}. In case of a booklet-design the list entries will be divided by "booklet".
 #' @return An object of class \code{c("pers", "data.frame")} or a (very long) \code{"list"} (when setting on \code{techout=TRUE}) containing the person parameters.
-#' @exportClass pers
 #' @references Masters, G. (1982). A Rasch model for partial credit scoring. \emph{Psychometrika, 47}(2), 149–174.
 #' @references Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainment tests.} Copenhagen: Danmarks pædagogiske Institut.
 #' @references Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. \emph{Psychometrika, 54}(3), 427–450.
