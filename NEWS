@@ -1,3 +1,7 @@
+Changes in Version 0.6.1-0
+  
+  o added the function pairwise.SepRel() to compute the Person Separation Reliability
+
 Changes in Version 0.6.0-0
   
   o added the data.frame with the Knox Cube Test Data from Wright & Stone (1979)
