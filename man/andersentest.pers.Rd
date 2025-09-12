@@ -60,3 +60,5 @@ Andersen, E. B. (1973). A goodness of fit test for the rasch model. \emph{Psycho
 
 Rost, J. (2004). \emph{Lehrbuch Testtheorie - Testkonstruktion} (2 nd Ed.) Huber: Bern.
 }
+\keyword{fit}
+\keyword{model}

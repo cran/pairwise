@@ -1,5 +1,6 @@
-#' @export lrtest.pers
 #' @title Likelihood Ratio Test for Object of class "pers"
+#' @export lrtest.pers
+#' @keywords model fit
 #' @description Function to perform a likelihood ratio test for the estimated model 'against' the saturated model for object of class\code{"pers"}. 
 #' @param object an object of class\code{"pers"} - see function \code{\link{pers}}.
 #' @param ... not used jet.

@@ -53,3 +53,5 @@ Wright, B. D. (1996). Comparing Rasch measurement and factor analysis. \emph{Str
 
 Linacre, J. M. (1998). Detecting multidimensionality: which residual data-type works best? \emph{Journal of outcome measurement, 2}, 266–283.
 }
+\keyword{fit}
+\keyword{model}

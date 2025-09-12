@@ -1,3 +1,14 @@
+Changes in Version 0.6.2-0
+
+  o fixed Authors@R field in DESCRIPTION 
+  
+  o added the function Qtest() 
+  ... the credit goes to Christian Grebe for the rich discussion on this possibility of model fit testing
+
+Changes in Version 0.6.1-1
+  
+  o added a categorization of the single functions included in the package
+ 
 Changes in Version 0.6.1-0
   
   o added the function pairwise.SepRel() to compute the Person Separation Reliability

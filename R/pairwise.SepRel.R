@@ -1,5 +1,6 @@
 #' @title Person Separation Reliability
 #' @export pairwise.SepRel
+#' @keywords person fit
 #' @description This function calculates an Index of Person Separation, that is the proportion of person variance that is not due to error.
 #'  
 #' @details none

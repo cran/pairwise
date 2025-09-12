@@ -1,5 +1,6 @@
 #' @title S3 logLik for Object of class "pers"
 #' @exportS3Method logLik pers
+#' @export logLik.pers
 #' @keywords methods
 #' @method logLik pers
 #' @description S3 logLik method to extract the log-likelihood for object of class\code{"pers"} 
@@ -17,17 +18,10 @@ logLik.pers<-function(object, sat=FALSE, p=FALSE, ...){
   
   if(sat==FALSE){ 
     # estimated model # NEW and correct since 21.11.2015 checked against WinMira (dichotom)
-    #str.pattern(object$pair$resp)
+    
    P <- pvx.super(theta_v=object) # probabilities for hole dataset
 
-    #     pat_ind <- rownames(object$pair$resp)%in%(rownames(unique(object$pair$resp))) # index for unique pattern 
-#     pat_fre <- (table(str.pattern(object$pair$resp))) # frequencies for pattern
-#     pat_lik <- (rowSums(log(P[pat_ind,]),na.rm=T)) # likelihood for (unique) pattern
-#     Log_Likelihood <- sum( pat_lik * pat_fre) # likelihood data (conditional?)
-#     # old things prior 21.1.2015
-    #     #P <- matrix(rep(.1,5000),ncol = 5,nrow = 1000) #test
-    #     sum(log(P),na.rm=T)
-      Log_Likelihood <- sum(log(P),na.rm=T) # evtl. : P[complete.cases(P),]    
+   Log_Likelihood <- sum(log(P),na.rm=T) # evtl. : P[complete.cases(P),]    
 #     pat_fre[1] <- 0
 #     pat_fre[30] <- 0
 #     

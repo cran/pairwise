@@ -1,5 +1,6 @@
 #' @title The Fischer-Scheiblechner Statistic S on item level (Wald like Test) 
 #' @export pairwise.S
+#' @keywords item fit
 #' @description This function calculates the S-statistic on item level proposed by Fischer and Scheiblechner (1970) on item level for dicho- or polytomous item response formats by splitting the data into two subsamples. For polytomous Items the test is performed on item category level. Several splitting options are available (see arguments). The S-statistic is also mentioned in van den Wollenberg, (1982) -- an article in Psychometrika, which might be available more easily (see details).
 #' 
 #'@details The data is splitted in two subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM (or RM in case of dichotonimies) are calculated for each subsample. This function internaly calls the function \code{\link{pairSE}}. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through.

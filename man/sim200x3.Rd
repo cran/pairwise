@@ -18,11 +18,11 @@ Simulated data for 200 'subjects' 'answering' to 3 items with unequal number of 
 This simulated data is used as an example in the rasch module of the 'ALMO - Statistiksystem'. 
 }
 \source{
-\href{http://www.almo-statistik.de/}{http://www.almo-statistik.de/}
+\href{https://www.almo-statistik.de/}{https://www.almo-statistik.de/}
 }
 
 \references{
-  Holm, K. (2014). ALMO Statistik-System. \emph{P14.8 Das allgemeine ordinale Rasch-Modell} \href{http://www.almo-statistik.de/download/Ordinales_Rasch_Modell.pdf}{http://www.almo-statistik.de/download/Ordinales_Rasch_Modell.pdf}
+  Holm, K. (2014). ALMO Statistik-System. \emph{P14.8 Das allgemeine ordinale Rasch-Modell} \href{https://www.almo-statistik.de/download/Ordinales_Rasch_Modell.pdf}{https://www.almo-statistik.de/download/Ordinales_Rasch_Modell.pdf}
 }
 
 \examples{

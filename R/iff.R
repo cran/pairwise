@@ -1,5 +1,6 @@
 #' @title Item information function
 #' @export iff
+#' @keywords item fit
 #' @description plotting function for plotting the Item information function(IIF).
 #' @details no details in the moment.
 #' @param pair_obj an object of class \code{"pair"} as a result from function \code{\link{pair}}.

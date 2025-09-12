@@ -113,3 +113,5 @@ Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data 
 
 Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
 }
+\keyword{item}
+\keyword{main}

@@ -37,3 +37,5 @@ gif(pers_obj = pers_obj, itemnumber = 1 )
 gif(pers_obj = pers_obj, itemnumber = 1 , integ=8) # integration over 8 points
 gif(pers_obj = pers_obj, itemnumber = 1 , integ=8, kat=1) # only for category number 1
 }
+\keyword{fit}
+\keyword{item}

@@ -1,5 +1,6 @@
 #' @title Graphical Model Check
 #' @export grm
+#' @keywords model fit
 #' @description This function makes the basic calculations for the graphical model check for dicho- or polytomous item response formats. It is more or less a wraper function, internaly calling the function \code{\link{pairSE}}. Several splitting options are available (see arguments).    
 #' 
 #' @details The data is splitted in two or more subsamples and then item thresholds, the parameter (Sigma) and their standard errors (SE) for the items according the PCM  are calculated for each subsample. Additional arguments (see description of function \code{\link{pairSE}}) for parameter calculation are passed through. 

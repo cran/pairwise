@@ -36,3 +36,4 @@ Adams, R. J., Wu, M. L., & Wilson, M. (2012). The Rasch Rating Model and the Dis
 
 Linacre J.M. (2006). Item Discrimination and Rasch-Andrich Thresholds. \emph{Rasch Measurement Transactions}, 20:1, 1054. https://www.rasch.org/rmt/rmt201k.htm
 }
+\keyword{misc}

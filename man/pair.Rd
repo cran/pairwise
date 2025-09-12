@@ -105,3 +105,5 @@ Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: M
 
 Fischer, Gerhard H. 2006. "Rasch Models". Pp. 515–85 in Handbook of statistics (26): Psychometrics. Vol. 26, edited by C. R. Rao and S. Sinharay. Amsterdam: Elsevier.
 }
+\keyword{item}
+\keyword{main}

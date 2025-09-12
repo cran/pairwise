@@ -1,5 +1,6 @@
 #' @title Simulate Response Pattern under Dichotomous and Polytomous Rasch Model
 #' @export simra
+#' @keywords misc
 #' @description function for simulation of response patterns following the dichotomous and/or polytomous Rasch model based on the category probabilities given the model parameters.
 #' At default, when just calling \code{simra()} 1 replication of responses to 5 items with difficulties -2, -1, 0, 1, 2 from 100 persons with ability drawn from N(0|1) are sampled.
 #' @details no details in the moment.

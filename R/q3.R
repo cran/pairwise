@@ -1,5 +1,6 @@
 #' @title Q3 Fit Statistic 
 #' @export q3
+#' @keywords model fit
 #' @description Calculation of Q3 fit statistic for the rasch model based on the residuals, which was proposed by Yen (1984).
 #'  
 #' @details The lower level letter 'q' was used (intead of 'Q') for naming the function because the name 'Q3' was already used in another IRT package -- namly \code{TAM}. As perhaps some users like to use both packages simultaniously, an alternative naming convention was choosen for 'pairwise'. No other details in the moment.

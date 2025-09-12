@@ -63,3 +63,5 @@ result <- pair(bfiN)
 iff(pair_obj = result, itemnumber = 3 )
 iff(pair_obj = result, itemnumber = 3 ,cat=TRUE)
 }
+\keyword{fit}
+\keyword{item}

@@ -1,5 +1,6 @@
 #' @title Tabulating Answer Categories in Data
 #' @export ftab
+#' @keywords misc
 #' @description function tabulating (answer) categories in \code{X}.
 #' @details \code{X} can either be a (\code{"numeric"} or \code{"character"}) \code{"matrix"} containing response vectors of persons (rows) or a \code{"data.frame"} containing \code{"numeric"}, \code{"character"} or \code{"factor"} variables (columns). 
 #' @param X Data as a \code{"matrix"}, a \code{"data.frame"} or even a \code{"vector"} or \code{"factor"}. \code{"vector"} or \code{"factor"} are coerced to a \code{"data.frame"} with one column.

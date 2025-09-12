@@ -1,5 +1,6 @@
 #' @title Expected Score Curves Plots
 #' @export esc
+#' @keywords item fit
 #' @description plotting function for plotting expected score curves.
 #' @details no details in the moment.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.
@@ -63,10 +64,7 @@ scoremean <- aggregate(x=d2[,1], by=list(d2[,2]), FUN=mean)[,c(2,1)]
 #scoremode <- aggregate(x=d2[,1], by=list(d2[,2]), FUN=fmode)[,c(2,1)]
 
 ff <- unlist((aggregate(x=d2[,1], by=list(d2[,2]), FUN=table, simplify = F))$x)
-# obj1 <- strsplit(x=names(ff_tab), split="_", fixed = TRUE)
-# koordinaten <- t(data.frame(lapply(obj1,as.numeric)))
-# dim(table(str.pattern(responses)))
-#cbind(koordinaten,ff)
+
 koordinaten<- aggregate(d2, d2, mean, na.rm=TRUE)[,c(3,2)] # NA wird dabei rausgeworfen!!!!
 # plot-----------
 plot(x=range(theta_theo),y=range(kat),type="n",bty="n",ylab="expected Score", xlab= "Theta (ability-logits)",main=paste("Expected Score Curve for Item ",itemname,sep=""),sub=paste("n missing:",miss))

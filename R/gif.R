@@ -1,5 +1,6 @@
 #' @title Graphical Item Fit Plots
 #' @export gif
+#' @keywords item fit
 #' @description plotting function for plotting empirical and model derived category probability curves.
 #' @details no details in the moment.
 #' @param pers_obj an object of class \code{"pers"} as a result from function \code{\link{pers}}.

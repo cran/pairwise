@@ -56,3 +56,5 @@ cbind(resp_emp,Qindex)
 \references{
 Tarnai, C., & Rost, J. (1990). \emph{Identifying aberrant response patterns in the Rasch model: the Q index}. Münster: ISF.
 }
+\keyword{fit}
+\keyword{person}

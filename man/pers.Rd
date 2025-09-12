@@ -71,3 +71,5 @@ Rasch, G. (1960). \emph{Probabilistic models for some intelligence and attainmen
 
 Warm, T. A. (1989). Weighted likelihood estimation of ability in item response theory. \emph{Psychometrika, 54}(3), 427–450.
 }
+\keyword{main}
+\keyword{person}

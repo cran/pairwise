@@ -1,5 +1,6 @@
 #' @title Item Parameter Calculation
 #' @export pair
+#' @keywords main item
 #' @description This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982).
 #' 
 #' The function implements a generalization (see Heine & Tarnai, 2015) of the pairwise comparison approach, that is based on the principle for item calibration introduced by Choppin (1968, 1985) -- see also (Wright & Masters, 1982). The number of (response) categories may vary across items.

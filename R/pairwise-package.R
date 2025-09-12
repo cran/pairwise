@@ -1,11 +1,12 @@
 #' @title Rasch Model Parameters with pairwise
-#' @name pairwise-package
+#' @name pairwise_PACKAGE
+#' @aliases pairwise-package
 #' @aliases pairwise
-#' @docType package
+#' @keywords package
 #' @importFrom utils combn Sweave
 #' @importFrom graphics abline axis hist layout lines matlines matplot mtext par plot points rect segments symbols text title
 #' @importFrom methods is
-#' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm pnorm cor cov
+#' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm pnorm cor cov kruskal.test
 #' @description Performs the explicit calculation -- not estimation! -- of the Rasch item parameters for dichotomous and polytomous response formats using a pairwise comparison approach (see Heine & Tarnai, 2015) a procedure that is based on the principle for item calibration introduced by Choppin (1968, 1985). On the basis of the item parameters, person parameters (WLE) are calculated according to Warm's weighted likelihood approach (Warm, 1989). Item- and person fit statistics and several functions for plotting are available.
 #'
 #' @details

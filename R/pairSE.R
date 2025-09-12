@@ -1,5 +1,6 @@
 #' @title Item Parameter Calculation with Standard Errors
 #' @export pairSE
+#' @keywords main item
 #' @description Calculation of the item parameters for dichotomous (difficulty) or polytomous items (thurstonian thresholds) and their standard errors (SE) respectively.
 #' All parameters are calculated using a generalization (see Heine & Tarnai, 2015) of the pairwise comparison algorithm (Choppin, 1968, 1985).
 #' Missing values up to an high amount in data matrix are allowed, as long as items are proper linked together.

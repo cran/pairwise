@@ -44,3 +44,5 @@ str(result) # to see whats in ;-)
 \references{
 Yen, W. M. (1984). Effects of Local Item Dependence on the Fit and Equating Performance of the Three-Parameter Logistic Model. \emph{Applied Psychological Measurement, 8}(2), 125–145. https://doi.org/10.1177/014662168400800201
 }
+\keyword{fit}
+\keyword{model}

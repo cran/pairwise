@@ -1,5 +1,6 @@
 #' @title Compute delta parameters from thurstonian thresholds
 #' @export deltapar
+#' @keywords misc
 #' @description Calculation of delta parameters or rather item step parameters from thurstonian threshold parameters returned by the function \code{\link{pair}}.   
 #'  
 #' @details The "Thurstone threshold" or rather thurstonian threshold for a category corresponds to a point on the latent variable at which the probability of being observed in that category or above equals that of being observed in the categories below. Thus these thurstonian threshold parameters can be interpreted in an strait forward and easy way. However, some other computer programs related to Rasch analysis don't return thurstonian threshold parameters from their estimation procedure, but rather so called delta parameters for the item steps. The later are also known as "step measures", "step calibrations", "step difficulties", "tau parameters", and "Rasch-Andrich thresholds". For a better comparability between different Rasch software and estimation procedures the thurstonian threshold parameters can be converted into delta or rather items step parameters.

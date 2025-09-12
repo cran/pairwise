@@ -1,5 +1,6 @@
 #' @title Point Biserial Correlations
 #' @export ptbis
+#' @keywords misc
 #' @description Calculation of the point biserial correlations for dicho- or polytomous item categories with total scale (person parameter).
 #'  
 #' @details no details in the moment.

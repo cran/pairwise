@@ -1,5 +1,6 @@
 #' @title Person Fit Index Q
 #' @export Q
+#' @keywords person fit
 #' @description function for calculating the person fit index Q, which was proposed by Tarnai and Rost (1990).
 #' @param obj an object of class \code{"pers"} or class \code{"pair"}as a result from function \code{\link{pers}} or \code{\link{pair}} respectively.
 #' @param data optional response data when object of class \code{"pers"} or class \code{"pair"} is not provided.

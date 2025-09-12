@@ -33,3 +33,5 @@ str(result) # to see whats in ;-)
 \references{
 Andrich, D. (1982). An index of person separation in latent trait theory, the traditional KR.20 index, and the Guttman scale response pattern. \emph{Education Research and Perspectives, 9}(1), 95–104.
 }
+\keyword{fit}
+\keyword{person}

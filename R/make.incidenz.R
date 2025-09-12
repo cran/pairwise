@@ -1,5 +1,6 @@
 #' @title Converting a booklet allocation table into a incidence matrix
 #' @export make.incidenz
+#' @keywords misc
 #' @description This function converts a booklet allocation table (like in \code{\link{cogBOOKLET}}) into a incidence matrix used in the function \code{\link{pers}}.
 #' @details It is assumed that there is an equal replicate factor for each item used, when constructing the bookletdesign - so every items occures with the same frequency over all booklets of the entire set of booklets.
 #'

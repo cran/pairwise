@@ -1,5 +1,6 @@
 #' @title WLE - Rasch Person Parameter
 #' @export pers
+#' @keywords main person
 #' @description This is the (new) main function for calculation of person estimates based on answering dichotomous or polytomous items according theRasch Model (Rasch, 1960) and Partial Credit Model (Masters, 1982), given the item parameters (object of class \code{"pair"} - as a result of \code{\link{pair}()}) and and the datamatrix (argument \code{daten}) containing the person respose vectors (rows), using an WL approach, introduced by Warm (1989).
 #' @details no detail in the moment.
 #' @param itempar The item parameter prior calculated or estimated. A list object of class \code{"pair"} as a result of applying the function \code{\link{pair}()} to the data. Or an 'ordinary' \code{"matrix"} with \code{nrow = k} (number of items) and \code{ncol = m} (maximum number of thresholds), holding  the 'thurstonian' thresholds of the respective item. Some matrix entries may be \code{NA}, depending on the number of categories of the respective item.

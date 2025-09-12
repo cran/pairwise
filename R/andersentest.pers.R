@@ -1,5 +1,6 @@
-#' @export andersentest.pers
 #' @title Andersen's Likelihood Ratio Test for Object of class "pers"
+#' @export andersentest.pers
+#' @keywords model fit
 #' @description The Andersen likelihood ratio test is based on splitting the dataset into subgroups of persons. One can argue that it is a significance testable version of the more descriptive graphical model check - see \code{\link{grm}}.
 #' @details Andersen (1973) proposed to split the dataset by [raw] score groups, which can be achieved setting the argument \code{split = "score"}. However as pointed out by Rost (2004) there might be several different splitting criteria for testing subsample invariance of the raschmodel. Thus the argument \code{split} provides some other options for splitting the data - see description of arguments.   
 #' 
@@ -60,12 +61,18 @@ andersentest.pers<-function(pers_obj, split="median", splitseed="no", pot=NULL, 
         teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),2))
         #OK
       }
-      if(nchar(teil)>6){
+      # if(nchar(teil)>6){
+      #   nteil<-as.numeric(unlist(strsplit(teil,".",TRUE))[2]) 
+      #   if(is.numeric(splitseed)){set.seed(splitseed)}
+      #   teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),nteil))
+      #   #OK
+      # } 
+      if((substr(teil, 1, 6)=="random") && (nchar(teil)>6)){ # enhancement on 26-2-2017
         nteil<-as.numeric(unlist(strsplit(teil,".",TRUE))[2]) 
         if(is.numeric(splitseed)){set.seed(splitseed)}
         teiler<-as.numeric(cut(sample(1:(dim(daten)[1])),nteil))
         #OK
-      }     
+      } 
       if(teil=="mean"){
         daten<-as.matrix(daten)
         rscore<-rowSums(daten,na.rm = TRUE)

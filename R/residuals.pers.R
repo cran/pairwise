@@ -1,5 +1,6 @@
 #' @title S3 residuals for Object of class "pers"
 #' @exportS3Method residuals pers
+#' @export residuals.pers
 #' @keywords methods
 #' @method residuals pers
 #' @description S3 residuals method to extract the (Rasch) residuals for object of class\code{"pers"} 

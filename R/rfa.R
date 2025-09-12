@@ -1,5 +1,6 @@
 #' @title Rasch Residual Factor Analysis
 #' @export rfa
+#' @keywords model fit
 #' @description Calculation of the rasch residual factor analysis proposed by Wright (1996) and further discussed by Linacre (1998) to detect multidimensionality.
 #'  
 #' @details no details in the moment.

@@ -102,3 +102,5 @@ plot(grm_400)
 \references{
 description of function \code{\link{pairSE}}\code{{pairwise}}.
 }
+\keyword{fit}
+\keyword{model}

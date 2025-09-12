@@ -97,3 +97,5 @@ Wald, A. (1943). Tests of statistical hypotheses concerning several parameters w
 
 Fischer, G. H. (1974). \emph{Einführung in die Theorie psychologischer Tests}. Bern: Huber.
 }
+\keyword{fit}
+\keyword{item}

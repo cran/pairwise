@@ -31,3 +31,5 @@ Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: M
 
 Wright, B. D., & Masters, G. N. (1990). Computation of OUTFIT and INFIT Statistics. \emph{Rasch Measurement Transactions, 3}(4), 84–85.
 }
+\keyword{fit}
+\keyword{item}
