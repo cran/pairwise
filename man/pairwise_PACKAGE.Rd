@@ -24,7 +24,7 @@ Item- and person fit statistics, see functions \code{\link{pairwise.item.fit}} a
 
 Further investigation of item fit can be done by using the function \code{\link{ptbis}} for point biserial correlations. For a graphical representation of the item fit, the function \code{\link{gif}} for plotting empirical and model derived category probability curves, or the function \code{\link{esc}} for plotting expected (and empirical) score curves, can be used.
 
-The function \code{\link{iff}} plots or returns values of the item information function and the function \code{\link{tff}} plots or returns values of the test information function.
+The function \code{\link{iff}} plots or returns values of the item information function and the function\code{\link{tff}}plots or returns values of the test information function.
 
 To detect multidimensionality within a set of Items a rasch residual factor analysis proposed by Wright (1996) and further discussed by Linacre (1998) can be performed using the function \code{\link{rfa}}. 
 

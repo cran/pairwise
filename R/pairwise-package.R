@@ -6,7 +6,7 @@
 #' @importFrom utils combn Sweave
 #' @importFrom graphics abline axis hist layout lines matlines matplot mtext par plot points rect segments symbols text title
 #' @importFrom methods is
-#' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm pnorm cor cov kruskal.test
+#' @importFrom stats aggregate complete.cases cov median na.omit pchisq sd var rnorm pnorm cor cov kruskal.test setNames
 #' @description Performs the explicit calculation -- not estimation! -- of the Rasch item parameters for dichotomous and polytomous response formats using a pairwise comparison approach (see Heine & Tarnai, 2015) a procedure that is based on the principle for item calibration introduced by Choppin (1968, 1985). On the basis of the item parameters, person parameters (WLE) are calculated according to Warm's weighted likelihood approach (Warm, 1989). Item- and person fit statistics and several functions for plotting are available.
 #'
 #' @details
@@ -25,7 +25,7 @@
 #' 
 #' Further investigation of item fit can be done by using the function \code{\link{ptbis}} for point biserial correlations. For a graphical representation of the item fit, the function \code{\link{gif}} for plotting empirical and model derived category probability curves, or the function \code{\link{esc}} for plotting expected (and empirical) score curves, can be used.
 #' 
-#' The function \code{\link{iff}} plots or returns values of the item information function and the function \code{\link{tff}} plots or returns values of the test information function.
+#' The function \code{\link{iff}} plots or returns values of the item information function and the function\code{\link{tff}}plots or returns values of the test information function.
 #' 
 #' To detect multidimensionality within a set of Items a rasch residual factor analysis proposed by Wright (1996) and further discussed by Linacre (1998) can be performed using the function \code{\link{rfa}}. 
 #' 

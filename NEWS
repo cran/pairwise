@@ -1,3 +1,22 @@
+
+Changes in Version 0.6.4-0
+
+  o function pairSE() now scales subsampling SDs by sqrt(m/(N-m)), using the actual rounded number of rows m. Half-sampling remains unchanged for even N.
+  o method="bootstrap" samples N rows with replacement.
+  o method="jackknife" (also size="jack") omits every person exactly once and applies the standard leave-one-out jackknife variance formula.
+  o method is a new named-only argument, preserving old positional arguments.
+  o Full-data category counts are held fixed across resamples. Failed/non-finite replicates cause informative errors instead of silently using fewer draws. Existing six result fields retain their order; resampling metadata are stored in an attribute. Point estimates and case-weight storage are preserved. Sampling assumptions and limits for survey/frequency weights are documented.
+
+Changes in Version 0.6.3-1
+
+  o function pair() now appends the case weights actually used as $weights, aligned with $resp. Unweighted fits store NULL; all previous result components retain their names, contents, and order.
+  o function pairSE() now selects weights with exactly the same row indices as each subsample. It appends the full aligned $weights and $resp to its result.
+  o Both functions validate weight length, finiteness, non-negativity, and a positive total weight. pairSE() also validates its sampling controls.
+
+Changes in Version 0.6.3-0
+
+  o updated plotting functions tff(), iff(), esc() and gif()
+
 Changes in Version 0.6.2-0
 
   o fixed Authors@R field in DESCRIPTION 

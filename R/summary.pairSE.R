@@ -9,6 +9,8 @@
 ########################### hier die summary method für pairSE #############################
 summary.pairSE<-function(object, sortdif=FALSE, ...){
   cat("Thurstonian thresholds and item location (sigma) and their std. errors: \n")
+  # Metadata appended in 0.6.3-1 must not enter the historical tabular layout.
+  object_core <- object[c("threshold", "sigma", "SE", "SEsigma")]
   
 #   if(sortdif==TRUE){
 #     sorter <- order(object$parameter[,"sigma"])
@@ -29,5 +31,5 @@ summary.pairSE<-function(object, sortdif=FALSE, ...){
   }
   
   
-  print( t(data.frame(object))[  unlist(lapply((c(1:(dim(t(data.frame(object)))[1]/2))),function(x){seq(from=x,by=(dim(t(data.frame(object)))[1]/2),length.out=2)}))  ,]   )
+  print( t(data.frame(object_core))[  unlist(lapply((c(1:(dim(t(data.frame(object_core)))[1]/2))),function(x){seq(from=x,by=(dim(t(data.frame(object_core)))[1]/2),length.out=2)}))  ,]   )
 }

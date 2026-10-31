@@ -1,21 +1,72 @@
+i.iff_pvx_matrix <- function(theta_v, thres) {
+  theta_v <- as.numeric(theta_v)
+  thres <- as.numeric(thres)
+  thres <- thres[is.finite(thres)]
+  
+  if (length(theta_v) < 1L || any(!is.finite(theta_v))) {
+    stop("'theta_v' must contain finite numeric values.")
+  }
+  if (length(thres) < 1L) {
+    stop("At least one finite item threshold is required.")
+  }
+  
+  scores <- 0:length(thres)
+  eta <- outer(scores, theta_v, "*")
+  eta <- sweep(eta, 1L, cumsum(c(0, thres)), "-")
+  eta <- sweep(eta, 2L, apply(eta, 2L, max), "-")
+  
+  numerator <- exp(eta)
+  probability <- sweep(numerator, 2L, colSums(numerator), "/")
+  rownames(probability) <- paste0("cat.", scores)
+  colnames(probability) <- as.character(theta_v)
+  probability
+}
+
+i.iff_information <- function(theta_v, thres) {
+  probability <- i.iff_pvx_matrix(theta_v, thres)
+  scores <- 0:(nrow(probability) - 1L)
+  score_matrix <- matrix(
+    scores,
+    nrow = length(scores),
+    ncol = length(theta_v),
+    byrow = FALSE
+  )
+  expected <- colSums(probability * score_matrix)
+  centred <- sweep(score_matrix, 2L, expected, "-")
+  category_information <- probability * centred^2
+  information <- colSums(category_information)
+  information[information < 0 & information > -sqrt(.Machine$double.eps)] <- 0
+  
+  list(
+    information = information,
+    category_information = t(category_information),
+    probability = probability,
+    expected_score = expected
+  )
+}
+
+
 #' @title Item information function
 #' @export iff
 #' @keywords item fit
-#' @description plotting function for plotting the Item information function(IIF).
-#' @details no details in the moment.
+#' @description plotting function for plotting the Item information function(IIF). Item information function using the Rasch/PCM Fisher information.
+#' @details This version of the funktion uses the conditional variance of the item score. For a dichotomous Rasch item, I_i(theta) = p(theta) * (1 - p(theta)); for a Partial Credit item, I_i(theta) = Var(X_i | theta).
 #' @param pair_obj an object of class \code{"pair"} as a result from function \code{\link{pair}}.
-#' @param itemnumber an integer, defining the number of the item to plot the respective item information function for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the item information function for.
-#' @param x The value(s) of the latent variable, at which the IIF will be evaluated. \code{x} should be either a numeric vector of theta values or a single numeric value. If \code{x} is given as a single numeric value plotting is supressed. If not given (default), 99 values spaced evenly between -4 and +4 will be used, handy for plotting.
-#' @param plot a logical (default \code{plot = TRUE}), defining wether to supress plotting an just return a matrix of the values of the Item information function.
-#' @param cat a logical (default \code{cat = FALSE}), defining wether to plot or return the values of the Item information function based on item categories.
-#' @param lwd see parameters for \code{\link{plot}} 
-#' @param col see parameters for \code{\link{plot}} 
-#' @param ... arguments passed to plot
-#' @return a plot, a matrix or a single numeric with values of the Item information function.
+#' @param itemnumber One numeric item position or one item name.
+#' @param x Numeric theta values. If NULL, `nodes` points from -`ra` to `ra`
+#'   are used. A single theta suppresses plotting.
+#' @param ra,nodes Theta range and number of evaluation points when x is NULL.
+#' @param plot Logical; draw the plot?
+#' @param cat Logical; plot or return category-information contributions?
+#' @param lwd,col,lty Graphical parameters for the item-information curve.
+#' @param main,xlab,ylab,ylim,bty Plot settings.
+#' @param ... Further arguments passed to plot().
+#' @return Item information, or category-information contributions if cat=TRUE.
 #' @examples ########
 #' data(sim200x3)
 #' result <- pair(sim200x3)
-#' # IFF plot for Item No. 2 
+#' iff(pair_obj = result) 
+#' #' # IFF plot for Item No. 2 
 #' iff(pair_obj = result, itemnumber = 2 ) 
 #' # IFF plot for Categories of Item No. 2
 #' iff(pair_obj = result, itemnumber = 2 ,cat=TRUE)
@@ -34,45 +85,109 @@
 #' iff(pair_obj = result, itemnumber = 3 ,cat=TRUE)
 ####################################################
 
-####################################################
+iff <- function(pair_obj,
+                itemnumber = 1,
+                x = NULL,
+                ra = 4,
+                nodes = 161,
+                plot = TRUE,
+                cat = FALSE,
+                lwd = 2,
+                col = 1,
+                lty = 1,
+                main = NULL,
+                xlab = "Theta (ability logits)",
+                ylab = "Information",
+                ylim = NULL,
+                bty = "n",
+                ...) {
 
-iff <- function(pair_obj, itemnumber=1, x=NULL, plot=TRUE, cat=FALSE, lwd = 2, col=1, ...  ){
+  if (is.null(pair_obj$threshold)) {
+    stop("'pair_obj' must contain pair_obj$threshold.")
+  }
+  thresholds <- as.matrix(pair_obj$threshold)
+  item_names <- rownames(thresholds)
+  if (is.null(item_names)) {
+    item_names <- paste0("Item ", seq_len(nrow(thresholds)))
+  }
 
-# start 'ploting' function ------------    
-itemname <- rownames(pair_obj$threshold)[itemnumber]
+  if (is.character(itemnumber)) {
+    if (length(itemnumber) != 1L) {
+      stop("'itemnumber' must identify exactly one item.")
+    }
+    item_index <- match(itemnumber, item_names)
+  } else {
+    if (length(itemnumber) != 1L) {
+      stop("'itemnumber' must identify exactly one item.")
+    }
+    item_index <- as.integer(itemnumber)
+  }
 
-if (length(x)==0){ 
-  ra <- 4
-  theta_v <- seq(-ra,ra,length.out=(ra*2+1)*10)
+  if (is.na(item_index) || item_index < 1L || item_index > nrow(thresholds)) {
+    stop("'itemnumber' is not a valid item position or item name.")
+  }
+
+  if (is.null(x) || length(x) == 0L) {
+    theta_v <- seq(-ra, ra, length.out = as.integer(round(nodes)))
+  } else {
+    theta_v <- as.numeric(x)
+    if (any(!is.finite(theta_v))) {
+      stop("'x' must contain finite numeric theta values.")
+    }
+  }
+  if (length(theta_v) == 1L) {
+    plot <- FALSE
+  }
+
+  thres <- as.numeric(thresholds[item_index, , drop = TRUE])
+  thres <- thres[is.finite(thres)]
+  result <- i.iff_information(theta_v, thres)
+
+  item_information <- result$information
+  category_information <- result$category_information
+
+  if (isTRUE(plot)) {
+    values <- if (isTRUE(cat)) category_information else item_information
+    if (is.null(ylim)) {
+      y_max <- max(values, 0, na.rm = TRUE)
+      if (!is.finite(y_max) || y_max <= 0) y_max <- 1
+      ylim_used <- c(0, 1.05 * y_max)
+    } else {
+      ylim_used <- ylim
+    }
+
+    if (is.null(main)) {
+      main <- paste0("Item Information Function\nfor item ", item_names[item_index])
+    }
+
+    graphics::plot(
+      range(theta_v), ylim_used,
+      type = "n", ylim = ylim_used, bty = bty,
+      xlab = xlab, ylab = ylab, main = main, ...
+    )
+
+    if (isTRUE(cat)) {
+      graphics::matlines(
+        theta_v, category_information,
+        lwd = lwd, col = col, lty = seq_len(ncol(category_information))
+      )
+    } else {
+      graphics::lines(theta_v, item_information, lwd = lwd, col = col, lty = lty)
+    }
+  }
+
+  if (isTRUE(cat)) {
+    if (length(theta_v) == 1L) {
+      answer <- as.numeric(category_information[1L, ])
+      names(answer) <- colnames(category_information)
+      return(answer)
+    }
+    return(category_information)
+  }
+
+  if (length(theta_v) == 1L) {
+    return(unname(item_information[1L]))
+  }
+
+  invisible(item_information)
 }
-
-if (length(x)==1){
-  plot <- FALSE
-  theta_v <- x
-}
-
-if (length(x)>1){
-  theta_v <- x
-}
-
-thres <- na.omit(pair_obj$threshold[itemnumber,])
-pv <- pvx.matrix(theta_v=theta_v, thres=thres)
-
-if (cat==FALSE){IFerg <- rowSums(t(pv*(1-pv))) }
-if (cat==TRUE){IFerg <- t(pv*(1-pv)) }
-
-if (plot==TRUE){ 
-  # leerplot
-  plot(y= c(0, max(IFerg)) , x= c(min(theta_v),max(theta_v)) , ylim=c(0, max(IFerg)) ,bty="n",type="n", ylab=("Information"), xlab="Logits", main=paste("Item Information Function \n for item ", itemname,sep=""))
-  ##### plotting -------------------------
-  matlines(x=theta_v ,y=IFerg, lwd=lwd, col=col, ... ) 
-}
-
-# merke : 
-#matplot(rowSums(t(pvx.matrix(theta_v=seq(-2,2,.1),thres=c(-.4,.1,.6))*(1-pvx.matrix(theta_v=seq(-2,2,.1),thres=c(-.4,.1,.6))))))
-
-##### silent return -------------------------
-if (plot==FALSE){(return(IFerg))}
-}
-
-

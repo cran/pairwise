@@ -2,41 +2,103 @@
 % Please edit documentation in R/esc.R
 \name{esc}
 \alias{esc}
-\title{Expected Score Curves Plots}
+\title{Expected score curves for one or several items}
 \usage{
-esc(pers_obj, itemnumber = 1, integ = 6, ra = 4, nodes = 100, lwd = 2, ...)
+esc(
+  pers_obj,
+  itemnumber = NULL,
+  integ = 6,
+  group.method = c("auto", "theta_levels", "equal_n"),
+  ra = 4,
+  nodes = 100,
+  lwd = 2,
+  lty = 1,
+  col = NULL,
+  bw.lty = c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash", "44", "13",
+    "1343", "73", "2262", "12223242"),
+  empirical = TRUE,
+  empirical.lty = 2,
+  empirical.lwd = lwd + 0.3,
+  pch = c(1, 2, 0, 5, 6, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22,
+    23, 24, 25),
+  show.legend = TRUE,
+  legend.position = "topleft",
+  type.legend.position = "bottomright",
+  main = NULL,
+  sub = NULL,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
-\item{pers_obj}{an object of class \code{"pers"} as a result from function \code{\link{pers}}.}
+\item{pers_obj}{Object of class "pers", returned by pairwise::pers().}
 
-\item{itemnumber}{an integer, defining the number of the item to plot the respective categoy probability for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the expected score curves for.}
+\item{itemnumber}{NULL, a numeric vector of item positions, or a character
+vector of item names. The default NULL selects all items contained in
+pers_obj$pair$threshold.}
 
-\item{integ}{either an integer defining the number of (ability) groups to integrate the empirical theta vector or the character expression \code{"all"} to plot the empirical theta distribution at the respective item score using symbols (see example).}
+\item{integ}{Positive integer giving the requested number of empirical
+ability groups, or "all" for the original score-wise display.}
 
-\item{ra}{an integer, defining the (logit) range for x-axis}
+\item{group.method}{Method for numeric integ:
+"auto" chooses "theta_levels" when ties are substantial and otherwise
+"equal_n"; "theta_levels" groups adjacent distinct WLE values without
+splitting ties; "equal_n" forms approximately equally sized person groups.}
 
-\item{nodes}{numer of integration nodes}
+\item{ra}{Positive number defining the theoretical theta range -ra to ra.}
 
-\item{lwd}{see \code{\link{plot}}}
+\item{nodes}{Number of theta evaluation points.}
 
-\item{...}{arguments passed to plot}
+\item{lwd}{Line width of model-implied curves.}
+
+\item{lty}{Line type(s) of model-implied curves in colour plots.}
+
+\item{col}{Item colour(s). If NULL, colours are generated automatically.
+If all selected items are drawn with col = "black", the items are
+automatically distinguished by different line types.}
+
+\item{bw.lty}{Line types used to distinguish items in a black-and-white
+plot. They are recycled when more items than line types are selected.}
+
+\item{empirical}{Logical; add empirical curves?}
+
+\item{empirical.lty}{Line type of empirical curves.}
+
+\item{empirical.lwd}{Line width of empirical curves.}
+
+\item{pch}{Plotting symbols used to distinguish items at the empirical
+group means. The vector is recycled when necessary.}
+
+\item{show.legend}{Logical; draw legends?}
+
+\item{legend.position}{Position of item legend.}
+
+\item{type.legend.position}{Position of curve-type legend.}
+
+\item{main, sub}{Optional plot title and subtitle.}
+
+\item{verbose}{Logical; print information about the empirical grouping?}
+
+\item{...}{Further arguments passed to plot().}
+}
+\value{
+Invisibly returns a list containing grouping information and all
+  theoretical and empirical plotting values.#'
 }
 \description{
-plotting function for plotting expected score curves.
+plotting function for plotting model-implied expected score curves from a Rasch or Partial Credit Model together with empirical item-score means. Several items can be drawn in one common coordinate system.
 }
 \details{
-no details in the moment.
+The empirical ability groups are formed once for all selected items. By default, ties in WLE estimates are not split across groups. This is important for Rasch WLEs, which often take only a small number of distinct values.
 }
 \examples{
-########
 data(bfiN)
-result <- pers(pair(bfiN))
-esc(pers_obj=result,1,lwd=2) # plot for first item
-esc(pers_obj=result,2,lwd=2) # plot for second item
-for(i in 1:5){esc(pers_obj=result,i,lwd=2)}
-#########
-esc(pers_obj=result,2,integ="all",lwd=2) # plot for secod item
-
+pers_obj <- pers(pair(bfiN))
+esc(pers_obj, integ = 6)             # plot all items
+esc(pers_obj, itemnumber = 1:5, integ = 6)
+esc(pers_obj, itemnumber = 1:5, integ = 6, group.method = "theta_levels")
+esc(pers_obj, itemnumber = 1:3, integ = "all")
+esc(pers_obj, col = "black")             # black-and-white
 }
 \keyword{fit}
 \keyword{item}

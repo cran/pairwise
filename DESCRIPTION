@@ -1,17 +1,17 @@
 Package: pairwise
 Type: Package
 Maintainer: Joerg-Henrik Heine <jhheine@googlemail.com>
-Date: 2025-9-12
+Date: 2026-10-30
 Authors@R: c(person(given = "Joerg-Henrik",
                       family = "Heine",
-                      role = c("aut", "cre"),
+                      role = c("aut", "cre", "ctb"),
                       email = "jhheine@googlemail.com"),
               person(given = "Christian",
                         family = "Grebe",
                         role = "ctb",
                         email="grebe@hepcos.com")
                       )
-Version: 0.6.2-0
+Version: 0.6.4-0
 Encoding: UTF-8
 License: GPL-3
 Imports: graphics, stats, methods
@@ -23,10 +23,10 @@ Description: Performs the explicit calculation
     parameters (WLE) are calculated according to Warm's weighted likelihood
     approach.
 Suggests: psych, exhaustiveRasch
-RoxygenNote: 7.3.3
+Config/roxygen2/version: 8.1.1
 NeedsCompilation: no
-Packaged: 2025-09-12 15:41:05 UTC; jh
-Author: Joerg-Henrik Heine [aut, cre],
+Author: Joerg-Henrik Heine [aut, cre, ctb],
   Christian Grebe [ctb]
+Packaged: 2026-10-30 22:36:18 UTC; jh
 Repository: CRAN
-Date/Publication: 2025-09-12 16:10:02 UTC
+Date/Publication: 2026-10-31 01:00:02 UTC

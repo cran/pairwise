@@ -18,7 +18,10 @@
 #'
 #' @param daten a single \code{data.frame} or \code{matrix} or a \code{list} with every list entry holding a \code{data.frame} or \code{matrix}. Row and column names may represent the names of items (columns) and persons (rows). Missing values (\code{NA}) are allowed. Item responses can be polytomous or dichotomous (or a mixture of a varying number of categories across all items). Responses of \code{n} respondents (rows) on \code{k} items (colums) must be coded (scored) starting with 0 for lowest category to \emph{m}-1 for highest category. If a list is assigned to this argument each \code{data.frame} or \code{matrix} as respective list entry must have the same dimensionality. See details and examples.
 #' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in the data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.
-#' @param w an optional vector of case weights.
+#' @param w an optional numeric vector of non-negative case weights. Its length
+#' must equal the number of persons. For list input, a vector with one value per
+#' person is repeated for every rater/time point; alternatively, one value per
+#' row of the internally stacked response matrix can be supplied.
 #' @param pot either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.
 #' @param zerocor either a logical or an numeric value between >0 and <=1. If (in case of a logical) zerocor is set to TRUE (default) unobserved combinations (1-0, 0-1) in the data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373). As an alternative option a numeric value between >0 and <=1 can be assigned to unobserved combinations (1-0, 0-1) in the data for each pair of items (conf. to personal communication with A. Robitzsch; 29-03-2021).  
 #' @param ccf logical with default \code{ccf=FALSE} to perform normal item parameter calculation, if set to \code{ccf=TRUE} just the conditional item (category) frequencies are returned.
@@ -32,7 +35,11 @@
 #' @param zerosum ignored when \code{likelihood=NULL} (default).
 #' @param ... additional parameters passed through.
 #' 
-#' @return A (list) object of class \code{"pair"} containing the item category thresholds and difficulties sigma, also called item location.
+#' @return A (list) object of class \code{"pair"} containing the item category
+#' thresholds, difficulties sigma, response data and the case weights used.
+#' The new \code{weights} component is \code{NULL} for an unweighted fit and a
+#' named numeric vector aligned with the rows of \code{resp} otherwise. Existing
+#' components and their order are unchanged; \code{weights} is appended.
 #' 
 #' @references Choppin, B. (1968). Item Bank using Sample-free Calibration. \emph{Nature, 219}(5156), 870-872.
 #' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
@@ -161,6 +168,23 @@ if( any(class(daten)!="list") ){
     Mrpc <- matrix(1,1,1)
 }
 
+#### validate and align case weights ------------------------------------------
+weights_used <- NULL
+if (!is.null(w)) {
+  if (!is.numeric(w) || is.matrix(w) || anyNA(w) || any(!is.finite(w)) ||
+      any(w < 0)) {
+    stop("w must be a finite, non-negative numeric vector without missing values")
+  }
+  valid_lengths <- if (rt > 1L) c(nrow(d) / rt, nrow(d)) else nrow(d)
+  if (length(w) < 1L || !(length(w) %in% valid_lengths)) {
+    stop("length of w must equal the number of persons",
+         if (rt > 1L) " or the number of rows across all raters/time points" else "")
+  }
+  weights_used <- rep(as.numeric(w), length.out=nrow(d))
+  if (sum(weights_used) <= 0) stop("at least one case weight must be positive")
+  names(weights_used) <- rownames(d)
+}
+
 #### some category checks for m calculated from data (revised on 29-03-2021)----
 if(length(m)==0){if(all(apply(d,2,function(x){min(x,na.rm=TRUE)})== 0) == FALSE){stop("item categories must start with 0 ... some items may be constant") }}
 if(length(m)==0){m<-apply(d,2,function(x){max(x,na.rm=TRUE)+1}); comment(m) <- "estimated from data"}
@@ -171,7 +195,7 @@ if(any(m<2)){stop("some items are constant ... have only one category")}
 #### start regular item parameter calculation ----------------------------------
 if (ccf==FALSE){
   kd <- katdat(d, mVector=m, INFO=T)  
-  f <- Fmat(kd,INFO=T,ipsative=FALSE,w = w)
+  f <- Fmat(kd,INFO=T,ipsative=FALSE,w = weights_used)
   mVector<-f$mVector
   # powers of nij ?
   if(is.logical(pot)){
@@ -286,7 +310,9 @@ if (ccf==FALSE){
       colnames(threshold) <- c(1:(unique(mVector)-1))
     }
     
-    erg<-list(threshold=threshold,sigma=sigma,sb=sb,resp=d, fuargs=fuargs, m=m, taur=taur)
+    # Keep historical components in their original order; append weights.
+    erg<-list(threshold=threshold,sigma=sigma,sb=sb,resp=d, fuargs=fuargs,
+              m=m, taur=taur, weights=weights_used)
     class(erg) <- c("pair","list")
     
     return(erg)
@@ -296,7 +322,7 @@ if (ccf==FALSE){
   #### start regular item parameter calculation --------------------------------
   if (ccf==TRUE){
     # just return nij matrix ...
-    f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE,w = w)
+    f <- Fmat(katdat(d, mVector=m, INFO=T),INFO=T,ipsative=FALSE,w = weights_used)
     mVector<-f$mVector
     # powers of nij ?
     if(is.logical(pot)){

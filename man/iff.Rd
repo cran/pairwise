@@ -8,44 +8,56 @@ iff(
   pair_obj,
   itemnumber = 1,
   x = NULL,
+  ra = 4,
+  nodes = 161,
   plot = TRUE,
   cat = FALSE,
   lwd = 2,
   col = 1,
+  lty = 1,
+  main = NULL,
+  xlab = "Theta (ability logits)",
+  ylab = "Information",
+  ylim = NULL,
+  bty = "n",
   ...
 )
 }
 \arguments{
 \item{pair_obj}{an object of class \code{"pair"} as a result from function \code{\link{pair}}.}
 
-\item{itemnumber}{an integer, defining the number of the item to plot the respective item information function for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the item information function for.}
+\item{itemnumber}{One numeric item position or one item name.}
 
-\item{x}{The value(s) of the latent variable, at which the IIF will be evaluated. \code{x} should be either a numeric vector of theta values or a single numeric value. If \code{x} is given as a single numeric value plotting is supressed. If not given (default), 99 values spaced evenly between -4 and +4 will be used, handy for plotting.}
+\item{x}{Numeric theta values. If NULL, `nodes` points from -`ra` to `ra`
+are used. A single theta suppresses plotting.}
 
-\item{plot}{a logical (default \code{plot = TRUE}), defining wether to supress plotting an just return a matrix of the values of the Item information function.}
+\item{ra, nodes}{Theta range and number of evaluation points when x is NULL.}
 
-\item{cat}{a logical (default \code{cat = FALSE}), defining wether to plot or return the values of the Item information function based on item categories.}
+\item{plot}{Logical; draw the plot?}
 
-\item{lwd}{see parameters for \code{\link{plot}}}
+\item{cat}{Logical; plot or return category-information contributions?}
 
-\item{col}{see parameters for \code{\link{plot}}}
+\item{lwd, col, lty}{Graphical parameters for the item-information curve.}
 
-\item{...}{arguments passed to plot}
+\item{main, xlab, ylab, ylim, bty}{Plot settings.}
+
+\item{...}{Further arguments passed to plot().}
 }
 \value{
-a plot, a matrix or a single numeric with values of the Item information function.
+Item information, or category-information contributions if cat=TRUE.
 }
 \description{
-plotting function for plotting the Item information function(IIF).
+plotting function for plotting the Item information function(IIF). Item information function using the Rasch/PCM Fisher information.
 }
 \details{
-no details in the moment.
+This version of the funktion uses the conditional variance of the item score. For a dichotomous Rasch item, I_i(theta) = p(theta) * (1 - p(theta)); for a Partial Credit item, I_i(theta) = Var(X_i | theta).
 }
 \examples{
 ########
 data(sim200x3)
 result <- pair(sim200x3)
-# IFF plot for Item No. 2 
+iff(pair_obj = result) 
+#' # IFF plot for Item No. 2 
 iff(pair_obj = result, itemnumber = 2 ) 
 # IFF plot for Categories of Item No. 2
 iff(pair_obj = result, itemnumber = 2 ,cat=TRUE)

@@ -22,96 +22,61 @@ pairSE(
   progress = TRUE,
   init = NULL,
   zerosum = TRUE,
-  ...
+  ...,
+  method = c("subsampling", "bootstrap", "jackknife")
 )
 }
 \arguments{
-\item{daten}{a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.}
+\item{daten}{Response matrix or data.frame, one independent person per row.}
 
-\item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{m = NULL}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.}
+\item{m}{Category counts; see \code{\link{pair}}. If NULL, inferred once from full data.}
 
-\item{w}{an optional vector of case weights.}
+\item{w}{Finite non-negative case weights, one per row, with a finite positive sum.}
 
-\item{nsample}{numeric specifying the number of subsamples sampled from data, which is the number of replications of the parameter calculation. 
-WARNING! specifying high values for \code{nsample} ( > 100 ) may result in long computing time without leading to "better" estimates for SE. This may also be the case when choosing argument \code{size="jack"} (see argument \code{size}) in combination with large datasets (\emph{N} > 5000).}
+\item{nsample}{Integer number of random replicates, at least two. Ignored for jackknife, which uses N replicates.}
 
-\item{size}{numeric with valid range between 0 and 1 (but not exactly 0 or 1) specifying the size of the subsample of \code{data} when bootstraping for SE estimation. As an alternative, \code{size} can be set to the character \code{"jack"} (\code{size="jack"}). This will set the subsample size to \emph{N}-1 and set \code{nsample=N} (see argument \code{nsample}), with \emph{N} beeing the number of persons in \code{daten}.}
+\item{size}{Fraction strictly between zero and one for subsampling. The rounded sample size must be between 2 and N-1. The alias "jack" selects jackknife when method is omitted or "jackknife". Ignored for bootstrap and explicit jackknife.}
 
-\item{seed}{numeric used for \code{set.seed(seed)}.}
+\item{seed}{Numeric seed for random resampling, or "no" to use the current RNG state.}
 
-\item{pot}{either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.}
+\item{pot, zerocor, likelihood, pot2, delta, conv, maxiter, progress, init, zerosum}{See \code{\link{pair}}.}
 
-\item{zerocor}{either a logical or an numeric value between >0 and <=1. If (in case of a logical) zerocor is set to TRUE (default) unobserved combinations (1-0, 0-1) in the data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373). As an alternative option a numeric value between >0 and <=1 can be assigned to unobserved combinations (1-0, 0-1) in the data for each pair of items (conf. to personal communication with A. Robitzsch; 29-03-2021).}
+\item{verbose}{Print resampling progress?}
 
-\item{verbose}{logical, if \code{verbose = TRUE} (default) a message about subsampling is sent to console when calculating standard errors.}
+\item{...}{Additional arguments passed to \code{\link{pair}}.}
 
-\item{likelihood}{see \code{\link{pair}}.}
-
-\item{pot2}{see \code{\link{pair}}.}
-
-\item{delta}{see \code{\link{pair}}.}
-
-\item{conv}{see \code{\link{pair}}.}
-
-\item{maxiter}{see \code{\link{pair}}.}
-
-\item{progress}{see \code{\link{pair}}.}
-
-\item{init}{see \code{\link{pair}}.}
-
-\item{zerosum}{see \code{\link{pair}}.}
-
-\item{...}{additional parameters passed through.}
+\item{method}{"subsampling" (default), "bootstrap", or "jackknife". Must be named; previous positional arguments retain their positions.}
 }
 \value{
-A (list) object of class \code{c("pairSE","list")} containing the item category thresholds, difficulties sigma and their standard errors.
+A \code{pairSE} list with threshold, sigma, SE, SEsigma, weights and resp, in their previous order. Attribute \code{resampling} records method, N, actual sample size, number of replicates and the multiplier applied to R's replicate standard deviation.
 }
 \description{
-Calculation of the item parameters for dichotomous (difficulty) or polytomous items (thurstonian thresholds) and their standard errors (SE) respectively.
-All parameters are calculated using a generalization (see Heine & Tarnai, 2015) of the pairwise comparison algorithm (Choppin, 1968, 1985).
-Missing values up to an high amount in data matrix are allowed, as long as items are proper linked together.
+Calculates Rasch/PCM item parameters and resampling standard errors.
 }
 \details{
-Parameter calculation is based on the construction of a paired comparison matrix M\emph{nicjc} with entries f\emph{icjc}, representing the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional pairwise algorithm to polytomous item response formats. 
-This algorithm is simply realized by matrix multiplication.
- 
-Estimation of standard errors is done by repeated calculation of item parameters for sub samples of the given data. 
-
-To avoid numerical problems with off diagonal zeros when constructing the pairwise comparison matrix M\emph{nicjc}, powers of the M\emph{nicjc} matrix, can be used (Choppin, 1968, 1985). Using powers \emph{k} of M\emph{nicjc}, argument \code{pot=TRUE} (default), replaces the results of the direct comparisons between \emph{i} and \emph{j} with the sum of the indirect comparisons of \emph{i} and \emph{j} through an intermediate \emph{k}.
-
-In general, it is recommended to use the argument with default value \code{pot=TRUE}.
+For subsampling, rows are sampled without replacement and the replicate
+standard deviation is multiplied by sqrt(m/(N-m)), using the actual rounded
+sample size m. This is exact for the sample mean and an asymptotic approximation
+for regular estimators of independent, identically distributed rows. It is not
+a guarantee for sparse or nonregular pairwise fits. At m=N/2 the factor is one.
+Bootstrap draws N rows with replacement and uses the replicate standard
+deviation. Jackknife omits each row exactly once and uses
+sqrt((N-1)/N * sum((estimate_i - mean(estimate_i))^2)). No parameter bias
+correction is applied. Point estimates always come from the complete data.
+More random replicates reduce Monte Carlo variability, but do not fix bias.
+Category counts are held fixed from the full-data fit. Failed or non-finite
+replicate fits cause an error; unused threshold cells remain NA.
+Weights travel with their rows; rows are sampled uniformly, not proportional
+to weights. This treats observed row/weight pairs as the sampling units and
+does not implement design-based variance estimation for survey, cluster or
+stratified samples, nor expand integer frequency weights into independent rows.
+The jackknife is deterministic and does not set or consume the random seed.
 }
-\section{A note on standard errors}{
- Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} may be the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples).
-}
-
 \examples{
-data(bfiN) # loading example data set
-
-# calculating item parameters and their SE for 5 neuroticism items with 6 answer categories (0-5).
-neuro_itempar<-pairSE(daten = bfiN, m = 6) 
-summary(neuro_itempar) # summary for result
-
-# plotting item thresholds with with their CI = 95\% 
-plot(neuro_itempar)
-plot(neuro_itempar,sortdif=TRUE)
-
-###### example from details section 'Some Notes on Standard Errors' ########
-neuro_itempar_400<-pairSE(daten = bfiN, m = 6,nsample=400)
-plot(neuro_itempar) 
-plot(neuro_itempar_400) 
-   
-}
-\references{
-Choppin, B. (1968). Item Bank using Sample-free Calibration. \emph{Nature, 219}(5156), 870-872.
-
-Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
-
-Heine, J. H. & Tarnai, Ch. (2015). Pairwise Rasch model item parameter recovery under sparse data conditions. \emph{Psychological Test and Assessment Modeling, 57}(1), 3–36.
-
-Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
-
-Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
+data(sim200x3)
+pairSE(sim200x3, nsample=30, seed=42, verbose=FALSE)
+pairSE(sim200x3, method="bootstrap", nsample=30, seed=42, verbose=FALSE)
+\dontrun{pairSE(sim200x3, method="jackknife", verbose=FALSE)}
 }
 \keyword{item}
 \keyword{main}

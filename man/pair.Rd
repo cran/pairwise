@@ -27,7 +27,10 @@ pair(
 
 \item{m}{an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{(m = NULL)}, \code{m} is calculated from data, assuming that every response category is at least once present in the data. For \emph{'sparse' data} it is \emph{strongly recomended} to explicitly \emph{define the number of categories} by defining this argument.}
 
-\item{w}{an optional vector of case weights.}
+\item{w}{an optional numeric vector of non-negative case weights. Its length
+must equal the number of persons. For list input, a vector with one value per
+person is repeated for every rater/time point; alternatively, one value per
+row of the internally stacked response matrix can be supplied.}
 
 \item{pot}{either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.}
 
@@ -54,7 +57,11 @@ pair(
 \item{...}{additional parameters passed through.}
 }
 \value{
-A (list) object of class \code{"pair"} containing the item category thresholds and difficulties sigma, also called item location.
+A (list) object of class \code{"pair"} containing the item category
+thresholds, difficulties sigma, response data and the case weights used.
+The new \code{weights} component is \code{NULL} for an unweighted fit and a
+named numeric vector aligned with the rows of \code{resp} otherwise. Existing
+components and their order are unchanged; \code{weights} is appended.
 }
 \description{
 This is the (new) main function for calculation of the item parameter for the dichotomous Rasch Model (Rasch, 1960) and its extension for polytomous items (thurstonian thresholds) according to the Partial Credit Model (Masters, 1982).

@@ -2,40 +2,134 @@
 % Please edit documentation in R/gif.R
 \name{gif}
 \alias{gif}
-\title{Graphical Item Fit Plots}
+\title{Graphical item-fit plots for one or several items}
 \usage{
-gif(pers_obj, itemnumber = 1, ra = 4, integ = "raw", kat = "all", ...)
+gif(
+  pers_obj,
+  itemnumber = NULL,
+  ra = 4,
+  nodes = 100,
+  integ = "raw",
+  group.method = c("auto", "theta_levels", "equal_n"),
+  kat = "all",
+  col = NULL,
+  item.lty = c("solid", "dashed", "dotted", "dotdash", "longdash", "twodash", "44", "13",
+    "1343", "73", "2262", "12223242"),
+  category.lty = 1:6,
+  item.pch = c(1, 2, 0, 5, 6, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25),
+  category.pch = 1:25,
+  model.marker.every = 15,
+  model.marker.cex = 0.55,
+  model.lwd = 1.5,
+  empirical.lwd = 1.5,
+  empirical = TRUE,
+  show.legend = TRUE,
+  item.legend.position = "topleft",
+  category.legend.position = "topright",
+  type.legend.position = "bottomright",
+  label.model.categories = NULL,
+  label.empirical.categories = NULL,
+  main = NULL,
+  sub = NULL,
+  verbose = FALSE,
+  ...
+)
 }
 \arguments{
 \item{pers_obj}{an object of class \code{"pers"} as a result from function \code{\link{pers}}.}
 
-\item{itemnumber}{an integer, defining the number of the item to plot the respective categoy probability for. This is set to an arbitrary default value of \code{itemnumber = 1} to avoid error messages when you forget to choose an item to plot the expected score curves for.}
+\item{itemnumber}{NULL, a numeric vector of item positions, or a character
+vector of item names. The default NULL selects all items contained in
+pers_obj$pair$threshold.}
 
-\item{ra}{an integer, defining the (logit) range for x-axis}
+\item{ra}{Positive number defining the theoretical theta range -ra to ra.}
 
-\item{integ}{either an integer, defining the number of integration points along the (logit) range on the x-axis to integrate the empirical theta values, or the character expression \code{"raw"} (default) which will use the rawscore groups as integration points.}
+\item{nodes}{Number of theta evaluation points for the model curves.}
 
-\item{kat}{either an integer, defining for which category the empirical category probabilities should be plotted over the model derived category probability curves, or the character expression \code{"all"} (default) which will plot the empirical category probabilities for all categories.}
+\item{integ}{Either a positive integer giving the requested number of common
+empirical ability groups, or "raw" for grouping by the raw score stored in
+pers_obj$pers$raw.}
 
-\item{...}{arguments passed to plot}
+\item{group.method}{Method used when `integ` is numeric: "auto",
+"theta_levels", or "equal_n".}
+
+\item{kat}{Either "all" or a numeric vector of category numbers. For
+compatibility with the original function, category number 1 denotes the
+first response category (score 0), category number 2 denotes score 1, etc.}
+
+\item{col}{Item colour(s). If NULL, colours are generated automatically.
+If all selected items are drawn with col = "black", items are
+automatically distinguished by different line types.}
+
+\item{item.lty}{Line types used to distinguish items in a black-and-white
+plot. They are recycled when necessary.}
+
+\item{category.lty}{Line types used to distinguish response categories in
+colour plots. In black-and-white plots, categories are distinguished by
+plotting symbols instead.}
+
+\item{item.pch}{Plotting symbols used for the empirical points of the
+selected items. The vector is recycled when necessary.}
+
+\item{category.pch}{Plotting symbols used to distinguish response
+categories on model curves in black-and-white plots.}
+
+\item{model.marker.every}{Approximate spacing, in theta nodes, between
+category symbols placed on model curves in black-and-white plots.}
+
+\item{model.marker.cex}{Size of those model-curve category symbols.}
+
+\item{model.lwd}{Line width of model-implied probability curves.}
+
+\item{empirical.lwd}{Line width of empirical probability curves.}
+
+\item{empirical}{Logical; add empirical category probabilities?}
+
+\item{show.legend}{Logical; draw legends?}
+
+\item{item.legend.position}{Position of the item legend.}
+
+\item{category.legend.position}{Position of the response-category legend.}
+
+\item{type.legend.position}{Position of the model/empirical legend.}
+
+\item{label.model.categories}{NULL or logical. If NULL, category labels at
+the model-curve maxima are shown for a single item and omitted for several
+items.}
+
+\item{label.empirical.categories}{NULL or logical. If NULL, labels at the
+empirical points are shown for a single item and omitted for several
+items.}
+
+\item{main, sub}{Optional plot title and subtitle.}
+
+\item{verbose}{Logical; print information about the empirical grouping?}
+
+\item{...}{Further arguments passed to plot().}
 }
 \value{
-a plot with category probabilities.
+Invisibly returns a list containing grouping information and all theoretical and empirical plotting values.
 }
 \description{
-plotting function for plotting empirical and model derived category probability curves.
+Plots model-implied category probability curves from a Rasch or Partial Credit Model together with empirical category probabilities. Several items can be drawn in one common coordinate system.
 }
 \details{
-no details in the moment.
+For several items in colour, colour and the empirical plotting symbol identify the item, whereas line type identifies the response category. With \code{col = "black"}, line type and the empirical plotting symbol identify the item; sparse symbols on the model curves identify the response category. Model-implied probabilities are shown as lines; empirical probabilities are superimposed as lines with item-specific points. The empirical ability groups are formed once for all selected items. For a numeric value of \code{integ}, ties in WLE estimates are not split across groups when \code{group.method = "theta_levels"} is used. The default \code{"auto"} chooses this method when the WLE distribution contains substantial ties.
 }
 \examples{
 ########
 data(bfiN)
 pers_obj <- pers(pair(bfiN))
-#### plot empirical category probabilities
-gif(pers_obj = pers_obj, itemnumber = 1 )
-gif(pers_obj = pers_obj, itemnumber = 1 , integ=8) # integration over 8 points
-gif(pers_obj = pers_obj, itemnumber = 1 , integ=8, kat=1) # only for category number 1
+#### plot 
+# gif(pers_obj)                                  # all items
+# gif(pers_obj, itemnumber = 1:4)               # selected items
+# gif(pers_obj, itemnumber = c("i1", "i2"))   # item names
+# gif(pers_obj, itemnumber = 1:4, integ = 6)
+# gif(pers_obj, itemnumber = 1:4, integ = 6,
+#     group.method = "theta_levels", kat = 1)
+# gif(pers_obj, itemnumber = 1:4, col = "black")
+####################################################
 }
 \keyword{fit}
 \keyword{item}

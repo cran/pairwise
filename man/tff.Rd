@@ -7,57 +7,137 @@
 tff(
   pair_obj,
   items = NULL,
+  item.info = FALSE,
   x = NULL,
+  ra = 4,
+  nodes = 161,
   main = "Test Information Function",
   plot = TRUE,
   cat = FALSE,
-  lwd = 2,
+  lwd = 2.5,
   col = 1,
+  test.lty = 1,
+  item.lwd = 1.25,
+  item.col = NULL,
+  item.lty = c("dashed", "dotted", "dotdash", "longdash", "twodash", "44", "13", "1343",
+    "73", "2262", "12223242", "solid"),
+  item.points = FALSE,
+  item.pch = c(1, 2, 0, 5, 6, 3, 4, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
+    22, 23, 24, 25),
+  point.every = 12,
+  point.cex = 0.7,
+  category.lty = c("dotted", "dotdash", "longdash", "twodash"),
+  category.lwd = 0.7,
+  category.col = NULL,
+  show.legend = TRUE,
+  legend.position = "topright",
+  legend.cex = 0.8,
+  legend.ncol = NULL,
+  xlab = "Theta (ability logits)",
+  ylab = "Information",
+  ylim = NULL,
+  bty = "n",
+  verbose = FALSE,
   ...
 )
 }
 \arguments{
-\item{pair_obj}{an object of class \code{"pair"} as a result from function \code{\link{pair}}.}
+\item{pair_obj}{An object of class "pair", returned by pairwise::pair().}
 
-\item{items}{optional a vector (character or numeric) identifying the items (according their order in the data) to use for plotting the test information function.}
+\item{items}{NULL, numeric item positions, or character item names defining
+which items contribute to the test information. NULL selects all items.}
 
-\item{x}{The value(s) of the latent variable, at which the TIF will be evaluated. \code{x} should be either a numeric vector of theta values or a single numeric value. If \code{x} is given as a single numeric value plotting is supressed. If not given (default), 99 values spaced evenly between -4 and +4 will be used, handy for plotting.}
+\item{item.info}{Controls the item-information overlays. FALSE or NULL plots
+only the TIF; TRUE or "all" plots the IIFs of all items selected through
+`items`; a numeric or character vector plots only the requested IIFs.}
 
-\item{main}{see parameters for \code{\link{plot}}}
+\item{x}{Numeric theta values. If NULL, 'nodes' values from -'ra' to 'ra'
+are used. A single value suppresses plotting, as in the earlier versions of the function.}
 
-\item{plot}{a logical (default \code{plot = TRUE}), defining wether to supress plotting an just return a matrix of the values of the Item information function.}
+\item{ra}{Positive theta range used when x is NULL.}
 
-\item{cat}{a logical (default \code{cat = FALSE}), defining wether to plot as an overlay to the Test information function the item category information functions based on item categories. If \code{cat = TRUE} and \code{plot = FALSE} the values of the item category information functions are returned.}
+\item{nodes}{Number of theta values used when x is NULL.}
 
-\item{lwd}{see parameters for \code{\link{plot}}}
+\item{main}{Plot title.}
 
-\item{col}{see parameters for \code{\link{plot}}}
+\item{plot}{Logical; draw the plot?}
 
-\item{...}{arguments passed to plot}
+\item{cat}{Logical; additionally draw category-information contributions
+p_ik(theta) * (k - E[X_i | theta])^2 for the test items. This option is
+mainly retained for compatibility and may produce many curves.}
+
+\item{lwd}{Line width of the test information function.}
+
+\item{col}{Colour of the test information function. With col = "black"
+(or col = 1), item curves default to black and are distinguished by line
+types and, optionally, plotting symbols.}
+
+\item{test.lty}{Line type of the test information function.}
+
+\item{item.lwd}{Line width of item information functions.}
+
+\item{item.col}{Optional colours for item information functions. If NULL,
+black is used in a black-and-white display; otherwise colours are created
+automatically.}
+
+\item{item.lty}{Line types used to distinguish item information functions.}
+
+\item{item.points}{Logical; add plotting symbols to item curves?}
+
+\item{item.pch}{Plotting symbols used to distinguish items.}
+
+\item{point.every}{Put an item symbol at every nth theta value.}
+
+\item{point.cex}{Size of item plotting symbols.}
+
+\item{category.lty}{Line types for category-information contributions.}
+
+\item{category.lwd}{Line width for category-information contributions.}
+
+\item{category.col}{Optional colour for category-information contributions.
+If NULL, the corresponding item colour is used.}
+
+\item{show.legend}{Logical; draw a legend for the TIF and displayed IIFs?}
+
+\item{legend.position}{Position of the item legend.}
+
+\item{legend.cex}{Character expansion of the legend.}
+
+\item{legend.ncol}{Number of legend columns. NULL chooses this automatically.}
+
+\item{xlab, ylab}{Axis labels.}
+
+\item{ylim}{Optional y-axis limits.}
+
+\item{bty}{Box type passed to plot().}
+
+\item{verbose}{Logical; print which items contribute to the TIF and which
+IIFs are displayed?}
+
+\item{...}{Further arguments passed to the initial plot().}
 }
 \value{
-a plot, a "data.frame" or a single numeric with values of the Test information function.
+When plot = TRUE, invisibly returns a list containing theta values,
+  test information, item information, category contributions, and item
+  selections. When plot = FALSE and cat = FALSE, returns a data frame (or a
+  named numeric vector for one theta value) containing the TIF and requested
+  IIFs. With cat = TRUE, the complete result list is returned.
 }
 \description{
-plotting function for plotting the test information function (TIF).
+plotting function for plotting the test information function (TIF) with optional item-information overlays. Computes and plots the test information function (TIF) for a Rasch or Partial Credit Model fitted by pairwise::pair(). Selected item information functions (IIFs) can be added to the same plot. #'
 }
 \details{
-no details in the moment.
+The Item information is calculated as the conditional variance of the item score, \code{I_i(theta) = sum_k p_ik(theta) * (k - E[X_i | theta])^2. For a dichotomous Rasch item this reduces to p(theta) * (1 - p(theta))}. Test information is the sum of the item information functions of the items selected through 'items'.
 }
 \examples{
-########
-data(sim200x3)
-result <- pair(sim200x3)
-tff(pair_obj = result) # TIF plot 
-tff(pair_obj = result, cat=TRUE) # TIF plot 
-tff(pair_obj = result, items=c("V1","V3"), cat=TRUE) # TIF plot 
-tff(pair_obj = result, x=0) # TIF at theta=0 
-tff(pair_obj = result, x=seq(0,4,.1)) # TIF for a given range of Thetas
-##### examples with other data ...
-data(bfiN)
-result <- pair(bfiN)
-tff(pair_obj = result)
-tff(pair_obj = result, cat=TRUE) # TIF plot 
+# result <- pairwise::pair(sim200x3)
+# tff(result)                                  # TIF only
+# tff(result, item.info = TRUE)                # TIF + all IIFs
+# tff(result, item.info = c(1, 3))             # selected IIFs
+# tff(result, item.info = c("V1", "V3"))
+# tff(result, items = 1:4, item.info = TRUE)   # TIF from items 1:4
+# tff(result, item.info = 1:5, col = "black",
+#     item.points = TRUE)
 }
 \keyword{fit}
 \keyword{model}

@@ -1,111 +1,139 @@
 #' @title Item Parameter Calculation with Standard Errors
 #' @export pairSE
 #' @keywords main item
-#' @description Calculation of the item parameters for dichotomous (difficulty) or polytomous items (thurstonian thresholds) and their standard errors (SE) respectively.
-#' All parameters are calculated using a generalization (see Heine & Tarnai, 2015) of the pairwise comparison algorithm (Choppin, 1968, 1985).
-#' Missing values up to an high amount in data matrix are allowed, as long as items are proper linked together.
-#'
-#' @details Parameter calculation is based on the construction of a paired comparison matrix M\emph{nicjc} with entries f\emph{icjc}, representing the number of respondents who answered to item \emph{i} in category \emph{c} and to item \emph{j} in category \emph{c-1} widening Choppin's (1968, 1985) conditional pairwise algorithm to polytomous item response formats. 
-#' This algorithm is simply realized by matrix multiplication.
-#'  
-#'Estimation of standard errors is done by repeated calculation of item parameters for sub samples of the given data. 
-#'
-#' To avoid numerical problems with off diagonal zeros when constructing the pairwise comparison matrix M\emph{nicjc}, powers of the M\emph{nicjc} matrix, can be used (Choppin, 1968, 1985). Using powers \emph{k} of M\emph{nicjc}, argument \code{pot=TRUE} (default), replaces the results of the direct comparisons between \emph{i} and \emph{j} with the sum of the indirect comparisons of \emph{i} and \emph{j} through an intermediate \emph{k}.
-#' 
-#'In general, it is recommended to use the argument with default value \code{pot=TRUE}.
-#'
-#' @section A note on standard errors: Estimation of standard errors is done by repeated calculation of item parameters for subsamples of the given data. This procedure is mainly controlled by the arguments \code{nsample} and \code{size} (see arguments). With regard to calculation time, the argument \code{nsample} may be the 'time killer'. On the other hand, things (estimation of standard errors) will not necessarily get better when choosing large values for \code{nsample}. For example choosing \code{nsample=400} will only result in minimal change for standard error estimation in comparison to (\code{nsample=30}) which is the default setting (see examples). 
-#'    
-#' @param daten a data.frame or matrix with optionaly named colums (names of items), potentially with missing values, comprising polytomous or dichotomous (or mixted category numbers) responses of \code{n} respondents (rows) on \code{k} items (colums) coded starting with 0 for lowest category to \emph{m}-1 for highest category, with \emph{m} beeing a vector (with length k) with the number of categories for the respective item.
-#' @param m an integer (will be recycled to a vector of length k) or a vector giving the number of response categories for all items - by default \code{m = NULL}, \code{m} is calculated from data, assuming that every response category is at least once present in data. For sparse data it is strongly recomended to explicitly define the number of categories by defining this argument.
-#' @param w an optional vector of case weights.
-#' @param nsample numeric specifying the number of subsamples sampled from data, which is the number of replications of the parameter calculation. 
-#' WARNING! specifying high values for \code{nsample} ( > 100 ) may result in long computing time without leading to "better" estimates for SE. This may also be the case when choosing argument \code{size="jack"} (see argument \code{size}) in combination with large datasets (\emph{N} > 5000).
-#' @param size numeric with valid range between 0 and 1 (but not exactly 0 or 1) specifying the size of the subsample of \code{data} when bootstraping for SE estimation. As an alternative, \code{size} can be set to the character \code{"jack"} (\code{size="jack"}). This will set the subsample size to \emph{N}-1 and set \code{nsample=N} (see argument \code{nsample}), with \emph{N} beeing the number of persons in \code{daten}.
-#' @param seed numeric used for \code{set.seed(seed)}.
-#' @param pot either a logical or an integer  >= 2 defining the power to compute of the pairwise comparison matrix. If TRUE (default) a power of three of the pairwise comparison matrix is used for further calculations. If FALSE no powers are computed.
-#' @param zerocor either a logical or an numeric value between >0 and <=1. If (in case of a logical) zerocor is set to TRUE (default) unobserved combinations (1-0, 0-1) in the data for each pair of items are given a frequency of one conf. proposal by Alexandrowicz (2011, p.373). As an alternative option a numeric value between >0 and <=1 can be assigned to unobserved combinations (1-0, 0-1) in the data for each pair of items (conf. to personal communication with A. Robitzsch; 29-03-2021).  
-#' @param verbose logical, if \code{verbose = TRUE} (default) a message about subsampling is sent to console when calculating standard errors.
-#' @param likelihood see \code{\link{pair}}.
-#' @param pot2 see \code{\link{pair}}.
-#' @param delta see \code{\link{pair}}.
-#' @param conv see \code{\link{pair}}.
-#' @param maxiter see \code{\link{pair}}.
-#' @param progress see \code{\link{pair}}.
-#' @param init see \code{\link{pair}}.
-#' @param zerosum see \code{\link{pair}}.
-#' @param ... additional parameters passed through.
-#' 
-#' @return A (list) object of class \code{c("pairSE","list")} containing the item category thresholds, difficulties sigma and their standard errors.
-#' @references Choppin, B. (1968). Item Bank using Sample-free Calibration. \emph{Nature, 219}(5156), 870-872.
-#' @references Choppin, B. (1985). A fully conditional estimation procedure for Rasch model parameters. \emph{Evaluation in Education, 9}(1), 29-42.
-#' @references Heine, J. H. & Tarnai, Ch. (2015). Pairwise Rasch model item parameter recovery under sparse data conditions. \emph{Psychological Test and Assessment Modeling, 57}(1), 3–36.
-#' @references  Alexandrowicz, R. W. (2011). 'GANZ RASCH': A Free Software for Categorical Data Analysis. \emph{Social Science Computer Review, 30}(3), 369-379.
-#' @references Wright, B. D., & Masters, G. N. (1982). \emph{Rating Scale Analysis.} Chicago: MESA Press.
-#' 
-#' @examples data(bfiN) # loading example data set
-#'
-#' # calculating item parameters and their SE for 5 neuroticism items with 6 answer categories (0-5).
-#' neuro_itempar<-pairSE(daten = bfiN, m = 6) 
-#' summary(neuro_itempar) # summary for result
-#' 
-#' # plotting item thresholds with with their CI = 95% 
-#' plot(neuro_itempar)
-#' plot(neuro_itempar,sortdif=TRUE)
-#' 
-#' ###### example from details section 'Some Notes on Standard Errors' ########
-#' neuro_itempar_400<-pairSE(daten = bfiN, m = 6,nsample=400)
-#' plot(neuro_itempar) 
-#' plot(neuro_itempar_400) 
-#'    
-############## function begins ########################################################
-pairSE<-function(daten, m=NULL, w=NULL, nsample=30, size=0.50, seed="no", pot=TRUE, zerocor=TRUE, verbose=TRUE, likelihood = NULL, pot2 = 2, delta = TRUE, conv = 1e-04, maxiter = 3000, progress = TRUE, init = NULL, zerosum = TRUE, ...){
-# Berechnung von Standardfehlern nach dem Bootstrap Verfahren 
+#' @description Calculates Rasch/PCM item parameters and resampling standard errors.
+#' @param daten Response matrix or data.frame, one independent person per row.
+#' @param m Category counts; see \code{\link{pair}}. If NULL, inferred once from full data.
+#' @param w Finite non-negative case weights, one per row, with a finite positive sum.
+#' @param nsample Integer number of random replicates, at least two. Ignored for jackknife, which uses N replicates.
+#' @param size Fraction strictly between zero and one for subsampling. The rounded sample size must be between 2 and N-1. The alias "jack" selects jackknife when method is omitted or "jackknife". Ignored for bootstrap and explicit jackknife.
+#' @param seed Numeric seed for random resampling, or "no" to use the current RNG state.
+#' @param method "subsampling" (default), "bootstrap", or "jackknife". Must be named; previous positional arguments retain their positions.
+#' @param pot,zerocor,likelihood,pot2,delta,conv,maxiter,progress,init,zerosum See \code{\link{pair}}.
+#' @param verbose Print resampling progress?
+#' @param ... Additional arguments passed to \code{\link{pair}}.
+#' @return A \code{pairSE} list with threshold, sigma, SE, SEsigma, weights and resp, in their previous order. Attribute \code{resampling} records method, N, actual sample size, number of replicates and the multiplier applied to R's replicate standard deviation.
+#' @details For subsampling, rows are sampled without replacement and the replicate
+#' standard deviation is multiplied by sqrt(m/(N-m)), using the actual rounded
+#' sample size m. This is exact for the sample mean and an asymptotic approximation
+#' for regular estimators of independent, identically distributed rows. It is not
+#' a guarantee for sparse or nonregular pairwise fits. At m=N/2 the factor is one.
+#' Bootstrap draws N rows with replacement and uses the replicate standard
+#' deviation. Jackknife omits each row exactly once and uses
+#' sqrt((N-1)/N * sum((estimate_i - mean(estimate_i))^2)). No parameter bias
+#' correction is applied. Point estimates always come from the complete data.
+#' More random replicates reduce Monte Carlo variability, but do not fix bias.
+#' Category counts are held fixed from the full-data fit. Failed or non-finite
+#' replicate fits cause an error; unused threshold cells remain NA.
+#' Weights travel with their rows; rows are sampled uniformly, not proportional
+#' to weights. This treats observed row/weight pairs as the sampling units and
+#' does not implement design-based variance estimation for survey, cluster or
+#' stratified samples, nor expand integer frequency weights into independent rows.
+#' The jackknife is deterministic and does not set or consume the random seed.
+#' @examples
+#' data(sim200x3)
+#' pairSE(sim200x3, nsample=30, seed=42, verbose=FALSE)
+#' pairSE(sim200x3, method="bootstrap", nsample=30, seed=42, verbose=FALSE)
+#' \dontrun{pairSE(sim200x3, method="jackknife", verbose=FALSE)}
 
-##### berechnung der ergebnisse SE----------------  
-## für SE   
-  N<-dim(daten)[1] # anzahl personen
-  k<-dim(daten)[2] # anzahl items
-  if(mode(size)=="character") {if(size=="jack"){nsize<-N-1 ; nsample=N } }
-  if(mode(size)=="numeric") {if(size >= 1 | size <= 0 ) stop("size should have values between 0 and 1")  ;nsize<-round(N*size)}
-  if(mode(seed)=="numeric") {set.seed(seed)}
-  
-  ergli<-vector("list", length=nsample)                  #list( , ncol=k ,nrow=nsample)
-  for (i in 1:nsample){
-  sx<-daten[sample(1:dim(daten)[1],nsize),] # ziehen einer stichprobe mit größe size aus daten  
-  if(verbose==TRUE){cat("sample ", i , "of",nsample, "with size n =",nsize,"\n")}
-  ####################################################################
-  ergli[[i]]<-pair(sx, m=m, w=w, pot=pot,zerocor=zerocor,likelihood=likelihood, pot2=pot2, delta=delta, conv=conv, maxiter=maxiter, progress=progress, init=init, zerosum=zerosum, ...) ###
-  ####################################################################
-  }  
-dim(ergli[[1]]$threshold)[1] -> nvar
-dim(ergli[[1]]$threshold)[2] -> nthr
-
-ergli_sig <- t(sapply(ergli,function(x){x$sigma}))
-SE_sig<-apply(ergli_sig, 2, sd,na.rm=TRUE)
-
-ergli_thr <- t(sapply(ergli,function(x){x$threshold}))
-SE_thr <- matrix((apply(ergli_thr, 2, sd,na.rm=TRUE)),nrow=nvar,ncol=nthr,byrow=F)
-rownames(SE_thr) <- names(SE_sig)
-colnames(SE_thr) <- paste("threshold",1:nthr,sep=".")
-#SE <- cbind(SE_thr,sigma=SE_sig)
-SE <- SE_thr
-SEsigma <- SE_sig
-##### berechnung der ergebnisse parameter---------------- 
-####################################################################
-parametererg <- pair(daten, m=m, w=w, pot=pot,zerocor=zerocor,likelihood=likelihood, pot2=pot2, delta=delta, conv=conv, maxiter=maxiter, progress=progress, init=init, zerosum=zerosum, ...)
-####################################################################
-parametererg_1 <- parametererg$threshold
-# colnames(parametererg_1) <- paste("threshold",1:nthr,sep=".")
-# parameter <- cbind(parametererg_1,sigma=parametererg$sigma)
-
-
-##### aufbereitung der ergebnisse und ausgabe ----------------
-#erg<-list(parameter=parameter, SE=SE)
-erg<-list(threshold=parametererg_1, sigma=parametererg$sigma, SE=SE, SEsigma=SEsigma)
-
-class(erg) <- c("pairSE","list")
-
-return(erg)
-
+pairSE <- function(daten, m=NULL, w=NULL, nsample=30, size=0.50,
+                   seed="no", pot=TRUE, zerocor=TRUE, verbose=TRUE,
+                   likelihood=NULL, pot2=2, delta=TRUE, conv=1e-04,
+                   maxiter=3000, progress=TRUE, init=NULL, zerosum=TRUE, ...,
+                   method=c("subsampling", "bootstrap", "jackknife")) {
+  method_supplied <- !missing(method)
+  method <- match.arg(method)
+  if (!(is.matrix(daten) || is.data.frame(daten)) ||
+      nrow(daten) < 2L || ncol(daten) < 1L)
+    stop("daten must be a matrix or data.frame with at least two rows and one item")
+  N <- nrow(daten)
+  if (!is.null(w)) {
+    if (!is.numeric(w) || !is.null(dim(w)) || length(w) != N || anyNA(w) ||
+        any(!is.finite(w)) || any(w < 0) || !is.finite(sum(w)) || sum(w) <= 0)
+      stop("w must contain one finite, non-negative case weight per row, with a finite positive sum")
+    w <- as.numeric(w)
+    names(w) <- rownames(daten)
+  }
+  if (is.character(size)) {
+    if (length(size) != 1L || is.na(size) || size != "jack")
+      stop("size must be between 0 and 1 or 'jack'")
+    if (method_supplied && method != "jackknife")
+      stop("size='jack' requires method='jackknife' or an omitted method")
+    method <- "jackknife"
+  }
+  if (method == "jackknife") {
+    if (N < 3L) stop("jackknife requires at least three persons")
+    nsize <- N - 1L
+    nsample <- N
+    scale <- (N - 1) / sqrt(N)
+  } else {
+    if (!is.numeric(nsample) || length(nsample) != 1L ||
+        !is.finite(nsample) || nsample < 2 || nsample != floor(nsample))
+      stop("nsample must be an integer >= 2")
+    if (method == "bootstrap") {
+      if (!missing(size))
+        warning("size is ignored for bootstrap; each replicate contains N rows")
+      nsize <- N
+      scale <- 1
+    } else {
+      if (!is.numeric(size) || length(size) != 1L || !is.finite(size) ||
+          size <= 0 || size >= 1)
+        stop("size should have values between 0 and 1")
+      nsize <- round(N * size)
+      if (nsize < 2L || nsize >= N)
+        stop("subsamples must contain at least two persons and fewer than N persons")
+      scale <- sqrt(nsize / (N - nsize))
+    }
+  }
+  fit <- function(index, categories) {
+    pair(daten[index, , drop=FALSE], m=categories,
+         w=if (is.null(w)) NULL else unname(w[index]), pot=pot,
+         zerocor=zerocor, likelihood=likelihood, pot2=pot2, delta=delta,
+         conv=conv, maxiter=maxiter, progress=progress, init=init,
+         zerosum=zerosum, ...)
+  }
+  full <- fit(seq_len(N), m)
+  # Fix category counts from the full data, even if categories disappear in a draw.
+  categories <- full$m
+  threshold_mask <- is.finite(full$threshold)
+  sigma_mask <- is.finite(full$sigma)
+  if (!all(is.finite(full$threshold[!is.na(full$threshold)])) || !all(sigma_mask))
+    stop("full-data item parameters must be finite (apart from unused threshold cells)")
+  if (method != "jackknife" && is.numeric(seed)) set.seed(seed)
+  thresholds <- matrix(NA_real_, nsample, length(full$threshold))
+  sigmas <- matrix(NA_real_, nsample, length(full$sigma))
+  for (i in seq_len(nsample)) {
+    index <- if (method == "jackknife") seq_len(N)[-i] else
+      sample.int(N, nsize, replace=(method == "bootstrap"))
+    z <- tryCatch(fit(index, categories), error=function(e)
+      stop("Resample ", i, " (", method, ") failed: ", conditionMessage(e), call.=FALSE))
+    if (!identical(dim(z$threshold), dim(full$threshold)) ||
+        !identical(rownames(z$threshold), rownames(full$threshold)) ||
+        !identical(names(z$sigma), names(full$sigma)) ||
+        length(z$sigma) != length(full$sigma) ||
+        any(!is.finite(z$threshold[threshold_mask])) ||
+        any(!is.finite(z$sigma[sigma_mask])))
+      stop("Resample ", i, " (", method,
+           ") has non-finite or incompatible parameters; no replicates were silently discarded")
+    thresholds[i, ] <- as.vector(z$threshold)
+    sigmas[i, ] <- as.vector(z$sigma)
+    if (isTRUE(verbose)) cat("sample", i, "of", nsample, "with size n =", nsize, "(", method, ")\n")
+  }
+  get_se <- function(values, mask) {
+    out <- rep(NA_real_, ncol(values))
+    out[mask] <- apply(values[, mask, drop=FALSE], 2L, sd) * scale
+    out
+  }
+  SE <- matrix(get_se(thresholds, as.vector(threshold_mask)),
+               nrow=nrow(full$threshold), ncol=ncol(full$threshold))
+  rownames(SE) <- names(full$sigma)
+  colnames(SE) <- paste("threshold", seq_len(ncol(SE)), sep=".")
+  SEsigma <- get_se(sigmas, sigma_mask)
+  names(SEsigma) <- names(full$sigma)
+  result <- list(threshold=full$threshold, sigma=full$sigma, SE=SE,
+                 SEsigma=SEsigma, weights=full$weights, resp=full$resp)
+  class(result) <- c("pairSE", "list")
+  attr(result, "resampling") <- list(method=method, N=N, sample_size=nsize,
+                                   replicates=nsample, se_scale=scale)
+  result
 }

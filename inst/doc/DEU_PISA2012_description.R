@@ -168,5 +168,3 @@ names(DEU_PISA2012$weights)
 ### code chunk number 28: DEU_PISA2012_description.Rnw:230-231
 ###################################################
 (sum(DEU_PISA2012$cog$dat$SCIE$inc7))/(prod(dim(DEU_PISA2012$cog$dat$SCIE$inc7)))*100
-
-
